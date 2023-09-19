@@ -15,6 +15,16 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    <!-- Link to Compiled CSS -->
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}" />
+
+    <!-- Include Compiled JavaScript -->
+    <script type="module" src="{{ asset('js/app.js') }}"></script>
+
+    <!-- Link to Bootstrap CSS via CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 </head>
 <body>
     <div id="app">
