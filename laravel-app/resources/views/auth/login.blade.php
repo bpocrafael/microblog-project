@@ -4,14 +4,20 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-4">
-            <h1 class="text-center p-5">Microblog</h1>
+            <div class="d-flex justify-content-center align-items-center text-center p-4">
+                <img class="img-fluid w-25" src="{{ asset('microblog-logo.png') }}" alt="Microblog Logo">
+                <h1 class="ml-0">icroblog</h1>
+            </div>
+
+            <!-- Login card -->
             <div class="card m-3">
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
+
                         <div class="row justify-content-center my-3">
                             <div class="col-md">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email" autofocus>
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email*" autofocus>
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -23,7 +29,7 @@
 
                         <div class="row justify-content-center mb-1 ms-3 mb-3">
                             <div class="col-md">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Password">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Password*">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -33,7 +39,6 @@
                             </div>
                         </div>
 
-                        
                         <div class="row mb-3">
                             <div class="col-md">
                                 @if (Route::has('password.request'))
@@ -43,6 +48,7 @@
                                 @endif
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col-md">
                                 <div class="form-check">
@@ -62,10 +68,15 @@
                                 </button>
                             </div>
                         </div>
+
                     </form>
+                    <!-- End of form -->
+
                 </div>
             </div>
+            <!-- End of card for Login -->
 
+            <!-- Register link group -->
             <div class="m-3 mt-5 text-center">
                 <div class="">
                     <div class="col-md">
@@ -86,9 +97,10 @@
                     </div>
                 </div>
             </div>
-
+            <!-- End of register link group -->
 
         </div>
     </div>
 </div>
+<!-- End of container -->
 @endsection
