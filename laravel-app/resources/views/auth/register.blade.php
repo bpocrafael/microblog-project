@@ -13,7 +13,6 @@
                         @csrf
 
                         <div class="row mb-3 justify-content-center">
-                            <!-- Firstname input field -->
                             <div class="col-md">
                                 <input id="name" type="text" class="form-control @error('firstname') is-invalid @enderror" name="firstname" value="{{ old('firstname') }}" required autocomplete="name" placeholder="Firstname*" autofocus>
 
@@ -24,7 +23,6 @@
                                 @enderror
                             </div>
 
-                            <!-- Lastname input field -->
                             <div class="col-md">
                                 <input id="name" type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastnamename" value="{{ old('lastname') }}" required autocomplete="name" placeholder="Last name*" autofocus>
 
@@ -36,7 +34,6 @@
                             </div>
                         </div>
 
-                        <!-- User input field -->
                         <div class="row mb-3 justify-content-center">
                             <div class="col-md">
                                 <input id="email" type="email" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required placeholder="Username*" autocomplete="username">
@@ -49,7 +46,6 @@
                             </div>
                         </div>
                         
-                        <!-- Email input field -->
                         <div class="row mb-3 justify-content-center">
                             <div class="col-md">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required placeholder="Email address*" autocomplete="email">
@@ -62,7 +58,6 @@
                             </div>
                         </div>
 
-                        <!-- Password input field -->
                         <div class="row mb-3 justify-content-center">
                             <div class="col-md">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required placeholder="Password*" autocomplete="new-password">
@@ -75,14 +70,12 @@
                             </div>
                         </div>
 
-                        <!-- Password confirm field -->
                         <div class="row mb-3 justify-content-center">
                             <div class="col-md">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required placeholder="Confirm Password*" autocomplete="new-password">
                             </div>
                         </div>
 
-                        <!-- Register submit button -->
                         <div class="row p-2 mb-0 mt-3">
                             <div class="col-md text-center">
                                 <button type="submit" class="btn btn-dark">
