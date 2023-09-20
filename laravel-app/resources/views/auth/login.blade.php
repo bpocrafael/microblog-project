@@ -8,10 +8,14 @@
                 <img class="img-fluid w-25" src="{{ asset('microblog-logo.png') }}" alt="Microblog Logo">
                 <h1 class="ml-0">icroblog</h1>
             </div>
+
+            <!-- Login card -->
             <div class="card m-3">
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
+
+                        <!-- Email input field -->
                         <div class="row justify-content-center my-3">
                             <div class="col-md">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email*" autofocus>
@@ -24,6 +28,7 @@
                             </div>
                         </div>
 
+                        <!-- Password input field -->
                         <div class="row justify-content-center mb-1 ms-3 mb-3">
                             <div class="col-md">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Password*">
@@ -36,7 +41,7 @@
                             </div>
                         </div>
 
-                        
+                        <!-- Forgot password link -->
                         <div class="row mb-3">
                             <div class="col-md">
                                 @if (Route::has('password.request'))
@@ -46,6 +51,8 @@
                                 @endif
                             </div>
                         </div>
+
+                        <!-- Remember me checkbox -->
                         <div class="row">
                             <div class="col-md">
                                 <div class="form-check">
@@ -58,6 +65,7 @@
                             </div>
                         </div>
 
+                        <!-- Login submit button -->
                         <div class="row p-2 mb-0 mt-3">
                             <div class="col-md text-center">
                                 <button type="submit" class="btn btn-dark">
@@ -65,10 +73,15 @@
                                 </button>
                             </div>
                         </div>
+
                     </form>
+                    <!-- End of form -->
+
                 </div>
             </div>
+            <!-- End of card for Login -->
 
+            <!-- Register link group -->
             <div class="m-3 mt-5 text-center">
                 <div class="">
                     <div class="col-md">
@@ -89,9 +102,10 @@
                     </div>
                 </div>
             </div>
-
+            <!-- End of register link group -->
 
         </div>
     </div>
 </div>
+<!-- End of container -->
 @endsection
