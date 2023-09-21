@@ -18,7 +18,6 @@ return new class extends Migration
             $table->boolean('is_verified')->default(false);
             $table->string('password');
             $table->rememberToken();
-            $table->timestamps();
         });
     }
 
