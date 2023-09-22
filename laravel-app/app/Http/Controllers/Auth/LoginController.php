@@ -6,33 +6,31 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use Illuminate\Validation\ValidationException;
 use App\Http\Requests\LoginRequest;
+use App\Services\UserVerificationService;
 
 class LoginController extends Controller
 {
     use AuthenticatesUsers;
 
     protected $redirectTo = RouteServiceProvider::HOME;
+    protected $userVerificationService;
 
-    public function __construct()
+    public function __construct(UserVerificationService $userVerificationService)
     {
         $this->middleware('guest')->except('logout');
+        $this->userVerificationService = $userVerificationService;
     }
 
-    protected function sendLoginResponse(Request $request)
+    protected function authenticated(Request $request, $user)
     {
-        $request->session()->regenerate();
-
-        // Get the authenticated user
-        $user = $this->guard()->user();
-
-        if (!$user->is_verified) {
-            $this->guard()->logout();
-            throw ValidationException::withMessages(['email' => 'Your account is not verified.']);
+        // Use the customized UserVerificationService to check if the user is verified
+        if (!$this->userVerificationService->isUserVerified($user)) {
+            auth()->logout(); // Log the user out if not verified
+            return redirect()->route('login')
+                ->withErrors(['email' => 'Your account is not verified.']);
         }
 
-        return $this->authenticated($request, $user)
-            ?: redirect()->intended($this->redirectPath());
+        return redirect()->intended($this->redirectPath());
     }
 }
