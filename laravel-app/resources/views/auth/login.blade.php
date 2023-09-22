@@ -15,6 +15,18 @@
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
+                        @if ($errors->has('email'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('email') }}</strong>
+                            </span>
+                        @endif
+
+                        @if (session('status'))
+                            <div class="alert alert-danger" role="alert">
+                                {{ session('status') }}
+                            </div>
+                        @endif
+                        
                         <div class="row justify-content-center my-3">
                             <div class="col-md">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email*" autofocus>
