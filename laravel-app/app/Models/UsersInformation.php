@@ -14,6 +14,9 @@ class UsersInformation extends Model
         'last_name',
     ];
 
+    public $timestamps = true;
+    
+    
     public function user()
     {
         return $this->belongsTo(User::class);
