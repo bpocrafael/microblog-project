@@ -6,16 +6,37 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use App\Http\Requests\LoginRequest;
 use App\Services\UserVerificationService;
 
 class LoginController extends Controller
 {
+    /*
+    |--------------------------------------------------------------------------
+    | Login Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller handles authenticating users for the application and
+    | redirecting them to your home screen. The controller uses a trait
+    | to conveniently provide its functionality to your applications.
+    |
+    */
+
     use AuthenticatesUsers;
 
-    protected $redirectTo = RouteServiceProvider::HOME;
     protected $userVerificationService;
 
+    /**
+     * Where to redirect users after login.
+     *
+     * @var string
+     */
+    protected $redirectTo = RouteServiceProvider::HOME;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
     public function __construct(UserVerificationService $userVerificationService)
     {
         $this->middleware('guest')->except('logout');
@@ -24,13 +45,7 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        // Use the customized UserVerificationService to check if the user is verified
-        if (!$this->userVerificationService->isUserVerified($user)) {
-            auth()->logout(); // Log the user out if not verified
-            return redirect()->route('login')
-                ->withErrors(['email' => 'Your account is not verified.']);
-        }
-
-        return redirect()->intended($this->redirectPath());
+        $this->userVerificationService->isUserVerified($user);
     }
+
 }
