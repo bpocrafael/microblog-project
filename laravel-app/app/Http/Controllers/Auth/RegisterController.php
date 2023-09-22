@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use App\Models\UsersInformation;
-
+use App\Http\Requests\CreateUserRequest;
+use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Hash;
 
 
 class RegisterController extends Controller 
@@ -43,16 +46,7 @@ class RegisterController extends Controller
 
     public function showRegistrationForm()
     {
-        return Validator::make($data, [
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'username' => ['required', 'string', 'max:255', 'unique:users'],
-            'first_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'created_at' => now(),
-            'updated_at' => now(),
-
-        ]);
+        return view('auth.register');
     }
     /**
      * Create a new user instance after a valid registration.
@@ -60,22 +54,19 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
-    protected function create(array $data)
-    {
+    public function register(CreateUserRequest $request)
+    {   
+        $validatedData = $request->validated();
+
         $user =  User::create([
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'username' => $data['username'],
-            'created_at' => now(),
-            'updated_at' => now(),
+            'email' => $validatedData['email'],
+            'password' => Hash::make($validatedData['password']),
+            'username' => $validatedData['username'],
         ]);
 
         $user->users_information()->create([
-            'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
+            'first_name' => $validatedData['first_name'],
+            'last_name' => $validatedData['last_name'],
         ]);
-
-        return $user;
     }
 }
-
