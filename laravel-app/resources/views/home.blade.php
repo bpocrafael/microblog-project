@@ -28,7 +28,7 @@
         <div class="col-md">
             <div class="p-4">
                 <div class=" text-center">
-                    <img class="mr-0 w-25" src="{{ asset('empty.png') }}" alt="Empty picture">
+                    <img class="mr-0 w-25" src="{{ asset('storage/images/empty.png') }}" alt="Empty picture">
                 </div>
             </div>
         </div>
