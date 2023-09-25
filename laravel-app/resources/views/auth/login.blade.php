@@ -4,7 +4,7 @@
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="d-flex justify-content-center align-items-center text-center p-4">
                 <img class="img-fluid w-25" src="{{ asset('microblog-logo.png') }}" alt="Microblog Logo">
                 <h1 class="ml-0">icroblog</h1>
@@ -40,7 +40,7 @@
                             </div>
                         </div>
 
-                        <div class="row justify-content-center mb-1 ms-3 mb-3">
+                        <div class="row justify-content-center mb-1 mb-3">
                             <div class="col-md">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Password*">
 
