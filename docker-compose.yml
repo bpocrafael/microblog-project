@@ -25,3 +25,24 @@ services:
       - PMA_ARBITRARY=1
     depends_on:
       - mysql_db
+
+  webserver:
+    image: php:8.1.0-apache
+    container_name: webserver
+    volumes:
+      - ./laravel-app:/var/www/html
+    ports:
+      - 8080:80
+    depends_on:
+      - laravel-docker
+
+    # Mod Rewrite
+    command: ["apache2-foreground"]
+    links:
+      - laravel-docker
+    networks:
+      - laravel-network
+
+networks:
+  laravel-network:
+    driver: bridge
