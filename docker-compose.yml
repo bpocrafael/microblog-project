@@ -35,8 +35,6 @@ services:
       - 8080:80
     depends_on:
       - laravel-docker
-
-    # Mod Rewrite
     command: ["apache2-foreground"]
     links:
       - laravel-docker
