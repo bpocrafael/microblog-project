@@ -8,7 +8,7 @@ class UserVerificationService
 {
     public function isUserVerified($user)
     {
-        if (!$user->is_verified) {
+        if (!$user->email_verified_at) {
             auth()->logout();
             throw ValidationException::withMessages(['email' => 'Your account is not verified.']);
         }
