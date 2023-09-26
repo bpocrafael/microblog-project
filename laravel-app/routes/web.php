@@ -3,6 +3,8 @@
 use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Auth;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +17,12 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Auth::routes();
+Auth::routes([
+    'verify' => true
+]);
+
+Route::get('/', [HomeController::class, 'index'])->name('user.home')->middleware('verified');
+// Route::get('/email/verified', 'Auth\VerificationController@verified')->name('verification.verified');
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home', [HomeController::class, 'index'])->name('home');

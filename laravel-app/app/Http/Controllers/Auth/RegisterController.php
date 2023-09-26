@@ -10,6 +10,8 @@ use App\Http\Requests\CreateUserRequest;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Auth;
 
 
 class RegisterController extends Controller 
@@ -68,5 +70,11 @@ class RegisterController extends Controller
             'first_name' => $validatedData['first_name'],
             'last_name' => $validatedData['last_name'],
         ]);
+
+        event(new Registered($user));
+
+        Auth::login($user);
+
+        return redirect(route('login'));
     }
 }
