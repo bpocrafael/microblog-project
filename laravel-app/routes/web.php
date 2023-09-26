@@ -22,7 +22,6 @@ Auth::routes([
 ]);
 
 Route::get('/', [HomeController::class, 'index'])->name('user.home')->middleware('verified');
-// Route::get('/email/verified', 'Auth\VerificationController@verified')->name('verification.verified');
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
