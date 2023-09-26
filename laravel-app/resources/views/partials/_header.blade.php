@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light p-3">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="{{ route('home') }}">
-            <img class="mr-0" src="{{ asset('storage/images/microblog-logo-iconx50.png') }}" alt="Microblog Logo">
+            <img class="mr-0" src="{{ asset('assets/images/microblog-logo-iconx50.png') }}" alt="Microblog Logo">
             <h4 class="m-0">icroblog</h4>
         </a>
 
