@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-md-3">
             <div class="d-flex justify-content-center align-items-center text-center p-4">
-                <img class="img-fluid w-25" src="{{ asset('storage/images/microblog-logo.png') }}" alt="Microblog Logo">
+                <img class="img-fluid w-25" src="{{ asset('assets/images/microblog-logo.png') }}" alt="Microblog Logo">
                 <h1 class="ml-0">icroblog</h1>
             </div>
 
