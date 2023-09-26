@@ -11,9 +11,22 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->timestamps();
-        });
+        if (!Schema::hasColumns('users', ['created_at', 'updated_at'])) {
+            Schema::table('users', function (Blueprint $table) {
+                $table->timestamps();
+            });
+        }
+    }
+     /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        if (Schema::hasColumns('users', ['created_at', 'updated_at'])) {
+            Schema::table('users', function (Blueprint $table) {
+                $table->dropColumn(['created_at', 'updated_at']);
+            });
+        }
     }
 
 };
