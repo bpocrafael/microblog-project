@@ -19,9 +19,7 @@ class isVerifiedObserver
      */
     public function updating(User $user): void
     {
-        // Check if the email_verified_at attribute is dirty (changed)
         if ($user->isDirty('email_verified_at') && $user->email_verified_at !== null) {
-            // Update the is_verified attribute to true
             $user->is_verified = true;
         }
     }
