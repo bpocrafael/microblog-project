@@ -1,5 +1,6 @@
-services:
+version: '3'
 
+services:
   laravel-docker:
     container_name: laravel-docker
     build: .
@@ -14,11 +15,32 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: microblog_db
     ports:
-    - 3307:3306
-  
+      - 3307:3306
+
   phpmyadmin:
-    image: phpmyadmin:latest
+    image: phpmyadmin/phpmyadmin
     ports:
       - 9001:80
     environment:
       - PMA_ARBITRARY=1
+    depends_on:
+      - mysql_db
+
+  webserver:
+    image: php:8.1.0-apache
+    container_name: webserver
+    volumes:
+      - ./laravel-app:/var/www/html
+    ports:
+      - 8080:80
+    depends_on:
+      - laravel-docker
+    command: ["apache2-foreground"]
+    links:
+      - laravel-docker
+    networks:
+      - laravel-network
+
+networks:
+  laravel-network:
+    driver: bridge
