@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\LoginRequest;
 use App\Services\UserVerificationService;
 use App\Services\LoginService;
 
@@ -34,7 +34,7 @@ class LoginController extends Controller
     /**
      * Authenticate login form
      */
-    public function authenticate(Request $request)
+    public function authenticate(LoginRequest $request)
     {
         $isAuthenticated = $this->loginService->isAuthenticated($request);
 

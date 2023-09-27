@@ -16,7 +16,7 @@ class LoginService
             'password' => $request->input('password'),
         ];
 
-        if (auth()->attempt($credentials, $request->filled('remember'))) {
+        if (auth()->attempt($credentials, $request->filled('remember'), false)) {
             return true; 
         }
 
