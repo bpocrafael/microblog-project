@@ -30,7 +30,7 @@
                         
                         <div class="row justify-content-center my-3">
                             <div class="col-md">
-                                <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email*" autofocus>
+                                <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Username or Email*" autofocus>
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
