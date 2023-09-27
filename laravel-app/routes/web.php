@@ -21,8 +21,13 @@ Auth::routes([
     'verify' => true
 ]);
 
-Route::get('/', [HomeController::class, 'index'])->name('user.home')->middleware('verified');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::post('/logout', [HomeController::class, 'logout'])->name('logout');
+});
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::middleware(['guest'])->group(function () {
+    Route::get('/', [LoginController::class, 'index'])->name('login');
+    Route::get('/login', [LoginController::class, 'index'])->name('login');
+    Route::post('/login', [LoginController::class, 'authenticate'])->name('login.authenticate');
+});
