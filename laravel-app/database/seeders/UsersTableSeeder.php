@@ -19,14 +19,18 @@ class UsersTableSeeder extends Seeder
             [
                 'email' => 'jineha8793@apxby.com',
                 'username' => 'testUser',
-                'is_verified' => 0,
+                'is_verified' => 1,
                 'password' => Hash::make('test'),
+                'created_at' => now(),
+                'email_verified_at' => now(),
             ],
             [
                 'email' => 'test@email.com',
                 'username' => 'testUser2',
-                'is_verified' => 1,
+                'is_verified' => 0,
                 'password' => Hash::make('test'),
+                'created_at' => null,
+                'email_verified_at' => null,
             ],
         ];
 

@@ -3,49 +3,50 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\Request;
+use App\Http\Requests\LoginRequest;
 use App\Services\UserVerificationService;
+use App\Services\LoginService;
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
-
-    use AuthenticatesUsers;
-
     protected $userVerificationService;
-
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $loginService;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(UserVerificationService $userVerificationService)
+    public function __construct(UserVerificationService $userVerificationService, LoginService $loginService)
     {
-        $this->middleware('guest')->except('logout');
         $this->userVerificationService = $userVerificationService;
+        $this->loginService = $loginService;
     }
 
-    protected function authenticated(Request $request, $user)
+    /**
+     * Display login form
+     */
+    public function index()
     {
-        $this->userVerificationService->isUserVerified($user);
+        return view('auth.login');
     }
+    
+    /**
+     * Authenticate login form
+     */
+    public function authenticate(LoginRequest $request)
+    {
+        $isAuthenticated = $this->loginService->isAuthenticated($request);
 
+        if ($isAuthenticated) {
+            $user = auth()->user();
+            $isVerified = $this->userVerificationService->isUserVerified($user);
+
+            if ($isVerified && $isAuthenticated) {
+                return redirect()->route('home');
+            }
+        }
+
+        return redirect()->route('login');
+    }
 }
