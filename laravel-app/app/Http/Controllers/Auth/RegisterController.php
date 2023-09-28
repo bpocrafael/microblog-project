@@ -73,8 +73,6 @@ class RegisterController extends Controller
 
         event(new Registered($user));
 
-        Auth::login($user);
-
         return view('auth.verify');
     }
 }
