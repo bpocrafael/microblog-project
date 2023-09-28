@@ -22,7 +22,7 @@ class ProfileController extends Controller
         return view('profile.index', compact('user'));
     }
 
-    public function edit()
+    public function edit($profile)
     {
         $user = auth()->user();
         return view('profile.edit', compact('user'));
@@ -36,13 +36,15 @@ class ProfileController extends Controller
         try {
             $this->userService->updateProfile($user, $request->all());
 
-            return redirect()->route('profile.edit')->with('success', 'Profile updated successfully');
+            return redirect()->route('profile.edit', $user->id)->with('success', 'Profile updated successfully');
         } catch (QueryException $e) {
             if ($e->errorInfo[1] === 1062) {
-                return redirect()->back()->withErrors(['email' => 'The email address is already in use. Please choose a different email.']);
+                $error = ['email' => 'The email address is already in use. Please choose a different email.'];
+                return redirect()->back()->withErrors($error);
             }
 
-            return redirect()->back()->withErrors(['error' => 'An error occurred while updating your profile. Please try again later.']);
+            $error = ['error' => 'An error occurred while updating your profile. Please try again later.'];
+            return redirect()->back()->withErrors($error);
         }
     }
 }

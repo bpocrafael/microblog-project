@@ -28,9 +28,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/logout', [HomeController::class, 'logout'])->name('logout');
     Route::get('/post', [PostController::class, 'index'])->name('post.index');
     Route::post('/post', [PostController::class, 'store'])->name('post.store');
-    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
-    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+    Route::resource('/profile', ProfileController::class, ['only'=>['index', 'edit', 'update']]);
 });
 
 Route::middleware(['guest'])->group(function () {

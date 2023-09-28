@@ -63,7 +63,7 @@
 			</div>
 			<div class="row justify-content-center">
 				<div class="col-3">
-					<a href="{{ route('profile.edit') }}" class="btn btn-secondary">Edit Information</a>
+					<a href="{{ route('profile.edit', $user->id) }}" class="btn btn-secondary">Edit Information</a>
 				</div>
 			</div>
 		</div>
