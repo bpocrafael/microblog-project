@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PostController;
 
@@ -27,6 +28,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/logout', [HomeController::class, 'logout'])->name('logout');
     Route::get('/post', [PostController::class, 'index'])->name('post.index');
     Route::post('/post', [PostController::class, 'store'])->name('post.store');
+    Route::resource('/profile', ProfileController::class, ['only'=>['index', 'edit', 'update']]);
 });
 
 Route::middleware(['guest'])->group(function () {
