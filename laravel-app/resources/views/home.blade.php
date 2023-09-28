@@ -33,6 +33,15 @@
             </div>
         </div>
     </div>
+    
+    {{-- Add a button that directs you to another page --}}
+    <div class="row justify-content-center">
+        <div class="col-md">
+            <div class="text-center">
+                <a href="{{ route('post.index')}}" class="btn btn-primary">Go to Another Page</a>
+            </div>
+        </div>
+    </div>
 </div>
 @include('partials._footer')
 

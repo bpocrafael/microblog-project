@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\PostController;
 
 
 /*
@@ -24,6 +25,8 @@ Auth::routes([
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::post('/logout', [HomeController::class, 'logout'])->name('logout');
+    Route::get('/post', [PostController::class, 'index'])->name('post.index');
+    Route::post('/post', [PostController::class, 'store'])->name('post.store');
 });
 
 Route::middleware(['guest'])->group(function () {
