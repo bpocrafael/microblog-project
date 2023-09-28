@@ -1,0 +1,11 @@
+*{
+	/* overflow-x: hidden; */
+}
+
+#app{
+	min-height: 100vh;
+}
+
+#profile-header{
+	min-height: 30vh;
+}

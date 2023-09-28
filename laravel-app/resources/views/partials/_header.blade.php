@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light p-3">
+<nav class="navbar navbar-expand-lg navbar-light bg-light p-3 shadow-sm">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="{{ route('home') }}">
             <img class="mr-0" src="{{ asset('assets/images/microblog-logo-iconx50.png') }}" alt="Microblog Logo">
@@ -14,6 +14,11 @@
                     <a class="nav-link" href="{{ route('home') }}">Home</a>
                 </li>
                 @auth
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('profile.index') }}">
+                        Profile
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('logout') }}"
                        onclick="event.preventDefault();

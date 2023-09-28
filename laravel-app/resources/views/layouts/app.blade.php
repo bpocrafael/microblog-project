@@ -4,7 +4,7 @@
     @include('layouts.head')
 </head>
 <body>
-    <div id="app">
+    <div id="app" class="position-relative">
         <main>
             @yield('content')
         </main>

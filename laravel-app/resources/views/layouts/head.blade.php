@@ -17,7 +17,7 @@
 <!-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) -->
 
 <!-- Link to Compiled CSS -->
-<!-- <link rel="stylesheet" href="{{ asset('css/app.css') }}" /> -->
+<link rel="stylesheet" href="{{ asset('assets/css/app.css') }}" />
 
 <!-- Include Compiled JavaScript -->
 <!-- <script type="module" src="{{ asset('js/app.js') }}"></script> -->
