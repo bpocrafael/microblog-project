@@ -6,7 +6,13 @@ use Illuminate\Validation\ValidationException;
 
 class UserVerificationService
 {
-    public function isUserVerified($user)
+    /**
+     * Check if the user is verified.
+     *
+     * @param mixed $user
+     * @return bool
+     */
+    public function isUserVerified($user): mixed
     {
         if (!$user->is_verified) {
             auth()->logout();

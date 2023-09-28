@@ -7,6 +7,12 @@ use Illuminate\Validation\ValidationException;
 
 class LoginService
 {
+    /**
+     * Check if the user is authenticated.
+     *
+     * @param Request $request
+     * @return bool
+     */
     public function isAuthenticated(Request $request): bool
     {
         $field = filter_var($request->input('email'), FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
@@ -16,8 +22,8 @@ class LoginService
             'password' => $request->input('password'),
         ];
 
-        if (auth()->attempt($credentials, $request->filled('remember'), false)) {
-            return true; 
+        if (auth()->attempt($credentials, $request->filled('remember'))) {
+            return true;
         }
 
         throw ValidationException::withMessages([

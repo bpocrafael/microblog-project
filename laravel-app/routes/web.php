@@ -7,7 +7,6 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PostController;
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,7 +19,7 @@ use App\Http\Controllers\PostController;
 */
 
 Auth::routes([
-    'verify' => true
+    'verify' => true,
 ]);
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -28,7 +27,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/logout', [HomeController::class, 'logout'])->name('logout');
     Route::get('/post', [PostController::class, 'index'])->name('post.index');
     Route::post('/post', [PostController::class, 'store'])->name('post.store');
-    Route::resource('/profile', ProfileController::class, ['only'=>['index', 'edit', 'update']]);
+    Route::resource('/profile', ProfileController::class, ['only' => ['index', 'edit', 'update']]);
 });
 
 Route::middleware(['guest'])->group(function () {

@@ -6,6 +6,11 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class CreateUserRequest extends FormRequest
 {
+    /**
+     *
+     *
+     * @return array<string, mixed>
+     */
     public function rules(): array
     {
         return [
@@ -13,7 +18,7 @@ class CreateUserRequest extends FormRequest
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'username' => ['required', 'string', 'max:255', 'unique:users'],
             'first_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],  
+            'last_name' => ['required', 'string', 'max:255'],
         ];
     }
 }

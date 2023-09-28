@@ -5,16 +5,14 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
-use App\Models\UsersInformation;
 use App\Http\Requests\CreateUserRequest;
-use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
-
-class RegisterController extends Controller 
+class RegisterController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
@@ -46,18 +44,24 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    /**
+     * Show login form page.
+     *
+     * @return View
+     */
     public function showRegistrationForm()
     {
         return view('auth.register');
     }
+
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
-     * @return \App\Models\User
+     * @param  CreateUserRequest  $request
+     * @return View
      */
-    public function register(CreateUserRequest $request)
-    {   
+    public function register(CreateUserRequest $request): View
+    {
         $validatedData = $request->validated();
 
         $user =  User::create([

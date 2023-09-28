@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class UsersInformation extends Model
 {
@@ -18,9 +19,9 @@ class UsersInformation extends Model
     ];
 
     public $timestamps = true;
-    
-    
-    public function user()
+
+
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
