@@ -38,7 +38,7 @@
     <div class="row justify-content-center">
         <div class="col-md">
             <div class="text-center">
-                <a href="{{ route('post.post')}}" class="btn btn-primary">Go to Another Page</a>
+                <a href="{{ route('post.index')}}" class="btn btn-primary">Go to Another Page</a>
             </div>
         </div>
     </div>

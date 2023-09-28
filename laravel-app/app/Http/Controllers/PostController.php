@@ -10,7 +10,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        return view('post.post');
+        return view('post.index');
     }
 
     public function store(UserPostRequest $request)
