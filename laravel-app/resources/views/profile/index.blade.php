@@ -12,7 +12,7 @@
 			<div class="row">
 				<div class="col">
 					<label>Name</label>
-					<p class="fw-bold">{{ $user->users_information->first_name . ' ' . $user->users_information->middle_name . ' ' . $user->users_information->last_name}} </p>
+					<p class="fw-bold">{{ $user->user_information->first_name . ' ' . $user->user_information->middle_name . ' ' . $user->user_information->last_name}} </p>
 				</div>
 			</div>
 			<div class="row">
@@ -25,11 +25,11 @@
 			</div>
 			<div class="row">
 				<label>Bio</label>
-				<p class="fw-bold">{{ $user->users_information->bio }}</p>
+				<p class="fw-bold">{{ $user->user_information->bio }}</p>
 			</div>
 			<div class="row">
 				<label>Gender</label>
-				<p class="fw-bold">{{ $user->users_information->gender }}</p>
+				<p class="fw-bold">{{ $user->user_information->gender }}</p>
 			</div>
 			<div class="row">
 				<div class="col">

@@ -4,7 +4,7 @@ namespace App\Observers;
 
 use App\Models\User;
 
-class isVerifiedObserver
+class VerifiedObserver
 {
     /**
      * Handle the User "updated" event.

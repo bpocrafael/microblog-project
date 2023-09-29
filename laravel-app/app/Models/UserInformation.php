@@ -6,14 +6,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class UsersPost extends Model
+class UserInformation extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'content',
+        'first_name',
+        'last_name',
+        'middle_name',
+        'bio',
+        'gender',
     ];
+
     public $timestamps = true;
+
 
     public function user(): BelongsTo
     {
