@@ -6,6 +6,11 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UserPostRequest extends FormRequest
 {
+    /**
+     *
+     *
+     * @return array<string, mixed>
+     */
     public function rules(): array
     {
         return [

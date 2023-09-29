@@ -1,0 +1,64 @@
+name: CI Checks
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  code_checks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v3
+        with:
+          path: /var/www/html/vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      - name: Cache NPM dependencies
+        uses: actions/cache@v3
+        with:
+          path: /var/www/html/node_modules
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+
+      - name: Build and run Docker Compose services
+        run: |
+          docker compose up -d
+
+      - name: Install Composer dependencies
+        run: |
+          cd ./laravel-app
+          composer install
+      - name: Check phpstan installation (Optional debugging step)
+        run: |
+          docker exec laravel-docker bash -c "ls -al /var/www/html/vendor/bin"
+
+      - name: Install NPM dependencies without scripts
+        run: |
+          docker exec laravel-docker bash -c "cd /var/www/html && npm install --ignore-scripts"
+
+      - name: Run larastan
+        run: |
+          echo "\nlarastan is running...\n"
+          docker exec laravel-docker vendor/bin/phpstan analyse --memory-limit=2G
+
+      - name: Run cs-fixer
+        run: |
+          echo "\cs-fixer is running...\n"
+          docker exec laravel-docker vendor/bin/php-cs-fixer fix --config=/var/www/html/.php-cs-fixer.php --dry-run --show-progress=dots --verbose --diff
+
+      - name: Stop Docker Compose services
+        run: |
+          docker-compose down

@@ -7,6 +7,13 @@ use App\Models\UsersInformation;
 
 class ProfileService
 {
+    /**
+     * Update the profile.
+     *
+     * @param User $user
+     * @param array<string, mixed> $data
+     * @return void
+     */
     public function updateProfile(User $user, array $data)
     {
         $userInfo = $user->users_information;
@@ -22,7 +29,7 @@ class ProfileService
             'bio' => $data['bio'],
             'gender' => $data['gender'],
         ]);
-        
+
         $userInfo->save();
 
         $user->update([

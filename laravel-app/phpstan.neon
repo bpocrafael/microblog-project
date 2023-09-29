@@ -1,0 +1,17 @@
+includes:
+    - vendor/phpstan/phpstan/conf/bleedingEdge.neon
+    - ./vendor/nunomaduro/larastan/extension.neon
+parameters:
+    reportUnmatchedIgnoredErrors: false
+    level: 8
+    paths:
+        - app
+    inferPrivatePropertyTypeFromConstructor: true
+    checkMissingIterableValueType: false
+    noUnnecessaryCollectionCall: false
+    checkModelProperties: true
+    checkOctaneCompatibility: true
+    checkGenericClassInNonGenericObjectType: false
+    checkUnusedViews: true
+    excludePaths:
+        - bootstrap/cache
