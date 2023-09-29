@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class UsersInformationSeeder extends Seeder
+class UserInformationSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,7 +13,7 @@ class UsersInformationSeeder extends Seeder
     public function run(): void
     {
         // Test userinformation data
-        $users_information = [
+        $user_information = [
             [
                 'user_id' => 1,
                 'first_name' => 'Micko',
@@ -36,6 +36,6 @@ class UsersInformationSeeder extends Seeder
             ],
         ];
 
-        DB::table('users_information')->insert($users_information);
+        DB::table('user_information')->insert($user_information);
     }
 }

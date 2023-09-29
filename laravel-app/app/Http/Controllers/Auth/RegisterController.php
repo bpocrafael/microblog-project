@@ -70,7 +70,7 @@ class RegisterController extends Controller
             'username' => $validatedData['username'],
         ]);
 
-        $user->users_information()->create([
+        $user->user_information()->create([
             'first_name' => $validatedData['first_name'],
             'last_name' => $validatedData['last_name'],
         ]);
