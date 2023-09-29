@@ -27,7 +27,7 @@ class LoginControllerTest extends TestCase
 
         $response = $this->post('/login', [
             'email' => 'test@example.com',
-            'password' => 'testpassword'
+            'password' => 'testpassword',
         ]);
 
         $response->assertRedirect('/');
@@ -46,7 +46,7 @@ class LoginControllerTest extends TestCase
 
         $response = $this->post('/login', [
             'email' => 'test@example.com',
-            'password' => 'testpassword'
+            'password' => 'testpassword',
         ]);
 
         $response->assertRedirect('/');
@@ -57,7 +57,7 @@ class LoginControllerTest extends TestCase
     {
         $response = $this->post('/login', [
             'email' => '',
-            'password' => ''
+            'password' => '',
         ]);
 
         $response->assertSessionHasErrors(['email', 'password']);
@@ -76,7 +76,7 @@ class LoginControllerTest extends TestCase
 
         $response = $this->post('/login', [
             'email' => 'test@example.com',
-            'password' => 'testpassword'
+            'password' => 'testpassword',
         ]);
 
         $response->assertRedirect('/home');

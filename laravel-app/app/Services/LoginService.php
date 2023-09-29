@@ -7,12 +7,6 @@ use Illuminate\Validation\ValidationException;
 
 class LoginService
 {
-    /**
-     * Check if the user is authenticated.
-     *
-     * @param Request $request
-     * @return bool
-     */
     public function isAuthenticated(Request $request): bool
     {
         $field = filter_var($request->input('email'), FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
