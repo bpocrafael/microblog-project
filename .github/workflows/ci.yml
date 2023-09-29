@@ -20,7 +20,7 @@ jobs:
       - name: Cache Composer dependencies
         uses: actions/cache@v3
         with:
-          path: /var/www/html/vendor
+          path: ./laravel-app/vendor
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-composer-
@@ -28,7 +28,7 @@ jobs:
       - name: Cache NPM dependencies
         uses: actions/cache@v3
         with:
-          path: /var/www/html/node_modules
+          path: ./laravel-app/node_modules
           key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-npm-
@@ -41,6 +41,13 @@ jobs:
         run: |
           cd ./laravel-app
           composer install
+
+      - name: Save Composer dependencies cache
+        uses: actions/cache@v3
+        with:
+          path: ./laravel-app/vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+
       - name: Check phpstan installation (Optional debugging step)
         run: |
           docker exec laravel-docker bash -c "ls -al /var/www/html/vendor/bin"
@@ -48,6 +55,12 @@ jobs:
       - name: Install NPM dependencies without scripts
         run: |
           docker exec laravel-docker bash -c "cd /var/www/html && npm install --ignore-scripts"
+
+      - name: Save NPM dependencies cache
+        uses: actions/cache@v3
+        with:
+          path: ./laravel-app/node_modules
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
 
       - name: Run larastan
         run: |
