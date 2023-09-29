@@ -11,17 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users_information', function (Blueprint $table) {
+        Schema::create('user_posts', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('middle_name')->nullable();
-            $table->text('bio')->nullable();
-            $table->enum('gender', ['male', 'female', 'other'])->nullable();
+            $table->text('content', 140);
             $table->timestamps();
-
+            $table->softDeletes();
         });
     }
 
@@ -30,7 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users_information');
-
+        Schema::dropIfExists('user_posts');
     }
 };

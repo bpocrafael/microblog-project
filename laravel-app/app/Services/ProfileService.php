@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Models\User;
-use App\Models\UsersInformation;
+use App\Models\UserInformation;
 
 class ProfileService
 {
@@ -16,10 +16,10 @@ class ProfileService
      */
     public function updateProfile(User $user, array $data)
     {
-        $userInfo = $user->users_information;
+        $userInfo = $user->user_information;
 
         if (!$userInfo) {
-            $userInfo = new UsersInformation();
+            $userInfo = new UserInformation();
         }
 
         $userInfo->fill([
