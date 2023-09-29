@@ -1,4 +1,4 @@
-<div class="position-absolute bottom-0 start-0 w-100">
+<div class="w-100">
     <footer class="bg-secondary text-light">
         <div class="container py-4">
             <div class="row">

@@ -7,7 +7,7 @@
 <title>{{ config('app.name', 'Laravel') }}</title>
 
 <!-- Link to favicon -->
-<link rel="icon" href="{{ asset('storage/images/microblog-logo-iconx30.png') }}" type="image/x-icon">
+<link rel="icon" href="{{ asset('assets/images/microblog-logo-iconx30.png') }}" type="image/x-icon">
 
 <!-- Fonts -->
 <link rel="dns-prefetch" href="//fonts.bunny.net">
