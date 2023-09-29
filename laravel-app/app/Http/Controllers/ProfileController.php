@@ -15,9 +15,6 @@ class ProfileController extends Controller
 
     /**
      * Create a new controller instance.
-     *
-     * @param ProfileService $userService
-     * @return void
      */
     public function __construct(ProfileService $userService)
     {
@@ -26,20 +23,16 @@ class ProfileController extends Controller
 
     /**
      * Show the profile page.
-     *
-     * @return View
      */
     public function index(): View
     {
         $user = auth()->user();
-        return view('profile.index', compact('user'));
+        $posts = $user->posts;
+        return view('profile.index', compact('user', 'posts'));
     }
 
     /**
      * Show the profile edit page.
-     *
-     * @param User $profile
-     * @return View
      */
     public function edit($profile): View
     {
@@ -49,9 +42,6 @@ class ProfileController extends Controller
 
     /**
      * Update the profile.
-     *
-     * @param UpdateProfileRequest $request
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(UpdateProfileRequest $request): RedirectResponse
     {

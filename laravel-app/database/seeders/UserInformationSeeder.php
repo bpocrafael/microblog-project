@@ -22,7 +22,7 @@ class UserInformationSeeder extends Seeder
                 'bio' => 'I want to be happy and this is my seeder account in Microblog',
                 'gender' => 'male',
                 'created_at' => now(),
-                'created_at' => null,
+                'updated_at' => null,
             ],
             [
                 'user_id' => 2,
@@ -32,7 +32,7 @@ class UserInformationSeeder extends Seeder
                 'bio' => 'Hello World',
                 'gender' => 'male',
                 'created_at' => now(),
-                'created_at' => null,
+                'updated_at' => null,
             ],
         ];
 

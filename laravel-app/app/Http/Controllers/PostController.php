@@ -3,37 +3,58 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserPostRequest;
+use App\Models\UserPost;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class PostController extends Controller
 {
-    /**
-     * Show login form page.
-     *
-     * @return View
-     */
+    /* 
+    * View all instances of posts in home page.
+    */
     public function index()
     {
-        return view('post.index');
+        $user = auth()->user();
+        $posts = $user->posts->orderByAsce('created_at')->get();
+    
+        return view('home', compact('user', 'posts'));
+    }    
+
+    /**
+     * Show create post page.
+     */
+    public function create() : View
+    {
+        $user = auth()->user();
+        return view('post.create', compact('user'));
     }
 
     /**
-     *
-     * @param UserPostRequest $request
-     * @return View
+     * Save post content as new post.
      */
-    public function store(UserPostRequest $request)
+    public function store(UserPostRequest $request) : RedirectResponse
     {
-        $validatedData = $request->validated();
+        /** @var User $user */
         $user = auth()->user();
+        $validatedData = $request->validated();
 
-        /**
-         * @var \App\Models\User $user
-         */
-        $user->posts()->create([
+        /** @var \App\Models\User $user */
+        $post = $user->posts()->create([
             'content' => $validatedData['content'],
         ]);
 
-        return view('post.display');
+        if ($post) {
+            return redirect()->route('post.show', ['post' => $post->id])->with('success', 'Post created successfully');
+        } else {
+            return back()->with('error', 'Failed to create post');
+        }
+    }
+    /* 
+    * Display specific post.
+    */
+    public function show($post) : View
+    {
+        $post = UserPost::findOrFail($post);
+        return view('post.show', compact('post'));
     }
 }
