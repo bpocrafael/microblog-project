@@ -21,12 +21,12 @@ class PostController extends Controller
     /*
     * View all instances of posts in home page.
     */
-    public function index() : View
+    public function index(): View
     {
         /** @var User $user */
         $user = auth()->user();
         $posts = $user->posts()->orderBy('created_at', 'desc')->get();
-        
+
         return view('home', compact('user', 'posts'));
     }
 
