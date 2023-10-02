@@ -52,7 +52,7 @@ class ProfileController extends Controller
 
         try {
             $this->userService->updateProfile($user, $request->all());
-            
+
             $success = ['success' => 'Profile updated successfully'];
             return redirect()->route('profile.edit', $user->id)->with($success);
         } catch (QueryException $e) {
