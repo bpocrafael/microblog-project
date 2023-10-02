@@ -11,7 +11,7 @@ class PostService
     {
 		/** @var \App\Models\User $user */
         $post = $user->posts()->create([
-            'content' => $validatedData['content'],
+            'content' => (string) $validatedData['content'],
         ]);
 
         return $post;
