@@ -7,12 +7,13 @@ use App\Models\UserPost;
 
 class PostService
 {
+    /**
+     * to create a new post.
+     * @param array<mixed> $validatedData
+     */
     public function createPost(User $user, array $validatedData) : UserPost
     {
-		/* 
-        * @var \App\Models\User $user
-        * @param array<string, Item> $items
-        */
+		/* @var \App\Models\User $user */
         $post = $user->posts()->create([
             'content' => $validatedData['content'],
         ]);
