@@ -1,11 +1,13 @@
-*{
-	/* overflow-x: hidden; */
-}
 
-#app{
+#page-content{
 	min-height: 100vh;
+	padding-top: 2em;
 }
 
 #profile-header{
 	min-height: 30vh;
+}
+
+#post-card{
+	text-decoration: none !important;
 }

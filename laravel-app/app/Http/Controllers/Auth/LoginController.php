@@ -31,8 +31,6 @@ class LoginController extends Controller
 
     /**
      * Show login form page.
-     *
-     * @return View
      */
     public function index(): View
     {
@@ -42,9 +40,6 @@ class LoginController extends Controller
 
     /**
      * Handle authentication based on the provided request.
-     *
-     * @param  LoginRequest $request The incoming request containing user credentials.
-     * @return \Illuminate\Http\RedirectResponse Redirect response based on authentication success or failure.
      */
     public function authenticate(LoginRequest $request): \Illuminate\Http\RedirectResponse
     {

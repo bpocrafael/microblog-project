@@ -2,23 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
+use App\Models\User;
+
 class HomeController extends Controller
 {
     /**
      * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(): View
     {
-        return view('home');
+        /** @var User $user */
+        $user = auth()->user();
+        $posts = $user->posts;
+        return view('home', compact('user', 'posts'));
     }
 
     /**
-     *
-     * @return \Illuminate\Http\RedirectResponse
+     * Logout the user.
      */
-    public function logout()
+    public function logout(): RedirectResponse
     {
         auth()->logout();
         return redirect()->route('login');
