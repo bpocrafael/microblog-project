@@ -9,7 +9,7 @@ use App\Models\UserPost;
 
 class PostComponent extends Component
 {
-    public $post;
+    public UserPost $post;
 
     /**
      * Create a new component instance.

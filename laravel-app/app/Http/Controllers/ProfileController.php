@@ -26,6 +26,7 @@ class ProfileController extends Controller
      */
     public function index(): View
     {
+        /** @var User $user */
         $user = auth()->user();
         $posts = $user->posts;
         return view('profile.index', compact('user', 'posts'));
@@ -36,6 +37,7 @@ class ProfileController extends Controller
      */
     public function edit($profile): View
     {
+        /** @var User $user */
         $user = auth()->user();
         return view('profile.edit', compact('user'));
     }
