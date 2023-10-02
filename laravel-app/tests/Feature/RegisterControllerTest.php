@@ -10,7 +10,9 @@ use App\Http\Requests\CreateUserRequest;
 
 class RegisterControllerTest extends TestCase
 {
-    use RefreshDatabase, WithFaker, InteractsWithDatabase;
+    use RefreshDatabase;
+    use WithFaker;
+    use InteractsWithDatabase;
   
     /** @test */
     public function test_valid_register_controller_test()
