@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\DB;
 
 class UsersTableSeeder extends Seeder
 {
@@ -35,7 +35,7 @@ class UsersTableSeeder extends Seeder
             ],
         ];
 
-        DB::table('users')->insert($users);
+        User::insert($users);
 
     }
 }

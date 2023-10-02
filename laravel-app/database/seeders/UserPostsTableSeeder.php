@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\UserPost;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class UserPostsTableSeeder extends Seeder
 {
@@ -27,6 +27,6 @@ class UserPostsTableSeeder extends Seeder
             ],
         ];
 
-        DB::table('user_posts')->insert($user_posts);
+        UserPost::insert($user_posts);
     }
 }
