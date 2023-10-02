@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
+use App\Models\User;
 
 class HomeController extends Controller
 {
@@ -19,7 +21,7 @@ class HomeController extends Controller
     /**
      * Logout the user.
      */
-    public function logout()
+    public function logout() : RedirectResponse
     {
         auth()->logout();
         return redirect()->route('login');

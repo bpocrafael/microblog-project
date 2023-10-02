@@ -7,9 +7,17 @@ use App\Models\UserPost;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use App\Models\User;
+use App\Services\PostService;
 
 class PostController extends Controller
 {
+    protected PostService $postService;
+
+    public function __construct(PostService $postService)
+    {
+        $this->postService = $postService;
+    }
+
     /* 
     * View all instances of posts in home page.
     */
@@ -17,7 +25,7 @@ class PostController extends Controller
     {
         /** @var User $user */
         $user = auth()->user();
-        $posts = $user->posts->orderByDsc('created_at')->get();
+        $posts = $user->posts->orderBy('created_at', 'desc')->get();
     
         return view('home', compact('user', 'posts'));
     }    
@@ -40,19 +48,17 @@ class PostController extends Controller
         $user = auth()->user();
         $validatedData = $request->validated();
 
-        /** @var \App\Models\User $user */
-        $post = $user->posts()->create([
-            'content' => $validatedData['content'],
-        ]);
+        $post = $this->postService->createPost($user, $validatedData);
 
         if ($post !== null) {
             $success = ['success' => 'Post created successfully'];
-            
+
             return redirect()->route('post.show', ['post' => $post])->with($success);
-        } else {
-            return back()->with('error', 'Failed to create post');
         }
+
+        return back()->with('error', 'Failed to create post');
     }
+
     /* 
     * Display specific post.
     */

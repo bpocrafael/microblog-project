@@ -20,7 +20,6 @@ class UsersTableSeeder extends Seeder
                 'username' => 'mikcoLoverBoy',
                 'is_verified' => 1,
                 'password' => Hash::make('lover'),
-                'created_at' => now(),
                 'email_verified_at' => now(),
             ],
             [
@@ -28,7 +27,6 @@ class UsersTableSeeder extends Seeder
                 'username' => 'karl',
                 'is_verified' => 0,
                 'password' => Hash::make('karl'),
-                'created_at' => null,
                 'email_verified_at' => null,
             ],
         ];
