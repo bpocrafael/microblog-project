@@ -25,9 +25,9 @@ class CreateUserRequest extends FormRequest
     /**
      * Error messages for registration validation.
      *
-     * @return array
+     * @return array<string, mixed>
      */
-    public function messages()
+    public function messages(): array
     {
         return [
             'first_name.required' => 'The first name field is required.',
