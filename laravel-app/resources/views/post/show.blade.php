@@ -11,8 +11,10 @@
                         {{ session('success') }}
                     </div>
                 @endif
-                <img src="{{ asset('assets/images/microblog-logo-iconx30.png') }}" alt="Image">
-                <a class="text-dark" href="{{ route('profile.index', $post->user->username) }}">{{ $post->user->username }}</a>
+                <a class="text-dark" href="{{ route('profile.index', $post->user->username) }}">
+                    <img src="{{ asset('assets/images/microblog-logo-iconx30.png') }}" alt="Image">
+                    {{ $post->user->username }}
+                </a>
                 <div class="container p-3">
                     <div class="card">
                         <div class="card-body">

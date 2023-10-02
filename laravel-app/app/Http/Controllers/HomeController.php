@@ -1,24 +1,23 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\View\View;
 
 class HomeController extends Controller
 {
     /**
      * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index() : View
     {
+        /** @var User $user */
         $user = auth()->user();
         $posts = $user->posts;
         return view('home', compact('user', 'posts'));
     }
 
     /**
-     *
-     * @return \Illuminate\Http\RedirectResponse
+     * Logout the user.
      */
     public function logout()
     {
