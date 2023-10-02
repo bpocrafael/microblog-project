@@ -35,7 +35,7 @@ class ProfileController extends Controller
     /**
      * Show the profile edit page.
      */
-    public function edit($profile): View
+    public function edit(): View
     {
         /** @var User $user */
         $user = auth()->user();
@@ -52,8 +52,9 @@ class ProfileController extends Controller
 
         try {
             $this->userService->updateProfile($user, $request->all());
-
-            return redirect()->route('profile.edit', $user->id)->with('success', 'Profile updated successfully');
+            
+            $success = ['success' => 'Profile updated successfully'];
+            return redirect()->route('profile.edit', $user->id)->with($success);
         } catch (QueryException $e) {
             if (is_array($e->errorInfo) && isset($e->errorInfo[1]) && $e->errorInfo[1] === 1062) {
                 $error = ['email' => 'The email address is already in use. Please choose a different email.'];
