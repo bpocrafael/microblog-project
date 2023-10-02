@@ -25,7 +25,7 @@ class PostController extends Controller
     {
         /** @var User $user */
         $user = auth()->user();
-        $posts = $user->posts->orderBy('created_at', 'desc')->get();
+        $posts = $user->posts()->orderBy('created_at', 'desc')->get();
     
         return view('home', compact('user', 'posts'));
     }    
@@ -50,7 +50,7 @@ class PostController extends Controller
 
         $post = $this->postService->createPost($user, $validatedData);
 
-        if ($post !== null) {
+        if ($post != null) {
             $success = ['success' => 'Post created successfully'];
 
             return redirect()->route('post.show', ['post' => $post])->with($success);
@@ -64,7 +64,6 @@ class PostController extends Controller
     */
     public function show(UserPost $post) : View
     {
-        $post = $post;
-        return view('post.show', compact('post'));
+        return view('post.show', ['post' => $post]);
     }
 }
