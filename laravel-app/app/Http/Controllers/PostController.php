@@ -46,7 +46,9 @@ class PostController extends Controller
         ]);
 
         if ($post !== null) {
-            return redirect()->route('post.show', ['post' => $post])->with('success', 'Post created successfully');
+            $success = ['success' => 'Post created successfully'];
+            
+            return redirect()->route('post.show', ['post' => $post])->with($success);
         } else {
             return back()->with('error', 'Failed to create post');
         }
