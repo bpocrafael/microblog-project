@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * @property int @user_id
- * @property int @post_id
+ * @property int $user_id
+ * @property int $post_id
  */
 class PostLike extends Model
 {
