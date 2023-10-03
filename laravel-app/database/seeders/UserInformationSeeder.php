@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\UserInformation;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class UserInformationSeeder extends Seeder
 {
@@ -21,6 +21,8 @@ class UserInformationSeeder extends Seeder
                 'middle_name' => 'Pancho',
                 'bio' => 'I want to be happy and this is my seeder account in Microblog',
                 'gender' => 'male',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'user_id' => 2,
@@ -29,9 +31,11 @@ class UserInformationSeeder extends Seeder
                 'middle_name' => 'Elanor',
                 'bio' => 'Hello World',
                 'gender' => 'male',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
         ];
 
-        DB::table('user_information')->insert($user_information);
+        UserInformation::insert($user_information);
     }
 }

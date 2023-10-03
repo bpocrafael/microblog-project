@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\DB;
 
 class UsersTableSeeder extends Seeder
 {
@@ -20,6 +20,8 @@ class UsersTableSeeder extends Seeder
                 'username' => 'mikcoLoverBoy',
                 'is_verified' => 1,
                 'password' => Hash::make('lover'),
+                'created_at' => now(),
+                'updated_at' => now(),
                 'email_verified_at' => now(),
             ],
             [
@@ -27,11 +29,13 @@ class UsersTableSeeder extends Seeder
                 'username' => 'karl',
                 'is_verified' => 0,
                 'password' => Hash::make('karl'),
+                'created_at' => now(),
+                'updated_at' => now(),
                 'email_verified_at' => null,
             ],
         ];
 
-        DB::table('users')->insert($users);
+        User::insert($users);
 
     }
 }
