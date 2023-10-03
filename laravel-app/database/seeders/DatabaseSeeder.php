@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
             UsersTableSeeder::class,
             UserInformationSeeder::class,
             UserPostsTableSeeder::class,
+            PostLikesTableSeeder::class,
         ]);
     }
 }
