@@ -37,7 +37,7 @@
             </div>
         </div>
         @foreach ($posts as $post)
-            <x-post-component :post="$post" />
+            <x-post-component :post="$post" :user=$user />
         @endforeach
 
     </div>

@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 use App\Models\UserPost;
@@ -9,12 +10,14 @@ use App\Models\UserPost;
 class PostComponent extends Component
 {
     public UserPost $post;
+    public User $user;
 
     /**
      * Create a new component instance.
      */
-    public function __construct(UserPost $post)
+    public function __construct(User $user, UserPost $post)
     {
+        $this->user = $user;
         $this->post = $post;
     }
 
