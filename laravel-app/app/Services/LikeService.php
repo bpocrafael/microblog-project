@@ -10,7 +10,10 @@ class LikeService
 {
     public function like(User $user, UserPost $post): void
     {
-        $like = $post->likes->contains('user_id', $user->id);
+        $like = PostLike::where('user_id', $user->id)
+            ->where('post_id', $post->id)
+            ->first();
+
         if (!$like) {
             $like = new PostLike();
             $like->user_id = $user->id;
