@@ -25,12 +25,18 @@ class CommentController extends Controller
 
     public function store(CommentRequest $request, UserPost $post): RedirectResponse
     {
+        $user = auth()->user();
+
+        if (!$user) {
+            return redirect()->back()->with('error', 'You must be logged in to add a comment.');
+        }
+
         $comment = new PostComment([
             'post_id' => $post->id,
-            'user_id' => auth()->user()->id,
+            'user_id' => $user->id,
             'content' => $request->input('content'),
         ]);
-        
+
         $comment->save();
         return redirect()->back()->with('success', 'Comment added successfully.');
     }

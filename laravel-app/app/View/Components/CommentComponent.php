@@ -13,8 +13,8 @@ use App\Models\PostComment;
 class CommentComponent extends Component
 {
     public UserPost $post;
-    public $user;
-    public $comments;
+    public User $user;
+    public PostComment $comments;
 
     /**
      * Create a new component instance.

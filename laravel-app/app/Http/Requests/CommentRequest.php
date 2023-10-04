@@ -19,7 +19,13 @@ class CommentRequest extends FormRequest
         ];
     }
     
-    public function messages()
+    /**
+     * Error messages for registration validation.
+     *
+     * @return array<string, mixed>
+     */
+    
+    public function messages(): array
     {
         return [
             'content.required' => 'The comment content is required.',
