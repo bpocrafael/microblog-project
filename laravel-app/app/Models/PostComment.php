@@ -21,7 +21,7 @@ class PostComment extends Model
         'post_id',
     ];
 
-     /**
+    /**
      * Get the user who created the comment.
      */
     public function user(): BelongsTo

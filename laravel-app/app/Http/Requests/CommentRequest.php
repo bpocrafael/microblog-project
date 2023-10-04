@@ -11,20 +11,18 @@ class CommentRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-
     public function rules(): array
     {
         return [
             'content' => 'required|max:255',
         ];
     }
-    
+
     /**
      * Error messages for registration validation.
      *
      * @return array<string, mixed>
      */
-    
     public function messages(): array
     {
         return [
@@ -32,5 +30,4 @@ class CommentRequest extends FormRequest
             'content.max' => 'The comment content cannot exceed 255 characters.',
         ];
     }
-    
 }

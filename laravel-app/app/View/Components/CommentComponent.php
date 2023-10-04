@@ -2,13 +2,11 @@
 
 namespace App\View\Components;
 
-use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 use App\Models\User;
 use App\Models\UserPost;
 use App\Models\PostComment;
-
 
 class CommentComponent extends Component
 {
@@ -32,5 +30,5 @@ class CommentComponent extends Component
     public function render(): View
     {
         return view('components.comment');
-    }   
+    }
 }
