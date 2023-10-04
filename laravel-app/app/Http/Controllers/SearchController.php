@@ -17,7 +17,7 @@ class SearchController extends Controller
     {
         $this->searchService = $searchService;
     }
-    
+
     /**
      * To search for user using keywords.
      */
