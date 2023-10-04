@@ -65,6 +65,6 @@ class PostController extends Controller
     */
     public function show(UserPost $post, PostComment $comment, User $user): View
     {
-        return view('post.show', ['post'=> $post, 'comment'=> $comment, 'user' => $user]);
+        return view('post.show', ['post' => $post, 'comment' => $comment, 'user' => $user]);
     }
 }
