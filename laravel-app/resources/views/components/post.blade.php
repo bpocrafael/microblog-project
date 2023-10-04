@@ -56,10 +56,7 @@
 
                             @foreach ($post->comments as $comment)
                                 <div class="comment">
-                                    {{-- <p>{{ $comment->user->username}} </p> --}}
-                                    {{-- <p>{{ $comment->post_id}}</p> --}}
                                     <p>{{ $comment->content }}</p>
-                                    {{-- <p>Posted at: {{ $comment->created_at->format('F j, Y H:i') }}</p> --}}
                                 </div>
                             @endforeach
                         </div>
