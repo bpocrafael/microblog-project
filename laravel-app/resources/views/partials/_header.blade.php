@@ -9,7 +9,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('home') }}">Home</a>
                 </li>
@@ -21,7 +21,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('logout') }}"
-                       onclick="event.preventDefault();
+                    onclick="event.preventDefault();
                                      document.getElementById('logout-form').submit();">
                         Logout
                     </a>
@@ -33,5 +33,9 @@
                 @endauth
             </ul>
         </div>
+        <form class="d-flex" role="search" action="{{ route('search') }}" method="GET">
+            <input class="form-control me-2" type="search" name="query" placeholder="Search user" aria-label="Search user">
+            <button class="btn btn-outline-dark" type="submit">Search</button>
+        </form>
     </div>
 </nav>

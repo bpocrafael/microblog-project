@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('/profile', ProfileController::class, ['only' => ['index', 'edit', 'update']]);
     Route::post('/posts/{post}/like', [LikeController::class, 'like'])->name('post.like');
     Route::delete('/posts/{post}/unlike', [LikeController::class, 'unlike'])->name('post.unlike');
+    Route::get('/search', [SearchController::class, 'search'])->name('search');
 });
 
 Route::middleware(['guest'])->group(function () {
