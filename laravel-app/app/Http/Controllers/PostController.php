@@ -62,7 +62,7 @@ class PostController extends Controller
     /*
     * Display specific post.
     */
-    public function show(User $user, UserPost $post): View
+    public function show(UserPost $post): View
     {
         /** @var User $user */
         $user = auth()->user();
