@@ -9,6 +9,7 @@ class SearchService
 {
 	/**
 	 * To search the User table using the Eloquent of matching results.
+	 * @return Collection<User>
 	 */
 	public function searchUser(String $query): Collection
 	{
