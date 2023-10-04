@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserPostRequest;
 use App\Models\UserPost;
+use App\Models\PostComment;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use App\Models\User;
@@ -62,8 +63,8 @@ class PostController extends Controller
     /*
     * Display specific post.
     */
-    public function show(UserPost $post): View
+    public function show(UserPost $post, PostComment $comment, User $user): View
     {
-        return view('post.show', ['post' => $post]);
+        return view('post.show', ['post'=> $post, 'comment'=> $comment, 'user' => $user] );
     }
 }
