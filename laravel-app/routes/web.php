@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,10 +28,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/logout', [HomeController::class, 'logout'])->name('logout');
     Route::resource('/post', PostController::class, ['only' => ['create', 'store', 'show']]);
     Route::resource('/profile', ProfileController::class, ['only' => ['index', 'edit', 'update']]);
+    Route::get('/search', [SearchController::class, 'search'])->name('search');
 });
 
 Route::middleware(['guest'])->group(function () {
-    Route::get('/', [LoginController::class, 'index'])->name('login');
+    Route::get('/', [LoginController::class, 'index'])->name('guest.login');
     Route::get('/login', [LoginController::class, 'index'])->name('login');
     Route::post('/login', [LoginController::class, 'authenticate'])->name('login.authenticate');
 });
