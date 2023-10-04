@@ -64,6 +64,8 @@ class PostController extends Controller
     */
     public function show(UserPost $post): View
     {
-        return view('post.show', ['post' => $post]);
+        /** @var User $user */
+        $user = auth()->user();
+        return view('post.show', ['user' => $user, 'post' => $post]);
     }
 }
