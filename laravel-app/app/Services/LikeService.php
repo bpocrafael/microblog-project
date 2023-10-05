@@ -10,8 +10,7 @@ class LikeService
 {
     public function like(User $user, UserPost $post): void
     {
-        $like = PostLike::updateOrCreate(
-            ['user_id' => $user->id, 'post_id' => $post->id],
+        PostLike::updateOrCreate(
             ['user_id' => $user->id, 'post_id' => $post->id],
         );
     }

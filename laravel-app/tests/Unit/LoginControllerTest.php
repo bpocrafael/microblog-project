@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Models\User;
 use App\Services\LoginService;
 use App\Services\UserVerificationService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -66,6 +67,8 @@ class LoginControllerTest extends TestCase
     /** @test */
     public function authenticate_redirects_authenticated_and_verified_users_to_home()
     {
+        $user = User::factory()->create();
+
         $this->partialMock(LoginService::class, function ($mock) {
             $mock->shouldReceive('isAuthenticated')->andReturn(true);
         });
@@ -73,6 +76,8 @@ class LoginControllerTest extends TestCase
         $this->partialMock(UserVerificationService::class, function ($mock) {
             $mock->shouldReceive('isUserVerified')->andReturn(true);
         });
+
+        $this->actingAs($user);
 
         $response = $this->post('/login', [
             'email' => 'test@example.com',

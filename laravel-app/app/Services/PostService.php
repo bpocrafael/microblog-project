@@ -2,14 +2,16 @@
 
 namespace App\Services;
 
+use App\Interfaces\PostServiceInterface;
 use App\Models\User;
 use App\Models\UserPost;
 
-class PostService
+class PostService implements PostServiceInterface
 {
     /**
-     * to create a new post.
-     * @param array<mixed> $validatedData
+     * To create a new post.
+     * @param User $user
+     * @param array<mixed, mixed> $validatedData
      */
     public function createPost(User $user, array $validatedData): UserPost
     {

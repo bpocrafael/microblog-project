@@ -2,17 +2,19 @@
 
 namespace App\Services;
 
+use App\Interfaces\UserVerificationServiceInterface;
+use App\Models\User;
 use Illuminate\Validation\ValidationException;
 
-class UserVerificationService
+class UserVerificationService implements UserVerificationServiceInterface
 {
     /**
      * Check if the user is verified.
      *
-     * @param mixed $user
+     * @param User $user
      * @return bool
      */
-    public function isUserVerified($user): mixed
+    public function isUserVerified(User $user): mixed
     {
         if (!$user->is_verified) {
             auth()->logout();
