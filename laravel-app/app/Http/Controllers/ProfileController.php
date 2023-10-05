@@ -22,17 +22,6 @@ class ProfileController extends Controller
     }
 
     /**
-     * Show the profile page.
-     */
-    public function index(): View
-    {
-        /** @var User $user */
-        $user = auth()->user();
-        $posts = $user->posts;
-        return view('profile.index', compact('user', 'posts'));
-    }
-
-    /**
      * Show the profile edit page.
      */
     public function edit(): View
@@ -71,7 +60,15 @@ class ProfileController extends Controller
      */
     public function show(int $userId): View
     {
-        $user = User::whereId($userId)->first();
-        return view('profile.show', compact('user'));
+        $profile = User::with('posts.likes')->find($userId);
+
+        $likesCount = $profile->posts->sum(function ($post) {
+            return $post->likes->count();
+        });
+
+        return view('profile.show', [
+            'user' => $profile,
+            'likesCount' => $likesCount,
+        ]);
     }
 }

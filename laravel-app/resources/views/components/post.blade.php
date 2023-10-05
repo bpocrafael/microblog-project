@@ -1,7 +1,7 @@
 <div class="container my-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <a class="text-dark" href="{{ route('profile.index', $post->user->username) }}">
+            <a class="text-dark" href="{{ route('profile.show', $user->id) }}">
                 <img src="{{ asset('assets/images/microblog-logo-iconx30.png') }}" alt="Image">
                 {{ $post->user->username }}
             </a>
