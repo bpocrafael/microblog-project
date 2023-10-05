@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('/profile', ProfileController::class, ['only' => ['index', 'edit', 'update']]);
     Route::post('/posts/{post}/like', [LikeController::class, 'like'])->name('post.like');
     Route::delete('/posts/{post}/unlike', [LikeController::class, 'unlike'])->name('post.unlike');
+    Route::get('/posts/{post}/comments/create', [CommentController::class, 'create'])->name('comments.create');
+    Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
+    Route::post('/comments/{postId}', [CommentController::class, 'store'])->name('comment.store');
     Route::get('/search', [SearchController::class, 'search'])->name('search');
 });
 
