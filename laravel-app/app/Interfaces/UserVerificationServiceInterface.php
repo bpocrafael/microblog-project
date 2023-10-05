@@ -6,5 +6,5 @@ use App\Models\User;
 
 interface UserVerificationServiceInterface
 {
-	public function isUserVerified(User $user): mixed;
+    public function isUserVerified(User $user): mixed;
 }
