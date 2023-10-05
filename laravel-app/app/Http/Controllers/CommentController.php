@@ -14,13 +14,6 @@ class CommentController extends Controller
         return view('comments.create', compact('post'));
     }
 
-    public function show(UserPost $post): View
-    {
-        $comments = $post->comments;
-
-        return view('components.comment', compact('post'));
-    }
-
     public function store(CommentRequest $request, UserPost $post): RedirectResponse
     {
         $user = auth()->user();
