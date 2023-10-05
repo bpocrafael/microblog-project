@@ -9,3 +9,4 @@ interface LikeServiceInterface
 {
 	public function like(User $user, UserPost $post): void;
 }
+

@@ -9,3 +9,4 @@ interface PostServiceInterface
 {
 	public function createPost(User $user, array $validatedData): UserPost;
 }
+
