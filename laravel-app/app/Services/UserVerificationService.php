@@ -11,7 +11,7 @@ class UserVerificationService implements UserVerificationServiceInterface
     /**
      * Check if the user is verified.
      *
-     * @param mixed $user
+     * @param User $user
      * @return bool
      */
     public function isUserVerified(User $user): mixed

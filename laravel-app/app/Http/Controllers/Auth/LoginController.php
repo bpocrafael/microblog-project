@@ -47,20 +47,14 @@ class LoginController extends Controller
         $isAuthenticated = $this->loginService->isAuthenticated($request);
 
         if (!$isAuthenticated) {
-            /** @var \Illuminate\Routing\Redirector $redirector */
-            $redirector = redirect();
-
-            return $redirector->route('login');
+            return redirect()->route('login');
         }
 
         /** @var \Illuminate\Contracts\Auth\Guard */
         $auth = auth();
         $user = $auth->user();
 
-        $isVerified = $this->userVerificationService
-            ->isUserVerified($user);
-
-        if (!$isVerified) {
+        if ($user === null || !$this->userVerificationService->isUserVerified($user)) {
             /** @var \Illuminate\Routing\Redirector $redirector */
             $redirector = redirect();
 

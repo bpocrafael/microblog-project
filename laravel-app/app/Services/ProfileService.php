@@ -10,7 +10,9 @@ class ProfileService implements ProfileServiceInterface
 {
     /**
      * Update the profile.
-     */
+	 * @param User $user
+	 * @param array<mixed, mixed> $data
+	 */
     public function updateProfile(User $user, array $data): Void
     {
         $userInfo = $user->user_information;
