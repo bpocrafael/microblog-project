@@ -18,7 +18,7 @@
 							<div class="card-body">
 								<div class="row">
 									<div class="col text-start">
-										<a class="text-dark" href="#">
+										<a class="text-dark" href="{{ route('profile.show', $result->id) }}">
 											<img src="{{ asset('assets/images/microblog-logo-iconx30.png') }}" alt="Image">
 											{{ $result->username }}
 										</a>
