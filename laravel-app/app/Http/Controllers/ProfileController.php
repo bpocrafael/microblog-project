@@ -65,4 +65,13 @@ class ProfileController extends Controller
             return redirect()->back()->withErrors($error);
         }
     }
+
+    /**
+     * Show specific user profile.
+     */
+    public function show(int $userId): View
+    {
+        $user = User::whereId($userId)->first();
+        return view('profile.show', compact('user'));
+    }
 }
