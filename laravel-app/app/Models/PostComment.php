@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-    /**
-     * @property int $user_id
-     * @property string $content
-     * @property int $post_id
-     */
+/**
+ * @property int $user_id
+ * @property string $content
+ * @property int $post_id
+ */
 class PostComment extends Model
 {
     use HasFactory;
