@@ -2,19 +2,16 @@
 
 namespace App\Services;
 
+use App\Interfaces\ProfileServiceInterface;
 use App\Models\User;
 use App\Models\UserInformation;
 
-class ProfileService
+class ProfileService implements ProfileServiceInterface
 {
     /**
      * Update the profile.
-     *
-     * @param User $user
-     * @param array<string, mixed> $data
-     * @return void
      */
-    public function updateProfile(User $user, array $data)
+    public function updateProfile(User $user, array $data): Void
     {
         $userInfo = $user->user_information;
 

@@ -2,12 +2,13 @@
 
 namespace App\Services;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\LoginRequest;
+use App\Interfaces\LoginServiceInterface;
 use Illuminate\Validation\ValidationException;
 
-class LoginService
+class LoginService implements LoginServiceInterface
 {
-    public function isAuthenticated(Request $request): bool
+    public function isAuthenticated(LoginRequest $request): bool
     {
         $field = filter_var($request->input('email'), FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
