@@ -27,7 +27,7 @@ class PostService implements PostServiceInterface
      * To update an existing post.
      *
      * @param UserPost $post
-     * @param array<string, mixed> $validatedData
+     * @param array $validatedData
      * @return bool
      */
     public function updatePost(UserPost $post, array $validatedData): bool
