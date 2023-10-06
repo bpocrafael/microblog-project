@@ -11,7 +11,7 @@ class FollowController extends Controller
     {
         /** @var User $authUser */
         $authUser = auth()->user();
-        
+
         $authUser->following()->attach($user);
 
         $success = ['success' => 'Successfully followed ' . $user->username];
