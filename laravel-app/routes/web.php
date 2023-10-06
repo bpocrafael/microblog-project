@@ -10,7 +10,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\CommentController;
-use App\Http\Controllers\PostEditController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
