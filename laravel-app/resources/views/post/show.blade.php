@@ -30,49 +30,10 @@
                                 @endif
                             </div>
                         </div>
+                        @include('post.form_like')
                     </div>
-                    <!-- Comment Form -->
-                    <x-comment :comments="$post->comment" :post="$post" />
-                    <div class="container mb-5">
-                        <form action="{{ route('comments.store', $post) }}" method="POST">
-                            @csrf
-
-                            <div class="form-group mt-3">
-                                <textarea id="content" name="content" class="form-control" rows="3" placeholder="Add a comment"></textarea>
-                            </div>
-
-                            @error('content')
-                                <span class="text-danger" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-
-                            <div class="text-end">
-                                <button type="submit" class="btn btn-dark">Add Comment</button>
-                            </div>
-                        </form>
-                    </div>
-                    <form class="like-form" data-post-id="{{ $post->id }}"
-                        action="{{ route($post->likes->contains('user_id', $post->user->id) ? 'post.unlike' : 'post.like', $post) }}"
-                        method="POST">
-                        <div class="row justify-content-end align-items-center p-1">
-                            <div class="card p-1 likes-count" data-post-id="{{ $post->id }}">
-                                {{ $post->likes->count() }} Likes
-                            </div>
-                        </div>
-                        @csrf
-                        @if ($post->likes->contains('user_id', $post->user->id))
-                            @method('DELETE')
-                            <div class="col-md-2 text-center">
-                                <button type="submit" class="btn btn-secondary unlike-button">Unlike</button>
-                            </div>
-                        @else
-                            <div class="col-md-2 text-center">
-                                <button type="submit" class="btn btn-dark like-button">Like</button>
-                            </div>
-                        @endif
+                    @include('post.form_comment')
                 </div>
-                </form>
             </div>
         </div>
     </div>
