@@ -22,15 +22,20 @@
                             </div>
                             <div class="card-footer fst-italic">
                                 @if ($post->deleted_at)
-                                    Deleted at: {{ $post->deleted_at->format('F j, Y') }}
+                                Deleted at: {{ $post->deleted_at->format('F j, Y') }}
                                 @elseif ($post->updated_at)
-                                    Updated at: {{ $post->updated_at->format('F j, Y') }}
+                                Updated at: {{ $post->updated_at->format('F j, Y') }}
                                 @else
-                                    Created at: {{ $post->created_at->format('F j, Y') }}
+                                Created at: {{ $post->created_at->format('F j, Y') }}
                                 @endif
                             </div>
                         </div>
                         @include('post.form_like')
+                    </div>
+                    <div class="row">
+                        @can('edit', $post)
+                            <a href="{{ route('post.edit', $post) }}" class="btn btn-dark">Edit Post</a>
+                        @endcan
                     </div>
                     @include('post.form_comment')
                 </div>

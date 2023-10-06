@@ -66,4 +66,29 @@ class PostController extends Controller
     {
         return view('post.show', ['post' => $post]);
     }
+
+    /*
+    * Display edit post.
+    */
+    public function edit(UserPost $post): View
+    {
+        return view('post.edit', ['post' => $post]);
+    }
+
+    /*
+    * Update post
+    */
+    public function update(UserPostRequest $request, UserPost $post): RedirectResponse
+    {
+        $validatedData = $request->validated();
+        $updated = $this->postService->updatePost($post, $validatedData);
+
+        if ($updated) {
+            $success = ['success' => 'Post updated successfully'];
+
+            return redirect()->route('post.show', ['post' => $post])->with($success);
+        }
+
+        return redirect()->back()->with('error', 'Failed to update post');
+    }
 }
