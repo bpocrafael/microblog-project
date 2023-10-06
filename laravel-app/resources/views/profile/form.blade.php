@@ -99,7 +99,7 @@
 
 	<div class="row p-2 mb-0 mt-3">
 		<div class="col-md text-center">
-			<a href="{{ route('profile.index') }}" class="btn btn-secondary"> {{ __('Cancel') }} </a>
+			<a href="{{ route('profile.show', $user->id) }}" class="btn btn-secondary"> {{ __('Cancel') }} </a>
 		</div>
 		<div class="col-md text-center">
 			<button type="submit" class="btn btn-success">

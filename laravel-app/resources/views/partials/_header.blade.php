@@ -15,7 +15,7 @@
                 </li>
                 @auth
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('profile.index') }}">
+                    <a class="nav-link" href="{{ route('profile.show', auth()->id()) }}">
                         Profile
                     </a>
                 </li>

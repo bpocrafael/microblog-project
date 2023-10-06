@@ -11,7 +11,7 @@
                             {{ session('success') }}
                         </div>
                     @endif
-                    <a class="text-dark" href="{{ route('profile.index', $post->user->username) }}">
+                    <a class="text-dark" href="{{ route('profile.show', $post->user->id) }}">
                         <img src="{{ asset('assets/images/microblog-logo-iconx30.png') }}" alt="Image">
                         {{ $post->user->username }}
                     </a>

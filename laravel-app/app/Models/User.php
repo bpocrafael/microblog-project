@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -49,6 +50,25 @@ class User extends Authenticatable implements MustVerifyEmail
         'password' => 'hashed',
     ];
 
+    public function getFullNameAttribute(): string
+    {
+        $userInformation = $this->user_information;
+
+        if ($userInformation) {
+            $first_name = $userInformation->first_name;
+            $middle_name = $userInformation->middle_name;
+            $last_name = $userInformation->last_name;
+
+            return "{$first_name} {$middle_name} {$last_name}";
+        }
+
+        return '';
+    }
+
+    public function isFollowing(User $user): bool
+    {
+        return $this->following->contains($user);
+    }
 
     public function user_information(): HasOne
     {
@@ -58,6 +78,16 @@ class User extends Authenticatable implements MustVerifyEmail
     public function posts(): HasMany
     {
         return $this->hasMany(UserPost::class);
+    }
+
+    public function followers(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'user_followers', 'following_id', 'follower_id');
+    }
+
+    public function following(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'user_followers', 'follower_id', 'following_id');
     }
 
 }

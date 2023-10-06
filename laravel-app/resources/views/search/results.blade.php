@@ -4,6 +4,10 @@
 
 @include('partials._header')
 
+@php
+	$authUser = auth()->user();
+@endphp
+
 <div id="page-content">
 	<div class="container my-3">
 		<div class="row justify-content-center text-center">
@@ -20,11 +24,23 @@
 									<div class="col text-start">
 										<a class="text-dark" href="{{ route('profile.show', $result->id) }}">
 											<img src="{{ asset('assets/images/microblog-logo-iconx30.png') }}" alt="Image">
-											{{ $result->username }}
+											{{ $result->username }} {{$result->id}}
 										</a>
 									</div>
-									<div class="col-2">
-										<a href="#" class="btn btn-dark">Follow</a>
+									<div class="col-3 align-self-center">
+										@if($authUser->isNot($result))
+											@if($authUser->isFollowing($result))
+												<form method="POST" action="{{ route('unfollow', $result) }}">
+													@csrf
+													<button class="btn btn-dark" type="submit">Unfollow</button>
+												</form>
+											@else
+												<form method="POST" action="{{ route('follow', $result) }}">
+													@csrf
+													<button class="btn btn-dark" type="submit">Follow</button>
+												</form>
+											@endif
+										@endif
 									</div>
 								</div>
 							</div>
