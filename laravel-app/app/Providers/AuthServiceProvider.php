@@ -13,7 +13,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        //
+        UserPost::class => UserPostPolicy::class,
     ];
 
     /**
@@ -24,5 +24,6 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('user-profile', 'App\Policies\UserProfilePolicy');
+        Gate::define('user-post', 'App\Policies\UserPostPolicy');
     }
 }
