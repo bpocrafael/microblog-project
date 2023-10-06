@@ -50,9 +50,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'password' => 'hashed',
     ];
 
-    /**
-     * Get the user's full name.
-     */
     public function getFullNameAttribute(): string
     {
         $userInformation = $this->user_information;
@@ -68,9 +65,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return '';
     }
 
-    /**
-     * Check if this user is a following.
-     */
     public function isFollowing(User $user): bool
     {
         return $this->following->contains($user);
