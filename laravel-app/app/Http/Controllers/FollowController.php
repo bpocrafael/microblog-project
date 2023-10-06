@@ -9,7 +9,7 @@ class FollowController extends Controller
 {
     public function follow(User $user): RedirectResponse
     {
-        /** @var User $user */
+        /** @var User $authUser */
         $authUser = auth()->user();
         
         $authUser->following()->attach($user);
@@ -21,7 +21,7 @@ class FollowController extends Controller
 
     public function unfollow(User $user): RedirectResponse
     {
-        /** @var User $user */
+        /** @var User $authUser */
         $authUser = auth()->user();
     
         $authUser->following()->detach($user);

@@ -58,16 +58,21 @@ class ProfileController extends Controller
     /**
      * Show specific user profile.
      */
-    public function show(int $userId): View
+    public function show(int $userId): mixed
     {
-        $profile = User::with('posts.likes')->find($userId);
+        $user = User::with('posts.likes')->find($userId);
 
-        $likesCount = $profile->posts->sum(function ($post) {
+        if (!$user) {
+            $error = ['error' => 'No user with that id found.'];
+            return redirect()->back()->withErrors($error);
+        }
+
+        $likesCount = $user->posts->sum(function ($post) {
             return $post->likes->count();
         });
 
         return view('profile.show', [
-            'user' => $profile,
+            'user' => $user,
             'likesCount' => $likesCount,
         ]);
     }
