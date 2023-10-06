@@ -23,7 +23,7 @@ class FollowController extends Controller
     {
         /** @var User $authUser */
         $authUser = auth()->user();
-    
+
         $authUser->following()->detach($user);
 
         $success = ['success' => 'Successfully unfollowed ' . $user->username];
