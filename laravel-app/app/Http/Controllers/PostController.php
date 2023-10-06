@@ -85,11 +85,10 @@ class PostController extends Controller
 
         if ($updated) {
             $success = ['success' => 'Post updated successfully'];
-    
+
             return redirect()->route('post.show', ['post' => $post])->with($success);
         }
-    
-        return redirect()->back()->with('error', 'Failed to update post');
 
+        return redirect()->back()->with('error', 'Failed to update post');
     }
 }
