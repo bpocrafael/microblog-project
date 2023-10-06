@@ -3,6 +3,11 @@
 @section('content')
 
 @include('partials._header')
+
+@php
+	$authUser = auth()->user();
+@endphp
+
 <div id="page-content">
 	<div class="p-3">
 		<div class="row justify-content-center">
@@ -13,15 +18,11 @@
 				<div class="row justify-content-between">
 					<div class="col">
 						<label>Name</label>
-						<p class="fw-bold">{{
-							$user->user_information->first_name . ' ' . 
-							$user->user_information->middle_name . ' ' . 
-							$user->user_information->last_name
-						}}</p>
+						<p class="fw-bold">{{ $user->full_name }}</p>
 					</div>
 					<div class="col align-self-center">
-						@if(auth()->user()->isNot($user))
-							@if(auth()->user()->following->contains($user))
+						@if($authUser->isNot($user))
+							@if($authUser->isFollowing($user))
 								<form method="POST" action="{{ route('unfollow', $user) }}">
 									@csrf
 									<button class="btn btn-dark" type="submit">Unfollow</button>

@@ -58,7 +58,7 @@ class ProfileController extends Controller
     /**
      * Show specific user profile.
      */
-    public function show(int $userId): mixed
+    public function show(int $userId): View
     {
         $user = User::with('posts.likes')->find($userId);
 

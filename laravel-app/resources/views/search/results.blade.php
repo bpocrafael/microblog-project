@@ -4,6 +4,10 @@
 
 @include('partials._header')
 
+@php
+	$authUser = auth()->user();
+@endphp
+
 <div id="page-content">
 	<div class="container my-3">
 		<div class="row justify-content-center text-center">
@@ -23,12 +27,9 @@
 											{{ $result->username }} {{$result->id}}
 										</a>
 									</div>
-									<!-- <div class="col-2">
-										<a href="#" class="btn btn-dark">Follow</a>
-									</div> -->
 									<div class="col-3 align-self-center">
-										@if(auth()->user()->isNot($result))
-											@if(auth()->user()->following->contains($result))
+										@if($authUser->isNot($result))
+											@if($authUser->isFollowing($result))
 												<form method="POST" action="{{ route('unfollow', $result) }}">
 													@csrf
 													<button class="btn btn-dark" type="submit">Unfollow</button>

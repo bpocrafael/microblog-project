@@ -50,6 +50,25 @@ class User extends Authenticatable implements MustVerifyEmail
         'password' => 'hashed',
     ];
 
+    /**
+     * Get the user's full name.
+     */
+    public function getFullNameAttribute(): string
+    {
+        $first_name = $this->user_information->first_name;
+        $middle_name = $this->user_information->middle_name;
+        $last_name = $this->user_information->last_name;
+
+        return "{$first_name} {$middle_name} {$last_name}";
+    }
+
+    /**
+     * Check if this user is a following.
+     */
+    public function isFollowing(User $user): bool
+    {
+        return $this->following->contains($user);
+    }
 
     public function user_information(): HasOne
     {
