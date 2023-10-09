@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use App\Models\UserPost;
 use App\Policies\UserPostPolicy;
+use App\Policies\UserProfilePolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -25,7 +26,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::define('user-profile', 'App\Policies\UserProfilePolicy');
+        Gate::define('update-user-profile', [UserProfilePolicy::class, 'update']);
         Gate::define('user-post', 'App\Policies\UserPostPolicy');
     }
 }
