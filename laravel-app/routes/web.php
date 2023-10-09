@@ -29,7 +29,7 @@ Auth::routes([
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::post('/logout', [HomeController::class, 'logout'])->name('logout');
-    Route::resource('/post', PostController::class, ['only' => ['create', 'store', 'show', 'update', 'edit']]);
+    Route::resource('/post', PostController::class, ['only' => ['create', 'store', 'show', 'update', 'edit', 'destroy']]);
     Route::resource('/profile', ProfileController::class, ['only' => ['index', 'edit', 'update', 'show']]);
     Route::post('/posts/{post}/like', [LikeController::class, 'like'])->name('post.like');
     Route::delete('/posts/{post}/unlike', [LikeController::class, 'unlike'])->name('post.unlike');
