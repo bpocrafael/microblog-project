@@ -37,8 +37,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
     Route::post('/comments/{postId}', [CommentController::class, 'store'])->name('comment.store');
     Route::get('/search', [SearchController::class, 'search'])->name('search');
-    Route::post('/follow/{user}', [FollowController::class, 'follow'])->name('follow');
-    Route::post('/unfollow/{user}', [FollowController::class, 'unfollow'])->name('unfollow');
+    Route::resource('/follow', FollowController::class)->only(['show', 'update', 'destroy'])
+        ->parameters(['follow' => 'user']);
 });
 
 Route::middleware(['guest'])->group(function () {

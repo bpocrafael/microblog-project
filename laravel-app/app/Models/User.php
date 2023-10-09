@@ -70,6 +70,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->following->contains($user);
     }
 
+    public function isFollower(User $user): bool
+    {
+        return $this->followers->contains($user);
+    }
+
     public function user_information(): HasOne
     {
         return $this->hasOne(UserInformation::class);

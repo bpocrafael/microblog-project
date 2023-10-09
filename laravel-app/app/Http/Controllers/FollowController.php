@@ -3,11 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
 class FollowController extends Controller
 {
-    public function follow(User $user): RedirectResponse
+    /**
+     * To display all the followers-following of the user
+     */
+    public function show(User $user): View
+    {
+        $followers = $user->followers()->get();
+        $followings = $user->following()->get();
+
+        return view('follow.show', [
+            'user' => $user,
+            'followers' => $followers, 
+            'followings' => $followings,
+        ]);
+    }
+
+    /**
+     * To follow other user account.
+     */
+    public function update(User $user): RedirectResponse
     {
         /** @var User $authUser */
         $authUser = auth()->user();
@@ -19,7 +38,10 @@ class FollowController extends Controller
         return redirect()->back()->with($success);
     }
 
-    public function unfollow(User $user): RedirectResponse
+    /**
+     * To unfollow a user account.
+     */
+    public function destroy(User $user): RedirectResponse
     {
         /** @var User $authUser */
         $authUser = auth()->user();
