@@ -82,10 +82,10 @@
 						</div>
 					</div>
 				</div>
-				@can('edit', $user)
+				@can('update-user-profile', $user)
 					<div class="row justify-content-center">
 						<div class="col-3">
-							<a href="{{ route('profile.edit', $user->id) }}" class="btn btn-secondary">Edit Information</a>
+							<a href="{{ route('profile.edit', $user->id) }}" class="btn btn-secondary">Update Information</a>
 						</div>
 					</div>
 				@endcan
