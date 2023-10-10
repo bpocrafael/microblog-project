@@ -22,20 +22,38 @@
                             </div>
                             <div class="card-footer fst-italic">
                                 @if ($post->deleted_at)
-                                Deleted at: {{ $post->deleted_at->format('F j, Y') }}
+                                    Deleted at: {{ $post->deleted_at->format('F j, Y') }}
                                 @elseif ($post->updated_at)
-                                Updated at: {{ $post->updated_at->format('F j, Y') }}
+                                    Updated at: {{ $post->updated_at->format('F j, Y') }}
                                 @else
-                                Created at: {{ $post->created_at->format('F j, Y') }}
+                                    Created at: {{ $post->created_at->format('F j, Y') }}
                                 @endif
                             </div>
                         </div>
                         @include('post.form_like')
                     </div>
                     <div class="row">
+                        <div class="row text-center">
                         @can('edit', $post)
                             <a href="{{ route('post.edit', $post) }}" class="btn btn-dark">Edit Post</a>
                         @endcan
+
+                        @can('delete', $post)
+                            <form id="delete-post-form" method="POST" action="{{ route('post.destroy', $post) }}">
+                                @csrf
+                                @method('DELETE')
+                                <button type="button" class="btn btn-danger" onclick="confirmDelete()">Delete Post</button>
+                            </form>
+
+                            <script>
+                                function confirmDelete() {
+                                    if (confirm('Are you sure you want to delete this post?')) {
+                                        document.getElementById('delete-post-form').submit();
+                                    }
+                                }
+                            </script>
+                        @endcan
+                        </div>
                     </div>
                     @include('post.form_comment')
                 </div>

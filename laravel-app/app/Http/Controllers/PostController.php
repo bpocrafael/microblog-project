@@ -91,4 +91,11 @@ class PostController extends Controller
 
         return redirect()->back()->with('error', 'Failed to update post');
     }
+
+    public function destroy(UserPost $post): RedirectResponse
+    {
+        $post->delete();
+
+        return redirect()->route('home')->with('success', 'Post deleted successfully');
+    }
 }

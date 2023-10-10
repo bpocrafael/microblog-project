@@ -14,4 +14,9 @@ class UserPostPolicy
     {
         return $user->id === $post->user_id;
     }
+
+    public function delete(User $user, UserPost $post): bool
+    {
+        return $user->id === $post->user_id;
+    }
 }
