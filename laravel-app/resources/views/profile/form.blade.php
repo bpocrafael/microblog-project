@@ -11,7 +11,7 @@
 	<div class="row justify-content-center my-3">
 		<div class="col-md">
 			<label for="first_name">First name</label>
-			<input id="first_name" type="text" class="form-control @error('first_name') is-invalid @enderror" name="first_name" value="{{ $user->userInformation->first_name }}" autocomplete="first_name" placeholder="First name" autofocus>
+			<input id="first_name" type="text" class="form-control @error('first_name') is-invalid @enderror" name="first_name" value="{{ $user->information->first_name }}" autocomplete="first_name" placeholder="First name" autofocus>
 
 			@error('first_name')
 				<span class="invalid-feedback" role="alert">
@@ -21,7 +21,7 @@
 		</div>
 		<div class="col-md">
 			<label for="middle_name">Middle name</label>
-			<input id="middle_name" type="text" class="form-control @error('middle_name') is-invalid @enderror" name="middle_name" value="{{ $user->userInformation->middle_name }}" autocomplete="middle_name" placeholder="Middle name" autofocus>
+			<input id="middle_name" type="text" class="form-control @error('middle_name') is-invalid @enderror" name="middle_name" value="{{ $user->information->middle_name }}" autocomplete="middle_name" placeholder="Middle name" autofocus>
 
 			@error('middle_name')
 				<span class="invalid-feedback" role="alert">
@@ -31,7 +31,7 @@
 		</div>
 		<div class="col-md">
 			<label for="last_name">Last name</label>
-			<input id="last_name" type="text" class="form-control @error('last_name') is-invalid @enderror" name="last_name" value="{{ $user->userInformation->last_name }}" autocomplete="last_name" placeholder="Last name" autofocus>
+			<input id="last_name" type="text" class="form-control @error('last_name') is-invalid @enderror" name="last_name" value="{{ $user->information->last_name }}" autocomplete="last_name" placeholder="Last name" autofocus>
 
 			@error('last_name')
 				<span class="invalid-feedback" role="alert">
@@ -70,7 +70,7 @@
 	<div class="row justify-content-center mb-1 mb-3">
 		<div class="col-md">
 			<label for="bio">Bio</label>
-			<input id="bio" type="text" class="form-control @error('bio') is-invalid @enderror" name="bio" value="{{ $user->userInformation->bio }}" autocomplete="bio" placeholder="Bio" autofocus>
+			<input id="bio" type="text" class="form-control @error('bio') is-invalid @enderror" name="bio" value="{{ $user->information->bio }}" autocomplete="bio" placeholder="Bio" autofocus>
 
 			@error('bio')
 				<span class="invalid-feedback" role="alert">
@@ -85,9 +85,9 @@
 			<label for="gender">Gender</label>
 			<select id="gender" class="form-select @error('gender') is-invalid @enderror" name="gender" autocomplete="gender" autofocus>
 				<option value="" disabled>Select gender</option>
-				<option value="male" {{ old('gender', $user->userInformation->gender) === 'male' ? 'selected' : '' }}>Male</option>
-				<option value="female" {{ old('gender', $user->userInformation->gender) === 'female' ? 'selected' : '' }}>Female</option>
-				<option value="other" {{ old('gender', $user->userInformation->gender) === 'other' ? 'selected' : '' }}>Other</option>
+				<option value="male" {{ old('gender', $user->information->gender) === 'male' ? 'selected' : '' }}>Male</option>
+				<option value="female" {{ old('gender', $user->information->gender) === 'female' ? 'selected' : '' }}>Female</option>
+				<option value="other" {{ old('gender', $user->information->gender) === 'other' ? 'selected' : '' }}>Other</option>
 			</select>
 			@error('gender')
 				<span class="invalid-feedback" role="alert">
