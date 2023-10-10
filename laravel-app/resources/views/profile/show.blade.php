@@ -54,11 +54,11 @@
 				</div>
 				<div class="row">
 					<label>Bio</label>
-					<p class="fw-bold">{{ $user->user_information->bio }}</p>
+					<p class="fw-bold">{{ $user->userInformation->bio }}</p>
 				</div>
 				<div class="row">
 					<label>Gender</label>
-					<p class="fw-bold">{{ $user->user_information->gender }}</p>
+					<p class="fw-bold">{{ $user->userInformation->gender }}</p>
 				</div>
 				<div class="row">
 					<div class="col">

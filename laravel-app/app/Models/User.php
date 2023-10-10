@@ -52,7 +52,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getFullNameAttribute(): string
     {
-        $userInformation = $this->user_information;
+        $userInformation = $this->userInformation;
 
         if ($userInformation) {
             $first_name = $userInformation->first_name;
@@ -70,12 +70,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->following->contains($user);
     }
 
-    public function isFollower(User $user): bool
-    {
-        return $this->followers->contains($user);
-    }
-
-    public function user_information(): HasOne
+    public function userInformation(): HasOne
     {
         return $this->hasOne(UserInformation::class);
     }
