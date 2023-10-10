@@ -22,8 +22,8 @@ class RegisterControllerTest extends TestCase
             'last_name' => $this->faker->lastName,
             'username' => $this->faker->userName,
             'email' => $this->faker->unique()->safeEmail,
-            'password' => 'secret123',
-            'password_confirmation' => 'secret123',
+            'password' => 'Secret123@Pass',
+            'password_confirmation' => 'Secret123@Pass',
         ];
 
         $request = new CreateUserRequest();

@@ -15,7 +15,13 @@ class CreateUserRequest extends FormRequest
     {
         return [
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => [
+                'required',
+                'string',
+                'min:8',
+                'confirmed',
+                'regex: /^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*()_+{}[\]:;<>,.?~\\-]).{8,}$/',
+            ],
             'username' => ['required', 'string', 'max:255', 'unique:users'],
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
@@ -40,6 +46,7 @@ class CreateUserRequest extends FormRequest
             'password.required' => 'The password field is required.',
             'password.min' => 'The password must be at least :min characters.',
             'password.confirmed' => 'The password confirmation does not match.',
+            'password.regex' => 'The password must contain at least one uppercase letter, one lowercase letter, one special character, and be at least 8 characters long.',
         ];
     }
 
