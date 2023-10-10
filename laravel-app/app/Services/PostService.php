@@ -46,16 +46,15 @@ class PostService implements PostServiceInterface
     public function sharePost(UserPost $post): UserPost
     {
         $sharedPost = new UserPost();
+        $sharedPost->content = $post->content;
 
         if ($post->isShared()) {
             // to point this post to the original post
             $sharedPost->original_post_id = $post->original_post_id;
-        }
-        else {
+        } else {
             $sharedPost->original_post_id = $post->id;
         }
 
-        $sharedPost->content = $post->content;
         if (auth()->user()) {
             $sharedPost->user_id = auth()->user()->id;
         }
