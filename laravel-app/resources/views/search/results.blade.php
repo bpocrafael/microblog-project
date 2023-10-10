@@ -24,19 +24,21 @@
 									<div class="col text-start">
 										<a class="text-dark" href="{{ route('profile.show', $result->id) }}">
 											<img src="{{ asset('assets/images/microblog-logo-iconx30.png') }}" alt="Image">
-											{{ $result->username }} {{$result->id}}
+											{{ $result->username }}
 										</a>
 									</div>
 									<div class="col-3 align-self-center">
 										@if($authUser->isNot($result))
 											@if($authUser->isFollowing($result))
-												<form method="POST" action="{{ route('unfollow', $result) }}">
+												<form method="POST" action="{{ route('follow.destroy', $result->id) }}">
 													@csrf
+													@method('DELETE')
 													<button class="btn btn-dark" type="submit">Unfollow</button>
 												</form>
 											@else
-												<form method="POST" action="{{ route('follow', $result) }}">
+												<form method="POST" action="{{ route('follow.update', $result->id) }}">
 													@csrf
+													@method('PUT')
 													<button class="btn btn-dark" type="submit">Follow</button>
 												</form>
 											@endif
