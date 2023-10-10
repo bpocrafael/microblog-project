@@ -76,7 +76,7 @@ class PostController extends Controller
     }
 
     /*
-    * Update post
+    * Update user's post.
     */
     public function update(UserPostRequest $request, UserPost $post): RedirectResponse
     {
@@ -97,5 +97,17 @@ class PostController extends Controller
         $post->delete();
 
         return redirect()->route('home')->with('success', 'Post deleted successfully');
+    }
+
+    /**
+     * Create a post using an exisiting post.
+     */
+    public function share(UserPost $post): RedirectResponse
+    {
+        $this->postService->sharePost($post);
+
+        $success = ['success' => 'Post shared successfully'];
+
+        return redirect()->route('post.show', ['post' => $post])->with($success);
     }
 }

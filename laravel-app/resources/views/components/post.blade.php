@@ -5,6 +5,18 @@
                 <img src="{{ asset('assets/images/microblog-logo-iconx30.png') }}" alt="Image">
                 {{ $post->user->username }}
             </a>
+            @if ($post->isShared())
+                @php 
+                    $originalPost = $post->originalPost;
+                @endphp
+                <div class="d-flex align-items-center">
+                    <div class="text ms-3 m-1">Shared from
+                        <a class="text-dark" href="{{ route('post.show', $originalPost->id) }}">
+                            {{ $originalPost->user->username }}'s Post
+                        </a>
+                    </div>
+                </div>
+            @endif
             <div class="container p-3">
                 <a id="post-card" href="{{ route('post.show', $post->id) }}">
                     <div class="card">
@@ -22,7 +34,7 @@
                         </div>
                     </div>
                 </a>
-                @include('components.form_like')
+                @include('post.form_actions')
             </div>
         </div>
     </div>
