@@ -32,4 +32,20 @@ class UserPost extends Model
     {
         return $this->hasMany(PostComment::class, 'post_id', 'id');
     }
+
+    public function shares(): HasMany
+    {
+        return $this->hasMany(Post::class, 'original_post_id');
+    }
+
+    public function originalPost(): BelongsTo
+    {
+        return $this->belongsTo(UserPost::class, 'original_post_id');
+    }
+
+    public function isShared(): bool
+    {
+        return $this->original_post_id !== null;
+    }
+
 }

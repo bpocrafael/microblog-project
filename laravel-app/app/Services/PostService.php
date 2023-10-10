@@ -42,4 +42,25 @@ class PostService implements PostServiceInterface
             return false;
         }
     }
+
+    public function sharePost(UserPost $post): UserPost
+    {
+        $sharedPost = new UserPost();
+
+        if ($post->isShared()) {
+            // to point this post to the original post
+            $sharedPost->original_post_id = $post->original_post_id;
+        }
+        else {
+            $sharedPost->original_post_id = $post->id;
+        }
+
+        $sharedPost->content = $post->content;
+        $sharedPost->user_id = auth()->user()->id;
+        $sharedPost->save();
+
+        $post->save();
+
+        return $sharedPost;
+    }
 }
