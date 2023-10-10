@@ -49,7 +49,6 @@ class PostService implements PostServiceInterface
         $sharedPost->content = $post->content;
 
         if ($post->isShared()) {
-            // to point this post to the original post
             $sharedPost->original_post_id = $post->original_post_id;
         } else {
             $sharedPost->original_post_id = $post->id;
