@@ -56,7 +56,7 @@ class PostService implements PostServiceInterface
         }
 
         $sharedPost->content = $post->content;
-        /** @var User $user */
+        /** @var UserPost $sharedPost */
         $sharedPost->user_id = auth()->user()->id;
         $sharedPost->save();
 
