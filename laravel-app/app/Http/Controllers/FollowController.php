@@ -8,9 +8,6 @@ use Illuminate\Http\RedirectResponse;
 
 class FollowController extends Controller
 {
-    /**
-     * To display all the followers-following of the user
-     */
     public function show(User $user): View
     {
         $followers = $user->followers()->get();
@@ -23,9 +20,6 @@ class FollowController extends Controller
         ]);
     }
 
-    /**
-     * To follow other user account.
-     */
     public function update(User $user): RedirectResponse
     {
         /** @var User $authUser */
@@ -38,9 +32,6 @@ class FollowController extends Controller
         return redirect()->back()->with($success);
     }
 
-    /**
-     * To unfollow a user account.
-     */
     public function destroy(User $user): RedirectResponse
     {
         /** @var User $authUser */
