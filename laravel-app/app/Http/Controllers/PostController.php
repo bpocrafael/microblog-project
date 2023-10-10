@@ -64,9 +64,6 @@ class PostController extends Controller
     */
     public function show(UserPost $post): View
     {
-        if ($post->isShared()) {
-            $originalPost = UserPost::whereId($post->original_post_id);
-        }
         return view('post.show', ['post' => $post]);
     }
 

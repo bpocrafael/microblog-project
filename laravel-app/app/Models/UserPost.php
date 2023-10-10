@@ -35,7 +35,7 @@ class UserPost extends Model
 
     public function shares(): HasMany
     {
-        return $this->hasMany(Post::class, 'original_post_id');
+        return $this->hasMany(UserPost::class, 'original_post_id');
     }
 
     public function originalPost(): BelongsTo
