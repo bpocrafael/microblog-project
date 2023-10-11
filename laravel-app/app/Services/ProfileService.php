@@ -49,7 +49,7 @@ class ProfileService implements ProfileServiceInterface
     {
         if ($request->hasFile('profile_image')) {
             $file = $request->file('profile_image');
-            if ($file instanceof UploadedFile){
+            if ($file instanceof UploadedFile) {
                 $fileName = time() . '_' . $file->getClientOriginalName();
 
                 $file->storeAs('public/profile_images', $fileName);
