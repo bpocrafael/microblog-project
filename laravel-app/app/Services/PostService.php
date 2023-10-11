@@ -10,8 +10,6 @@ class PostService implements PostServiceInterface
 {
     /**
      * To create a new post.
-     * @param User $user
-     * @param array<mixed, mixed> $validatedData
      */
     public function createPost(User $user, array $validatedData): UserPost
     {
@@ -25,10 +23,6 @@ class PostService implements PostServiceInterface
 
     /**
      * To update an existing post.
-     *
-     * @param UserPost $post
-     * @param array<string, mixed> $validatedData
-     * @return bool
      */
     public function updatePost(UserPost $post, array $validatedData): bool
     {
@@ -41,5 +35,29 @@ class PostService implements PostServiceInterface
         } catch (\Exception $e) {
             return false;
         }
+    }
+
+    /**
+     * To reference an existing post as a new post.
+     */
+    public function sharePost(UserPost $post): UserPost
+    {
+        $sharedPost = new UserPost();
+        $sharedPost->content = $post->content;
+        $sharedPost->original_post_id = $post->id;
+
+        if ($post->isShared()) {
+            $sharedPost->original_post_id = $post->original_post_id;
+        }
+
+        if (auth()->user()) {
+            $sharedPost->user_id = auth()->user()->id;
+        }
+
+        $sharedPost->save();
+
+        $post->save();
+
+        return $sharedPost;
     }
 }

@@ -3,6 +3,10 @@
 	method="POST">
 	<div class="row justify-content-end align-items-center p-2">
 		<div class="col-md-2">
+			@csrf
+			<a href="{{ route('share', $post->id) }}" class="btn btn-secondary">Share</a>
+		</div>
+		<div class="col-md-2">
 			<div class="card p-1 text-center likes-count" data-post-id="{{ $post->id }}">
 				{{ $post->likes->count() }} Likes
 			</div>

@@ -39,6 +39,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/search', [SearchController::class, 'search'])->name('search');
     Route::resource('/follow', FollowController::class)->only(['show', 'update', 'destroy'])
         ->parameters(['follow' => 'user']);
+    Route::post('/follow/{user}', [FollowController::class, 'follow'])->name('follow');
+    Route::post('/unfollow/{user}', [FollowController::class, 'unfollow'])->name('unfollow');
+    Route::get('/posts/{post}/share', [PostController::class, 'share'])->name('share');
 });
 
 Route::middleware(['guest'])->group(function () {
