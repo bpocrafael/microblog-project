@@ -3,6 +3,8 @@ includes:
     - ./vendor/nunomaduro/larastan/extension.neon
 parameters:
     reportUnmatchedIgnoredErrors: false
+    ignoreErrors:
+        - '#with no value type specified in iterable type array\.$#'
     level: 8
     paths:
         - app
@@ -15,5 +17,3 @@ parameters:
     checkUnusedViews: true
     excludePaths:
         - bootstrap/cache
-    ignoreErrors:
-        - '#PHPDoc tag @param#'
