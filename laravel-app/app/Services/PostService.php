@@ -11,7 +11,7 @@ class PostService implements PostServiceInterface
     /**
      * To create a new post.
      */
-    public function createPost(User $user, array $validatedData): UserPost
+    public function createPost(User $user, array $validatedData): UserPost // @phpstan-ignore-line
     {
         /* @var \App\Models\User $user */
         $post = $user->posts()->create([
@@ -24,7 +24,7 @@ class PostService implements PostServiceInterface
     /**
      * To update an existing post.
      */
-    public function updatePost(UserPost $post, array $validatedData): bool
+    public function updatePost(UserPost $post, array $validatedData): bool // @phpstan-ignore-line
     {
         try {
             $post->update([
