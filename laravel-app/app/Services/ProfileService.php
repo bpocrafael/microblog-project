@@ -15,7 +15,7 @@ class ProfileService implements ProfileServiceInterface
      */
     public function updateProfile(User $user, array $data): Void
     {
-        $userInfo = $user->user_information;
+        $userInfo = $user->information;
 
         if (!$userInfo) {
             $userInfo = new UserInformation();
