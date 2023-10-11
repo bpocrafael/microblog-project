@@ -2,9 +2,11 @@
 
 namespace App\Services;
 
+use App\Http\Requests\UpdateProfileImageRequest;
 use App\Interfaces\ProfileServiceInterface;
 use App\Models\User;
 use App\Models\UserInformation;
+use App\Models\UserMedia;
 
 class ProfileService implements ProfileServiceInterface
 {
@@ -35,5 +37,28 @@ class ProfileService implements ProfileServiceInterface
             'username' => $data['username'],
             'email' => $data['email'],
         ]);
+    }
+
+    /**
+     * Update the profile image.
+     * @param User $user
+     * @param UpdateProfileImageRequest $request
+     * @return void
+     */
+    public function updateProfileImage(User $user, UpdateProfileImageRequest $request): Void
+    {
+        if ($request->hasFile('profile_image')) {
+            $file = $request->file('profile_image');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+
+            $file->storeAs('public/profile_images', $fileName);
+
+            $userMedia = new UserMedia([
+                'user_id' => $user->id,
+                'file_path' => 'profile_images/' . $fileName,
+                'file_name' => $fileName,
+            ]);
+            $userMedia->save();
+        }
     }
 }

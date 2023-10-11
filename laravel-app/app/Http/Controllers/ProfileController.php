@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateProfileImageRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Models\User;
 use App\Services\ProfileService;
@@ -75,5 +76,13 @@ class ProfileController extends Controller
             'user' => $user,
             'likesCount' => $likesCount,
         ]);
+    }
+
+    public function store(UpdateProfileImageRequest $request): RedirectResponse
+    {
+        $this->userService->updateProfileImage(auth()->user(), $request);
+        
+        $success = ['success' => 'Profile image uploaded successfully'];
+        return redirect()->back()->with($success);
     }
 }
