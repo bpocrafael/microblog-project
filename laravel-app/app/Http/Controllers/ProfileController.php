@@ -86,8 +86,6 @@ class ProfileController extends Controller
 
     /**
      * Store the user's profile image.
-     * 
-     * @throws \Exception If an error occurs during profile image update.
      */
     public function store(UpdateProfileImageRequest $request): RedirectResponse
     {
@@ -101,8 +99,6 @@ class ProfileController extends Controller
 
     /**
      * Get the image path of the uploaded profile.
-     * 
-     * @throws \Exception If an error occurs during acuring file path.
      */
     private function getImagePath(User $user): string
     {
