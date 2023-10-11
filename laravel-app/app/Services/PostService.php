@@ -24,7 +24,7 @@ class PostService implements PostServiceInterface
     /**
      * To update an existing post.
      */
-    public function updatePost(UserPost $post, array $validatedData): bool // @phpstan-ignore-line
+    public function updatePost(UserPost $post, array $validatedData): bool
     {
         try {
             $post->update([
