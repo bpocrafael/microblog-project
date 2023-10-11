@@ -7,7 +7,7 @@ use App\Interfaces\ProfileServiceInterface;
 use App\Models\User;
 use App\Models\UserInformation;
 use App\Models\UserMedia;
-use Illuminate\Http\UploadedFile; 
+use Illuminate\Http\UploadedFile;
 
 class ProfileService implements ProfileServiceInterface
 {
