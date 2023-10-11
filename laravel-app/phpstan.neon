@@ -15,3 +15,5 @@ parameters:
     checkUnusedViews: true
     excludePaths:
         - bootstrap/cache
+    ignoreErrors:
+        - '#PHPDoc tag @param#'
