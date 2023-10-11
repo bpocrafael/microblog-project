@@ -7,6 +7,7 @@ use App\Interfaces\ProfileServiceInterface;
 use App\Models\User;
 use App\Models\UserInformation;
 use App\Models\UserMedia;
+use Illuminate\Http\UploadedFile; 
 
 class ProfileService implements ProfileServiceInterface
 {
@@ -44,11 +45,11 @@ class ProfileService implements ProfileServiceInterface
      * @param User $user
      * @param UpdateProfileImageRequest $request
      */
-    public function updateProfileImage(User $user, UpdateProfileImageRequest $request): Void
+    public function updateProfileImage(User $user, UpdateProfileImageRequest $request): void
     {
         if ($request->hasFile('profile_image')) {
             $file = $request->file('profile_image');
-            if ($file) {
+            if ($file instanceof UploadedFile){
                 $fileName = time() . '_' . $file->getClientOriginalName();
     
                 $file->storeAs('public/profile_images', $fileName);
