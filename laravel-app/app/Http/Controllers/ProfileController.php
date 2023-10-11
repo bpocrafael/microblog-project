@@ -83,7 +83,7 @@ class ProfileController extends Controller
         /** @var User $user */
         $user = auth()->user();
         $this->userService->updateProfileImage($user, $request);
-        
+
         $success = ['success' => 'Profile image uploaded successfully'];
         return redirect()->back()->with($success);
     }

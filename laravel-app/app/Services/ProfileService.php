@@ -51,9 +51,9 @@ class ProfileService implements ProfileServiceInterface
             $file = $request->file('profile_image');
             if ($file instanceof UploadedFile){
                 $fileName = time() . '_' . $file->getClientOriginalName();
-    
+
                 $file->storeAs('public/profile_images', $fileName);
-    
+
                 $userMedia = new UserMedia([
                     'user_id' => $user->id,
                     'file_path' => 'profile_images/' . $fileName,
