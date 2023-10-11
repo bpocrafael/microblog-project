@@ -1,10 +1,5 @@
 @extends('layouts.app')
 
-@php
-    $authUser = auth()->user();
-    $imagePath = $authUser && $authUser->media->isNotEmpty() ? 'storage/' . $authUser->media->last()->file_path : 'assets/images/user-solid.svg';
-@endphp
-
 @section('content')
     @include('partials._header')
     <div class="container text-center">

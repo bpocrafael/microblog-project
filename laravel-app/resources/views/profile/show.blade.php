@@ -4,12 +4,6 @@
 
 @include('partials._header')
 
-@php
-    $authUser = auth()->user();
-    $imagePath = $authUser && $authUser->media->isNotEmpty() ? 'storage/' . $authUser->media->last()->file_path : 'assets/images/user-solid.svg';
-@endphp
-
-
 <div id="page-content">
 	<div class="p-3">
 		<div class="row justify-content-center">
