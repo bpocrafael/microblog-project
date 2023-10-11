@@ -50,9 +50,11 @@ class ProfileController extends Controller
     {
         $user = User::with('posts.likes')->find($userId);
 
-        $posts = $user->posts()
-            ->orderBy('created_at', 'desc')
-            ->paginate(4);
+        if ($user !== null){
+            $posts = $user->posts()
+                ->orderBy('created_at', 'desc')
+                ->paginate(4);
+        }
 
         if (!$user) {
             $error = ['error' => 'No user with that id found.'];
