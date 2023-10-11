@@ -18,6 +18,9 @@ class PostController extends Controller
         $this->postService = $postService;
     }
 
+    /**
+     * Show all instance of auth user's posts.
+     */
     public function index(): View
     {
         /** @var User $user */
@@ -27,12 +30,18 @@ class PostController extends Controller
         return view('home', compact('user', 'posts'));
     }
 
+    /**
+     * Create a new post to user.
+     */
     public function create(): View
     {
         $user = auth()->user();
         return view('post.create', compact('user'));
     }
 
+    /**
+     * Save the post details to the database using PostService.
+     */
     public function store(UserPostRequest $request): RedirectResponse
     {
         /** @var User $user */
@@ -50,16 +59,25 @@ class PostController extends Controller
         return back()->with('error', 'Failed to create post');
     }
 
+    /**
+     * Show a specific post to view.
+     */
     public function show(UserPost $post): View
     {
         return view('post.show', ['post' => $post]);
     }
 
+    /**
+     * Show the edit form of the post.
+     */
     public function edit(UserPost $post): View
     {
         return view('post.edit', ['post' => $post]);
     }
 
+    /**
+     * Mofify the existing values of a post using PostService.
+     */
     public function update(UserPostRequest $request, UserPost $post): RedirectResponse
     {
         $validatedData = $request->validated();
@@ -74,6 +92,9 @@ class PostController extends Controller
         return redirect()->back()->with('error', 'Failed to update post');
     }
 
+    /**
+     * Soft delete of the post entry to the database.
+     */
     public function destroy(UserPost $post): RedirectResponse
     {
         $post->delete();
@@ -81,6 +102,9 @@ class PostController extends Controller
         return redirect()->route('home')->with('success', 'Post deleted successfully');
     }
 
+    /**
+     * Reference an existing post to a new post.
+     */
     public function share(UserPost $post): RedirectResponse
     {
         $this->postService->sharePost($post);

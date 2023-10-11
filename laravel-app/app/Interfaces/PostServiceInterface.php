@@ -8,19 +8,17 @@ use App\Models\UserPost;
 interface PostServiceInterface
 {
     /**
-     * @param User $user
-     * @param array<mixed, mixed> $validatedData
+     * To create a new post.
      */
     public function createPost(User $user, array $validatedData): UserPost;
 
     /**
      * To update an existing post.
-     *
-     * @param UserPost $post
-     * @param array<string, mixed> $validatedData
-     * @return bool
      */
     public function updatePost(UserPost $post, array $validatedData): bool;
 
+    /**
+     * Reference an existing post in a new post.
+     */
     public function sharePost(UserPost $post): UserPost;
 }
