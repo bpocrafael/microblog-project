@@ -40,6 +40,9 @@ class ProfileService implements ProfileServiceInterface
         ]);
     }
 
+    /**
+     * Update the profile image.
+     */
     public function updateProfileImage(User $user, UpdateProfileImageRequest $request): void
     {
         if ($request->hasFile('profile_image')) {
