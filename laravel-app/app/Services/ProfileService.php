@@ -48,16 +48,18 @@ class ProfileService implements ProfileServiceInterface
     {
         if ($request->hasFile('profile_image')) {
             $file = $request->file('profile_image');
-            $fileName = time() . '_' . $file->getClientOriginalName();
-
-            $file->storeAs('public/profile_images', $fileName);
-
-            $userMedia = new UserMedia([
-                'user_id' => $user->id,
-                'file_path' => 'profile_images/' . $fileName,
-                'file_name' => $fileName,
-            ]);
-            $userMedia->save();
+            if ($file) {
+                $fileName = time() . '_' . $file->getClientOriginalName();
+    
+                $file->storeAs('public/profile_images', $fileName);
+    
+                $userMedia = new UserMedia([
+                    'user_id' => $user->id,
+                    'file_path' => 'profile_images/' . $fileName,
+                    'file_name' => $fileName,
+                ]);
+                $userMedia->save();
+            }
         }
     }
 }
