@@ -80,7 +80,9 @@ class ProfileController extends Controller
 
     public function store(UpdateProfileImageRequest $request): RedirectResponse
     {
-        $this->userService->updateProfileImage(auth()->user(), $request);
+        /** @var User $user */
+        $user = auth()->user();
+        $this->userService->updateProfileImage($user, $request);
         
         $success = ['success' => 'Profile image uploaded successfully'];
         return redirect()->back()->with($success);
