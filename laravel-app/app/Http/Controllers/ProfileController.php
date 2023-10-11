@@ -13,17 +13,11 @@ class ProfileController extends Controller
 {
     protected ProfileService $userService;
 
-    /**
-     * Create a new controller instance.
-     */
     public function __construct(ProfileService $userService)
     {
         $this->userService = $userService;
     }
 
-    /**
-     * Show the profile edit page.
-     */
     public function edit(): View
     {
         /** @var User $user */
@@ -31,9 +25,6 @@ class ProfileController extends Controller
         return view('profile.edit', compact('user'));
     }
 
-    /**
-     * Update the profile.
-     */
     public function update(UpdateProfileRequest $request): RedirectResponse
     {
         /** @var User $user */
@@ -55,12 +46,13 @@ class ProfileController extends Controller
         }
     }
 
-    /**
-     * Show specific user profile.
-     */
     public function show(int $userId): RedirectResponse|View
     {
         $user = User::with('posts.likes')->find($userId);
+
+        $posts = $user->posts()
+            ->orderBy('created_at', 'desc')
+            ->paginate(4);
 
         if (!$user) {
             $error = ['error' => 'No user with that id found.'];
@@ -74,6 +66,7 @@ class ProfileController extends Controller
         return view('profile.show', [
             'user' => $user,
             'likesCount' => $likesCount,
+            'posts' => $posts,
         ]);
     }
 }

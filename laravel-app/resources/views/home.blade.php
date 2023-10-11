@@ -47,6 +47,7 @@
             <x-post-component :post="$post" :user=$user />
         @endforeach
 
+        {{ $posts->links('partials._pagination') }}
     </div>
 </div>
 @include('partials._footer')

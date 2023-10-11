@@ -18,30 +18,12 @@ class PostController extends Controller
         $this->postService = $postService;
     }
 
-    /*
-    * View all instances of posts in home page.
-    */
-    public function index(): View
-    {
-        /** @var User $user */
-        $user = auth()->user();
-        $posts = $user->posts()->orderBy('created_at', 'desc')->get();
-
-        return view('home', compact('user', 'posts'));
-    }
-
-    /**
-     * Show create post page.
-     */
     public function create(): View
     {
         $user = auth()->user();
         return view('post.create', compact('user'));
     }
 
-    /**
-     * Save post content as new post.
-     */
     public function store(UserPostRequest $request): RedirectResponse
     {
         /** @var User $user */
@@ -59,25 +41,16 @@ class PostController extends Controller
         return back()->with('error', 'Failed to create post');
     }
 
-    /*
-    * Display specific post.
-    */
     public function show(UserPost $post): View
     {
         return view('post.show', ['post' => $post]);
     }
 
-    /*
-    * Display edit post.
-    */
     public function edit(UserPost $post): View
     {
         return view('post.edit', ['post' => $post]);
     }
 
-    /*
-    * Update post
-    */
     public function update(UserPostRequest $request, UserPost $post): RedirectResponse
     {
         $validatedData = $request->validated();
