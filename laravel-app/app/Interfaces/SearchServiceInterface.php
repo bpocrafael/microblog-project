@@ -2,9 +2,12 @@
 
 namespace App\Interfaces;
 
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 
 interface SearchServiceInterface
 {
-    public function searchUser(string $query): Collection;
+    /**
+     * Search user table for the keywords.
+     */
+    public function searchUser(string $query): Builder;
 }
