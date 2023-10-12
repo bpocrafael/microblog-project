@@ -73,13 +73,8 @@ class ProfileController extends Controller
             return redirect()->back()->withErrors($error);
         }
 
-        $likesCount = $user->posts->sum(function ($post) {
-            return $post->likes->count();
-        });
-
         return view('profile.show', [
             'user' => $user,
-            'likesCount' => $likesCount,
             'posts' => $posts,
         ]);
     }
