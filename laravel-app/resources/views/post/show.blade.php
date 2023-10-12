@@ -31,6 +31,9 @@
                         <div class="card">
                             <div class="card-body">
                                 <p>{{ $post->content }}</p>
+                                @if ($post->media)
+                                    <img src="{{ asset('storage/' . $post->media->file_path) }}" style="max-width: 100%; height: auto;" alt="Post Image">
+                                @endif
                             </div>
                             <div class="card-footer fst-italic">
                                 @if ($post->deleted_at)
@@ -46,25 +49,25 @@
                     </div>
                     <div class="row">
                         <div class="row text-center">
-                        @can('edit', $post)
-                            <a href="{{ route('post.edit', $post) }}" class="btn btn-dark">Edit Post</a>
-                        @endcan
+                            @can('edit', $post)
+                                <a href="{{ route('post.edit', $post) }}" class="btn btn-dark">Edit Post</a>
+                            @endcan
 
-                        @can('delete', $post)
-                            <form id="delete-post-form" method="POST" action="{{ route('post.destroy', $post) }}">
-                                @csrf
-                                @method('DELETE')
-                                <button type="button" class="btn btn-danger" onclick="confirmDelete()">Delete Post</button>
-                            </form>
+                            @can('delete', $post)
+                                <form id="delete-post-form" method="POST" action="{{ route('post.destroy', $post) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="button" class="btn btn-danger" onclick="confirmDelete()">Delete Post</button>
+                                </form>
 
-                            <script>
-                                function confirmDelete() {
-                                    if (confirm('Are you sure you want to delete this post?')) {
-                                        document.getElementById('delete-post-form').submit();
+                                <script>
+                                    function confirmDelete() {
+                                        if (confirm('Are you sure you want to delete this post?')) {
+                                            document.getElementById('delete-post-form').submit();
+                                        }
                                     }
-                                }
-                            </script>
-                        @endcan
+                                </script>
+                            @endcan
                         </div>
                     </div>
                     @include('post.form_comment')

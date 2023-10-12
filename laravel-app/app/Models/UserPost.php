@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class UserPost extends Model
@@ -15,6 +16,7 @@ class UserPost extends Model
 
     protected $fillable = [
         'content',
+        'image',
     ];
     public $timestamps = true;
 
@@ -31,6 +33,11 @@ class UserPost extends Model
     public function comments(): HasMany
     {
         return $this->hasMany(PostComment::class, 'post_id', 'id');
+    }
+
+    public function media(): HasOne
+    {
+        return $this->hasOne(PostMedia::class, 'post_id', 'id');
     }
 
     public function shares(): HasMany
