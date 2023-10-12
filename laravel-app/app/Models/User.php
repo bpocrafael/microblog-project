@@ -70,6 +70,14 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->posts->pluck('likes')->flatten()->count();
     }
 
+    /**
+     * Get the image path of the latest uploaded profile.
+     */
+    public function getImagePathAttribute(): string
+    {
+        return $this->media->last()->file_path;
+    }
+
     public function isFollowing(User $user): bool
     {
         return $this->following->contains($user);
