@@ -4,15 +4,11 @@
 
 @include('partials._header')
 
-@php
-	$authUser = auth()->user();
-@endphp
-
 <div id="page-content">
 	<div class="p-3">
 		<div class="row justify-content-center">
 			<div class="col-md-4 text-center">
-				<img class="img-fluid w-50" src="{{ asset('assets/images/microblog-logo.png') }}" alt="Microblog Logo">
+				<img class="img-fluid w-50" src="{{asset($imagePath) }}" alt="Microblog Logo">
 			</div>
 			<div class="col-6 pt-1">
 				<div class="row justify-content-between">

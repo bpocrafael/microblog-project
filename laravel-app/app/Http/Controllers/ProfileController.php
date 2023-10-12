@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateProfileImageRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Models\User;
 use App\Services\ProfileService;
@@ -28,7 +29,8 @@ class ProfileController extends Controller
     {
         /** @var User $user */
         $user = auth()->user();
-        return view('profile.edit', compact('user'));
+        $imagePath = $this->getImagePath($user);
+        return view('profile.edit', compact('user', 'imagePath'));
     }
 
     /**
@@ -71,9 +73,35 @@ class ProfileController extends Controller
             return $post->likes->count();
         });
 
+        /** @var User $user */
+        $imagePath = $this->getImagePath($user);
+        $authUser = auth()->user();
         return view('profile.show', [
+            'authUser' => $authUser,
             'user' => $user,
             'likesCount' => $likesCount,
+            'imagePath' => $imagePath,
         ]);
+    }
+
+    /**
+     * Store the user's profile image.
+     */
+    public function store(UpdateProfileImageRequest $request): RedirectResponse
+    {
+        /** @var User $user */
+        $user = auth()->user();
+        $this->userService->updateProfileImage($user, $request);
+
+        $success = ['success' => 'Profile image uploaded successfully'];
+        return redirect()->back()->with($success);
+    }
+
+    /**
+     * Get the image path of the uploaded profile.
+     */
+    private function getImagePath(User $user): string
+    {
+        return 'storage/' . ($user->media->last()->file_path ?? 'assets/images/user-solid.svg');
     }
 }
