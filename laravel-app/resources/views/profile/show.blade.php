@@ -81,7 +81,7 @@
 							</div>
 							<div class="col">
 								<label>Likes</label>
-								<p class="fw-bold mt-1">{{ $likesCount }}</p>
+								<p class="fw-bold mt-1">{{ $user->likes }}</p>
 							</div>
 						</div>
 					</div>

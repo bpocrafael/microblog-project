@@ -75,17 +75,12 @@ class ProfileController extends Controller
             return redirect()->back()->withErrors($error);
         }
 
-        $likesCount = $user->posts->sum(function ($post) {
-            return $post->likes->count();
-        });
-
         /** @var User $user */
         $imagePath = $this->getImagePath($user);
         $authUser = auth()->user();
         return view('profile.show', [
             'authUser' => $authUser,
             'user' => $user,
-            'likesCount' => $likesCount,
             'imagePath' => $imagePath,
             'posts' => $posts,
         ]);

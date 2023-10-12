@@ -65,6 +65,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return '';
     }
 
+    public function getLikesAttribute(): int
+    {
+        return $this->posts->pluck('likes')->flatten()->count();
+    }
+
     public function isFollowing(User $user): bool
     {
         return $this->following->contains($user);
