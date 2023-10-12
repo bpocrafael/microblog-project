@@ -18,9 +18,9 @@ class PostController extends Controller
         $this->postService = $postService;
     }
 
-    /*
-    * View all instances of posts in home page.
-    */
+    /**
+     * Show all instance of auth user's posts.
+     */
     public function index(): View
     {
         /** @var User $user */
@@ -31,7 +31,7 @@ class PostController extends Controller
     }
 
     /**
-     * Show create post page.
+     * Create a new post to user.
      */
     public function create(): View
     {
@@ -40,7 +40,7 @@ class PostController extends Controller
     }
 
     /**
-     * Save post content as new post.
+     * Save the post details to the database using PostService.
      */
     public function store(UserPostRequest $request): RedirectResponse
     {
@@ -59,25 +59,25 @@ class PostController extends Controller
         return back()->with('error', 'Failed to create post');
     }
 
-    /*
-    * Display specific post.
-    */
+    /**
+     * Show a specific post to view.
+     */
     public function show(UserPost $post): View
     {
         return view('post.show', ['post' => $post]);
     }
 
-    /*
-    * Display edit post.
-    */
+    /**
+     * Show the edit form of the post.
+     */
     public function edit(UserPost $post): View
     {
         return view('post.edit', ['post' => $post]);
     }
 
-    /*
-    * Update post
-    */
+    /**
+     * Mofify the existing values of a post using PostService.
+     */
     public function update(UserPostRequest $request, UserPost $post): RedirectResponse
     {
         $validatedData = $request->validated();
@@ -92,10 +92,25 @@ class PostController extends Controller
         return redirect()->back()->with('error', 'Failed to update post');
     }
 
+    /**
+     * Soft delete of the post entry to the database.
+     */
     public function destroy(UserPost $post): RedirectResponse
     {
         $post->delete();
 
         return redirect()->route('home')->with('success', 'Post deleted successfully');
+    }
+
+    /**
+     * Reference an existing post to a new post.
+     */
+    public function share(UserPost $post): RedirectResponse
+    {
+        $this->postService->sharePost($post);
+
+        $success = ['success' => 'Post shared successfully'];
+
+        return redirect()->route('post.show', ['post' => $post])->with($success);
     }
 }
