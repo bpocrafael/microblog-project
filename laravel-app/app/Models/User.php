@@ -75,7 +75,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function getImagePathAttribute(): string
     {
-        return $this->media->last()->file_path;
+        return $this->media->last()->file_path ?? 'assets/images/user-solid.svg';
     }
 
     public function isFollowing(User $user): bool
