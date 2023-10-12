@@ -13,8 +13,7 @@ class ProfileService implements ProfileServiceInterface
 {
     /**
      * Update the profile.
-     * @param User $user
-     * @param array<mixed, mixed> $data
+     * @param  array<string> $data
      */
     public function updateProfile(User $user, array $data): Void
     {

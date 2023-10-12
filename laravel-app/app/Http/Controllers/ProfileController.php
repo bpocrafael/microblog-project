@@ -64,6 +64,12 @@ class ProfileController extends Controller
     {
         $user = User::with('posts.likes')->find($userId);
 
+        if ($user !== null) {
+            $posts = $user->posts()
+                ->orderBy('created_at', 'desc')
+                ->paginate(4);
+        }
+
         if (!$user) {
             $error = ['error' => 'No user with that id found.'];
             return redirect()->back()->withErrors($error);
@@ -81,6 +87,7 @@ class ProfileController extends Controller
             'user' => $user,
             'likesCount' => $likesCount,
             'imagePath' => $imagePath,
+            'posts' => $posts,
         ]);
     }
 
