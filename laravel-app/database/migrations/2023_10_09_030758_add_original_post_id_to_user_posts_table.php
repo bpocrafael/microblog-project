@@ -16,4 +16,15 @@ return new class extends Migration
             $table->foreign('original_post_id')->references('id')->on('user_posts')->onDelete('cascade');
         });
     }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::table('user_posts', function (Blueprint $table) {
+            $table->dropColumn('original_post_id');
+            $table->dropForeign('original_post_id');
+        });
+    }
 };
