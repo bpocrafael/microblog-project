@@ -27,4 +27,9 @@ class PostMedia extends Model
     {
         return $this->belongsTo(UserPost::class);
     }
+
+    public function getFilePathAttribute(): string
+    {
+        return 'storage/' . $this->attributes['file_path'];
+    }
 }

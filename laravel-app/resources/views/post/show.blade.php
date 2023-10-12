@@ -32,7 +32,7 @@
                             <div class="card-body">
                                 <p>{{ $post->content }}</p>
                                 @if ($post->media)
-                                    <img src="{{ asset('storage/' . $post->media->file_path) }}" style="max-width: 100%; height: auto;" alt="Post Image">
+                                    <img src="{{ asset($post->media->getFilePathAttribute()) }}" style="max-width: 100%; height: auto;" alt="Post Image">
                                 @endif
                             </div>
                             <div class="card-footer fst-italic">

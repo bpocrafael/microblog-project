@@ -50,30 +50,31 @@ class PostController extends Controller
         $validatedData = $request->validated();
         $post = $this->postService->createPost($user, $validatedData);
 
-        if ($post != null) {
-            $success = ['success' => 'Post created successfully'];
+        if ($post == null) {
+            return back()->with('error', 'Failed to create post');
+        }
 
-            if ($request->hasFile('image')) {
-                $image = $request->file('image');
+        $success = ['success' => 'Post created successfully'];
 
-                if ($image instanceof UploadedFile && $image != null) {
-                    $imagePath = $image->store('images', 'public');
-                    $post->media()->create([
-                        'user_id' => $user->id,
-                        'post_id' => $post->id,
-                        'file_path' => $imagePath,
-                    ]);
-
-                    return redirect()->route('post.show', ['post' => $post])->with($success);
-                } else {
-                    return back()->with('error', 'Failed to create post');
-                }
-            }
-
+        if (!$request->hasFile('image')) {
             return redirect()->route('post.show', ['post' => $post])->with($success);
         }
 
-        return back()->with('error', 'Failed to create post');
+        $image = $request->file('image');
+
+        if (!$image instanceof UploadedFile || $image == null) {
+            return back()->with('error', 'Failed to create post');
+        }
+
+        $imagePath = $image->store('images', 'public');
+
+        $post->media()->create([
+            'user_id' => $user->id,
+            'post_id' => $post->id,
+            'file_path' => $imagePath,
+        ]);
+
+        return redirect()->route('post.show', ['post' => $post])->with($success);
     }
 
     /**
@@ -81,8 +82,7 @@ class PostController extends Controller
      */
     public function show(UserPost $post): View
     {
-        $media = $post->media;
-        return view('post.show', ['post' => $post, 'media' => $media]);
+        return view('post.show', ['post' => $post]);
     }
 
     /**
