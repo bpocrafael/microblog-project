@@ -5,7 +5,7 @@
     <div class="container text-center">
         <div class="row justify-content-center">
             <div class="col-md-4 text-center">
-                <img id="profileImage" class="img-fluid w-50" src="{{ asset($imagePath) }}" alt="Microblog Logo">
+                <img id="profileImage" class="img-fluid w-50" src="{{ asset('storage/'. $user->image_path) }}" alt="Microblog Logo">
                 <form method="POST" action="{{ route('profile.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
