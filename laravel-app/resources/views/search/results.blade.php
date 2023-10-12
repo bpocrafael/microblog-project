@@ -13,12 +13,12 @@
 		<div class="row justify-content-center text-center">
 			<div class="col-md-6">
 				<div class="mb-4">
-					<h4>Microblog User Results for "{{ $query }}"</h4>
+					<h4>Microblog User results for "{{ $query }}"</h4>
 				</div>
 
 				@if ($results->count() > 0)
 					@foreach ($results as $result)
-						<div class="card">
+						<div class="card m-2">
 							<div class="card-body">
 								<div class="row">
 									<div class="col text-start">
@@ -48,6 +48,7 @@
 							</div>
 						</div>
 					@endforeach
+					{{ $results->links('pagination::bootstrap-5') }}
 				@else
 					<div class="row">
 						<div class="col">

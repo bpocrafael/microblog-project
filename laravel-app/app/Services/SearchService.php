@@ -4,16 +4,15 @@ namespace App\Services;
 
 use App\Interfaces\SearchServiceInterface;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class SearchService implements SearchServiceInterface
 {
     /**
      * To search the User table using the Eloquent of matching results.
-     * @return Collection<User>
      */
-    public function searchUser(String $query): Collection
+    public function searchUser(String $query): Builder
     {
-        return User::where('username', 'like', '%' . $query . '%')->get();
+        return User::where('username', 'like', '%' . $query . '%');
     }
 }

@@ -10,8 +10,7 @@ class PostService implements PostServiceInterface
 {
     /**
      * To create a new post.
-     * @param User $user
-     * @param array<mixed, mixed> $validatedData
+     * @param  array<string> $validatedData
      */
     public function createPost(User $user, array $validatedData): UserPost
     {
@@ -26,9 +25,7 @@ class PostService implements PostServiceInterface
     /**
      * To update an existing post.
      *
-     * @param UserPost $post
-     * @param array<string, mixed> $validatedData
-     * @return bool
+     * @param  array<string> $validatedData
      */
     public function updatePost(UserPost $post, array $validatedData): bool
     {

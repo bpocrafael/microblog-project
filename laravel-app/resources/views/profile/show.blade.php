@@ -100,9 +100,12 @@
 			</div>
 		</div>
 	</div>
-	@foreach ($user->posts as $post)
+	@foreach ($posts as $post)
 		<x-post-component :post="$post" :user="$user"/>
 	@endforeach
+	<div class="container m-3">
+		{{ $posts->links('pagination::bootstrap-5') }}
+	</div>
 </div>
 
 @include('partials._footer')
