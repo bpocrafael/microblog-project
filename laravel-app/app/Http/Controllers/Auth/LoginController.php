@@ -15,10 +15,6 @@ class LoginController extends Controller
 
     /**
      * Create a new controller instance.
-     *
-     * @return void
-     * @param UserVerificationService $userVerificationService
-     * @param LoginService $loginService
      */
     public function __construct(
         UserVerificationService $userVerificationService,
@@ -30,11 +26,18 @@ class LoginController extends Controller
 
 
     /**
-     * Show login form page.
+     * Show the splash page.
      */
     public function index(): View
     {
-        /** @var View */
+        return view('splash');
+    }
+
+    /**
+     * Show login form page.
+     */
+    public function login(): View
+    {
         return view('auth.login');
     }
 
@@ -55,15 +58,10 @@ class LoginController extends Controller
         $user = $auth->user();
 
         if ($user === null || !$this->userVerificationService->isUserVerified($user)) {
-            /** @var \Illuminate\Routing\Redirector $redirector */
-            $redirector = redirect();
 
-            return $redirector->route('login');
+            return redirect()->route('login');
         }
 
-        /** @var \Illuminate\Routing\Redirector $redirector */
-        $redirector = redirect();
-
-        return $redirector->route('home');
+        return redirect()->route('home');
     }
 }

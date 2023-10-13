@@ -1,24 +1,42 @@
-<div>
-    @if (count($post->comments) > 0)
-        <div class="comments">
-            <h6 class="mt-0 m-3">Comments</h6>
-            @foreach ($post->comments as $comments)
-                <div class="row justify-content-center">
-                    <div class="col-11">
-                        <div class="comment-user mb-2">
-                            <a href="{{ route('profile.show', $post->user->id) }}" class="text-dark">
-                                <img src="{{ asset('assets\images\microblog-logo-iconx30.png') }}"
-                                    alt="Temporary Profile Image" class="user-profile-image">
-                                <span class="username">{{ $comments->user->username }}</span>
-                            </a>
-                        </div>
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <div class="comment-content">
-                                    <p>{{ $comments->content }}</p>
+@if (count($post->comments) > 0)
+    <div class="comments">
+        <h6 class="mb-3">Comments</h6>
+        @foreach ($post->comments as $comments)
+            <div class="row g-0 justify-content-center my-3">
+                <div class="col-auto">
+                    <a class="text-dark" href="{{ route('profile.show', $post->user->id) }}">
+                        <div class="profile-button" id="profileButtonContainer1">
+                            <div class="bg">
+                                <div class="letter">
+                                    {{ substr($comments->user->full_name, 0, 1) }}
                                 </div>
                             </div>
-                            <div class="card-footer fst-italic">{{ $comments->created_at->format('F j, Y h:m A') }}
+                        </div>
+                    </a>
+                </div>
+                <div class="col">
+                    <div class="row justify-content-between">
+                        <div class="col-auto">
+                            <a class="text-dark" href="{{ route('profile.show', $comments->user->id) }}">
+                                <div class="name">
+                                    {{ $comments->user->full_name }}
+                                </div>
+                            </a>
+                        </div>
+                        <i class="date">
+                            @if ($post->deleted_at)
+                                Deleted at: {{ $post->deleted_at->format('F j, Y') }}
+                            @elseif ($post->updated_at != $post->created_at)
+                                Updated at: {{ $post->updated_at->format('F j, Y') }}
+                            @else
+                                {{ $comments->created_at->format('F j, Y') }}
+                            @endif
+                        </i>
+                        <div class="my-2">
+                            <div class="card post-card">
+                                <div class="card-body m-2">
+                                    <p>{{ $comments->content }}</p>
+                                </div>
                             </div>
                         </div>
                         @can('delete', $comments)
@@ -32,10 +50,9 @@
                         @endcan
                     </div>
                 </div>
-        </div>
-    @endforeach
-</div>
+            </div>
+        @endforeach
+    </div>
 @else
-<p>No comments yet. Be the first to comment!</p>
+    <i class="text-share">No comments yet. Be the first to comment!</i>
 @endif
-</div>

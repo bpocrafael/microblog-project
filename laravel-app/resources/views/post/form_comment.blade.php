@@ -1,8 +1,7 @@
 <!-- Comment Form -->
-<div class="container mb-5">
-	<x-comment :comments="$post->comment" :post="$post" />
+<div class="container">
 	<div class="row justify-content-center">
-		<div class="col-11">
+		<div class="col">
 			<form action="{{ route('comments.store', $post) }}" method="POST">
 				@csrf
 
@@ -17,9 +16,13 @@
 				@enderror
 
 				<div class="text-end m-2">
-					<button type="submit" class="btn btn-dark">Add Comment</button>
+					<button type="submit" class="button button-light">
+						<i class="fa-regular fa-comment"></i>
+						Comment
+					</button>
 				</div>
 			</form>
 		</div>
 	</div>
+	<x-comment :comments="$post->comment" :post="$post" />
 </div>

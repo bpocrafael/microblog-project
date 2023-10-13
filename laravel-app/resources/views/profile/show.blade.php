@@ -16,24 +16,6 @@
 						<label>Name</label>
 						<p class="fw-bold">{{ $user->full_name }}</p>
 					</div>
-					<div class="col-2 align-self-center">
-						@if($authUser->isNot($user))
-							@if($authUser->isFollowing($user))
-								<form method="POST" action="{{ route('follow.destroy', $user->id) }}">
-									@csrf
-									@method('DELETE')
-									<button class="btn btn-dark" type="submit">Unfollow</button>
-								</form>
-							@else
-								<form method="POST" action="{{ route('follow.update', $user->id) }}">
-									@csrf
-									@method('PUT')
-									<button class="btn btn-dark" type="submit">Follow</button>
-								</form>
-							@endif
-
-						@endif
-					</div>
 					<div class="col-3 align-self-center">
 						<form method="GET" action="{{ route('follow.show', $user->id) }}">
 							<button class="btn btn-dark" type="submit">Follower List</button>

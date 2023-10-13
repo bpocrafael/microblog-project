@@ -19,6 +19,17 @@
 <!-- Link to Compiled CSS -->
 <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}" />
 
+<!-- Links to Fonts -->
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@700&display=swap"
+/>
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Open Sans:wght@400;600&display=swap"
+/>
+
+<!-- Link to fontawesome icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+
 <!-- Include Compiled JavaScript -->
 <script type="module" src="{{ asset('assets/js/app.js') }}"></script>
 

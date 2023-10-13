@@ -1,8 +1,11 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light p-3 shadow-sm">
-    <div class="container">
+<nav class="navbar navbar-expand-lg p-3 background-light shadow-sm navbar-custom">
+    <div class="container light-bg">
         <a class="navbar-brand d-flex align-items-center" href="{{ route('home') }}">
-            <img class="mr-0" src="{{ asset('assets/images/microblog-logo-iconx50.png') }}" alt="Microblog Logo">
-            <h4 class="m-0">icroblog</h4>
+            <div class="logo-mini">
+                <span class="mi">Mi</span>
+                <span class="cro">cro</span>
+                <span class="blog">blog</span>
+            </div>
         </a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,9 +13,6 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('home') }}">Home</a>
-                </li>
                 @auth
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('profile.show', auth()->id()) }}">
@@ -35,7 +35,7 @@
         </div>
         <form class="d-flex" role="search" action="{{ route('search') }}" method="GET">
             <input class="form-control me-2" type="search" name="query" placeholder="Search user" aria-label="Search user">
-            <button class="btn btn-outline-dark" type="submit">Search</button>
+            <button class="btn" type="submit">Search</button>
         </form>
     </div>
 </nav>
