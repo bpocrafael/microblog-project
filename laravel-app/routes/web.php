@@ -36,6 +36,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/posts/{post}/comments/create', [CommentController::class, 'create'])->name('comments.create');
     Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
     Route::post('/comments/{postId}', [CommentController::class, 'store'])->name('comment.store');
+    Route::delete('/comment/{id}', [CommentController::class, 'deleteComment'])->name('comment.delete');
     Route::get('/search', [SearchController::class, 'search'])->name('search');
     Route::resource('/follow', FollowController::class)->only(['show', 'update', 'destroy'])
         ->parameters(['follow' => 'user']);

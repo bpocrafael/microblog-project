@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CommentRequest;
+use App\Models\PostComment;
 use App\Models\UserPost;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -28,5 +29,21 @@ class CommentController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Comment added successfully.');
+    }
+
+    /**
+     * Deletes a comment
+     */
+    public function deleteComment(int $id): RedirectResponse
+    {
+        $comment = PostComment::find($id);
+
+        if (!$comment) {
+            return redirect()->back()->with('error', 'Comment not found');
+        }
+
+        $comment->delete();
+
+        return redirect()->back()->with('success', 'Comment deleted successfully');
     }
 }

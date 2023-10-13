@@ -18,13 +18,22 @@
                                     <p>{{ $comments->content }}</p>
                                 </div>
                             </div>
-                            <div class="card-footer fst-italic">{{ $comments->created_at->format('F j, Y h:m A') }}</div>
+                            <div class="card-footer fst-italic">{{ $comments->created_at->format('F j, Y h:m A') }}
+                            </div>
                         </div>
+                        <form method="POST" action="{{ route('comment.delete', $comments) }}">
+                            @csrf
+                            @method('DELETE')
+                            <div class="col-md-2 text-center">
+                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-            @endforeach
         </div>
-    @else
-        <p>No comments yet. Be the first to comment!</p>
-    @endif
+    @endforeach
+</div>
+@else
+<p>No comments yet. Be the first to comment!</p>
+@endif
 </div>
