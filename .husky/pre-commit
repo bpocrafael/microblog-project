@@ -1,0 +1,12 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+cd 'laravel-app'
+
+npm run pre-commit
+
+echo "\nlarastan is running...\n"
+docker exec laravel-docker vendor/bin/phpstan analyse --memory-limit=2G
+
+echo "\cs-fixer is running...\n"
+docker exec laravel-docker vendor/bin/php-cs-fixer fix --config=/var/www/html/.php-cs-fixer.php --dry-run --show-progress=dots --verbose --diff
