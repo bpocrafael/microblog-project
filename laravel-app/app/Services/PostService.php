@@ -73,12 +73,7 @@ class PostService implements PostServiceInterface
         try {
             if ($image != null) {
                 $imagePath = $image->store('images', 'public');
-
-                if ($post->user !== null) {
-                    $userId = $post->user->id;
-                } else {
-                    $userId = null; // Handle the case where $post->user is null
-                }
+                $userId = optional($post->user)->id;
 
                 $post->media()->updateOrCreate(
                     [
