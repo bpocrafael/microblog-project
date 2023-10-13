@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use App\Models\User;
 use App\Services\PostService;
+use Illuminate\Http\UploadedFile;
 
 class PostController extends Controller
 {
@@ -47,16 +48,33 @@ class PostController extends Controller
         /** @var User $user */
         $user = auth()->user();
         $validatedData = $request->validated();
-
         $post = $this->postService->createPost($user, $validatedData);
 
-        if ($post != null) {
-            $success = ['success' => 'Post created successfully'];
+        if ($post == null) {
+            return back()->with('error', 'Failed to create post');
+        }
 
+        $success = ['success' => 'Post created successfully'];
+
+        if (!$request->hasFile('image')) {
             return redirect()->route('post.show', ['post' => $post])->with($success);
         }
 
-        return back()->with('error', 'Failed to create post');
+        $image = $request->file('image');
+
+        if (!$image instanceof UploadedFile || $image == null) {
+            return back()->with('error', 'Failed to create post');
+        }
+
+        $imagePath = $image->store('images', 'public');
+
+        $post->media()->create([
+            'user_id' => $user->id,
+            'post_id' => $post->id,
+            'file_path' => $imagePath,
+        ]);
+
+        return redirect()->route('post.show', ['post' => $post])->with($success);
     }
 
     /**

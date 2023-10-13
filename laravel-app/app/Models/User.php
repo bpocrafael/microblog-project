@@ -94,4 +94,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(UserMedia::class, 'user_id');
     }
+
+    public function postMedia(): HasOne
+    {
+        return $this->hasOne(PostMedia::class, 'user_id');
+    }
 }

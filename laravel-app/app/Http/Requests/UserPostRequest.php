@@ -15,6 +15,7 @@ class UserPostRequest extends FormRequest
     {
         return [
             'content' => ['required', 'string', 'max:140'],
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
 }
