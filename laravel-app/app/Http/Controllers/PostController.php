@@ -20,18 +20,6 @@ class PostController extends Controller
     }
 
     /**
-     * Show all instance of auth user's posts.
-     */
-    public function index(): View
-    {
-        /** @var User $user */
-        $user = auth()->user();
-        $posts = $user->posts()->orderBy('created_at', 'desc')->get();
-
-        return view('home', compact('user', 'posts'));
-    }
-
-    /**
      * Create a new post to user.
      */
     public function create(): View

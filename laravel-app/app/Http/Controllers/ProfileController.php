@@ -29,7 +29,7 @@ class ProfileController extends Controller
     {
         /** @var User $user */
         $user = auth()->user();
-        $imagePath = $this->getImagePath($user);
+        $imagePath = $user->image_path;
         return view('profile.edit', compact('user', 'imagePath'));
     }
 
@@ -64,23 +64,23 @@ class ProfileController extends Controller
     {
         $user = User::with('posts.likes')->find($userId);
 
+        if ($user !== null) {
+            $posts = $user->posts()
+                ->orderBy('created_at', 'desc')
+                ->paginate(4);
+        }
+
         if (!$user) {
             $error = ['error' => 'No user with that id found.'];
             return redirect()->back()->withErrors($error);
         }
 
-        $likesCount = $user->posts->sum(function ($post) {
-            return $post->likes->count();
-        });
-
         /** @var User $user */
-        $imagePath = $this->getImagePath($user);
         $authUser = auth()->user();
         return view('profile.show', [
             'authUser' => $authUser,
             'user' => $user,
-            'likesCount' => $likesCount,
-            'imagePath' => $imagePath,
+            'posts' => $posts,
         ]);
     }
 
@@ -95,13 +95,5 @@ class ProfileController extends Controller
 
         $success = ['success' => 'Profile image uploaded successfully'];
         return redirect()->back()->with($success);
-    }
-
-    /**
-     * Get the image path of the uploaded profile.
-     */
-    private function getImagePath(User $user): string
-    {
-        return 'storage/' . ($user->media->last()->file_path ?? 'assets/images/user-solid.svg');
     }
 }

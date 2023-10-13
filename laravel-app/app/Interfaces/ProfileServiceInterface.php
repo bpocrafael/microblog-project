@@ -7,8 +7,7 @@ use App\Models\User;
 interface ProfileServiceInterface
 {
     /**
-     * @param User $user
-     * @param array<mixed, mixed> $data
+     * @param  array<string> $data
      */
     public function updateProfile(User $user, array $data): Void;
 }

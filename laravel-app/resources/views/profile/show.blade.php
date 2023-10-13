@@ -8,7 +8,7 @@
 	<div class="p-3">
 		<div class="row justify-content-center">
 			<div class="col-md-4 text-center">
-				<img class="img-fluid w-50" src="{{asset($imagePath) }}" alt="Microblog Logo">
+				<img class="img-fluid w-50" src="{{ asset($user->image_path) }}" alt="Microblog Logo">
 			</div>
 			<div class="col-6 pt-1">
 				<div class="row justify-content-between">
@@ -81,7 +81,7 @@
 							</div>
 							<div class="col">
 								<label>Likes</label>
-								<p class="fw-bold mt-1">{{ $likesCount }}</p>
+								<p class="fw-bold mt-1">{{ $user->likes }}</p>
 							</div>
 						</div>
 					</div>
@@ -96,9 +96,12 @@
 			</div>
 		</div>
 	</div>
-	@foreach ($user->posts as $post)
+	@foreach ($posts as $post)
 		<x-post-component :post="$post" :user="$user"/>
 	@endforeach
+	<div class="container m-3">
+		{{ $posts->links('pagination::bootstrap-5') }}
+	</div>
 </div>
 
 @include('partials._footer')

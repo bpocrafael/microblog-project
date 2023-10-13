@@ -13,8 +13,7 @@ class ProfileService implements ProfileServiceInterface
 {
     /**
      * Update the profile.
-     * @param User $user
-     * @param array<mixed, mixed> $data
+     * @param  array<string> $data
      */
     public function updateProfile(User $user, array $data): Void
     {
@@ -54,7 +53,7 @@ class ProfileService implements ProfileServiceInterface
 
                 $userMedia = new UserMedia([
                     'user_id' => $user->id,
-                    'file_path' => 'profile_images/' . $fileName,
+                    'file_path' => 'storage/profile_images/' . $fileName,
                     'file_name' => $fileName,
                 ]);
                 $userMedia->save();
