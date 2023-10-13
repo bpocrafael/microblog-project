@@ -47,6 +47,7 @@
             <x-post-component :post="$post" :user=$user />
         @endforeach
 
+        {{ $posts->links('pagination::bootstrap-5') }}
     </div>
 </div>
 @include('partials._footer')
