@@ -31,6 +31,9 @@ class CommentController extends Controller
         return redirect()->back()->with('success', 'Comment added successfully.');
     }
 
+    /**
+     * Deletes a comment
+     */
     public function deleteComment(int $id): RedirectResponse
     {
         $comment = PostComment::find($id);
