@@ -53,7 +53,7 @@ class ProfileService implements ProfileServiceInterface
 
                 $userMedia = new UserMedia([
                     'user_id' => $user->id,
-                    'file_path' => 'profile_images/' . $fileName,
+                    'file_path' => 'storage/profile_images/' . $fileName,
                     'file_name' => $fileName,
                 ]);
                 $userMedia->save();

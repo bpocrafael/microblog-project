@@ -8,7 +8,7 @@
 	<div class="p-3">
 		<div class="row justify-content-center">
 			<div class="col-md-4 text-center">
-				<img class="img-fluid w-50" src="{{ asset('storage/'. $user->image_path) }}" alt="Microblog Logo">
+				<img class="img-fluid w-50" src="{{ asset($user->image_path) }}" alt="Microblog Logo">
 			</div>
 			<div class="col-6 pt-1">
 				<div class="row justify-content-between">
