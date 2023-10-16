@@ -95,7 +95,7 @@ class PostController extends Controller
         }
 
         if ($image instanceof UploadedFile) {
-            $updatedImage = $this->postService->updatePostImage($post, $image);
+            $updatedImage = $this->postService->isPostImageUpdatable($post, $image);
             $successMessage = $updatedImage ? 'Post and image updated successfully' : 'Image updated successfully';
         } elseif ($updated) {
             $successMessage = 'Post updated successfully';

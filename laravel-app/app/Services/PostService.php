@@ -68,7 +68,7 @@ class PostService implements PostServiceInterface
     /**
      * To update the image on post
      */
-    public function updatePostImage(UserPost $post, UploadedFile $image): bool
+    public function isPostImageUpdatable(UserPost $post, UploadedFile $image): bool
     {
         try {
             if ($image != null) {
