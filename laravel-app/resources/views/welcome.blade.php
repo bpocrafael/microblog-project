@@ -7,7 +7,7 @@
 		<div class="row justify-content-center">
 			<div class="col-md-6">
 				<div class="text-center">
-				<img class="mr-0" src="{{ asset('assets/images/coffee-vector-min.png') }}" alt="Coffee vector">
+				<img class="mr-0" src="{{ asset('assets/images/coffee-vector-min.webp') }}" alt="Coffee vector">
 					<div class="logo">
                         <span class="mi">Mi</span>
                         <span class="cro">cro</span>
