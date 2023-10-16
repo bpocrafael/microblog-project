@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\FollowController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -22,9 +23,7 @@ use App\Http\Controllers\CommentController;
 |
 */
 
-Auth::routes([
-    'verify' => true,
-]);
+Auth::routes();
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -45,8 +44,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/posts/{post}/share', [PostController::class, 'share'])->name('share');
 });
 
-Route::middleware(['guest'])->group(function () {
+Route::middleware(['guest', 'rate.limit', 'throttle:50,1'])->group(function () {
     Route::get('/', [LoginController::class, 'index'])->name('welcome');
     Route::get('/login', [LoginController::class, 'login'])->name('login');
     Route::post('/login', [LoginController::class, 'authenticate'])->name('login.authenticate');
+    Route::post('/register', [RegisterController::class, 'register'])->name('register');
+    Route::post('/resend-verification-email', [RegisterController::class, 'resendEmail'])->name('resend-verification-email');
+    Route::get('/register/verify-email/{verification_code}', [RegisterController::class, 'verifyEmail'])->name('verify_email');
 });

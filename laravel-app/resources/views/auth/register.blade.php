@@ -6,6 +6,16 @@
         <div class="row justify-content-center">
             <div class="col-md-4">
                 <div class="text-center p-4">
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    @if (session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
                     <div class="logo-mini">
                         <span class="mi">Mi</span>
                         <span class="cro">cro</span>
@@ -99,8 +109,9 @@
 
                     </div>
                 </div>
-                <!-- End of register card -->
 
+                <!-- End of register card -->
+                
                 <div class="m-3 mt-5 text-center">
                     <div class="">
                         <div class="col-md">
@@ -111,18 +122,47 @@
                         <div class="row mb-0">
                             <div class="col-md text-center">
                             @if (Route::has('login'))
-                                <a href="{{ route('login') }}">
-                                    <button class="button button-secondary">
-                                        {{ __('Login') }}
-                                    </button>
-                                </a>
+                            <a href="{{ route('login') }}">
+                                <button class="button button-secondary">
+                                    {{ __('Login') }}
+                                </button>
+                            </a>
                             @endif
-                            </div>
                         </div>
                     </div>
                 </div>
-                <!-- End of login link group -->
-
+            </div>
+            <!-- End of login link group -->
+            
+            <div class="card post-card m-3">
+                <div class="card-body">
+                    <form method="POST" action="{{ route('resend-verification-email') }}"> 
+                        @csrf
+            
+                        <div class="row mb-3 justify-content-center">
+                            <div class="col-md">
+                                <input id="email-resend" type="text"
+                                    class="form-control @error('email-resend') is-invalid @enderror" name="email-resend"
+                                    value="{{ old('email-resend') }}" placeholder="Enter Email address to resend verification" autocomplete="email-resend">
+            
+                                @error('email-resend')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+            
+                        <div class="row p-2 mb-0 mt-3">
+                            <div class="col-md text-center">
+                                <button type="submit" class="button button-secondary">
+                                    {{ __('Resend') }}
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
             </div>
         </div>
     </div>
