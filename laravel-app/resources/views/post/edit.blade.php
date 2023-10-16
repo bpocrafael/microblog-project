@@ -10,13 +10,32 @@
                 <img src="{{ asset('assets/images/microblog-logo-iconx30.png') }}" alt="Image">
                 <a class="text-dark" href="{{ route('profile.index') }}">{{ $post->user->username }}</a>
                 <div class="container p-3">
-                    <form method="POST" action="{{ route('post.update', $post) }}">
+                    <form method="POST" action="{{ route('post.update', $post) }} " enctype="multipart/form-data">
                         @csrf
                         
                         @method('PUT')
                         <div class="form-group my-3">
                             <textarea id="content" name="content" class="form-control" rows="2" placeholder="Enter your microblog here...">{{ $post->content }}</textarea>
                         </div>
+                            @if ($post->media)
+                                <img id="preview-image" src="{{ asset($post->media->getFilePathAttribute()) }}" style="max-width: 100%; height: auto;">
+                            @endif
+                        <div class="form-group my-3">
+                            <label for="photo">Update Photo:</label>
+                            <input type="file" id="photo" name="image">
+                        </div>
+
+                        @error('content')
+                        <span class="text-danger" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                        
+                        @error('image')
+                        <span class="text-danger" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
 
                         @error('content')
                         <span class="text-danger" role="alert">
@@ -52,3 +71,4 @@
 @include('partials._footer')
 
 @endsection
+<script type="module" src="{{ asset('assets/js/post_create.js')}}"></script>

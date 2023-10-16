@@ -4,6 +4,7 @@ namespace App\Interfaces;
 
 use App\Models\User;
 use App\Models\UserPost;
+use Illuminate\Http\UploadedFile;
 
 interface PostServiceInterface
 {
@@ -23,4 +24,9 @@ interface PostServiceInterface
      * To reference an exsiting post in a new post.
      */
     public function sharePost(UserPost $post): UserPost;
+
+    /**
+     * To update the image on post
+     */
+    public function isPostImageUpdatable(UserPost $post, UploadedFile $image): bool;
 }
