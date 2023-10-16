@@ -26,11 +26,11 @@ class LoginController extends Controller
 
 
     /**
-     * Show the splash page.
+     * Show the welcome page.
      */
     public function index(): View
     {
-        return view('splash');
+        return view('welcome');
     }
 
     /**
