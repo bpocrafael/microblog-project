@@ -23,7 +23,9 @@ use App\Http\Controllers\CommentController;
 |
 */
 
-Auth::routes();
+Auth::routes([
+    'verify' => true,
+]);
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
