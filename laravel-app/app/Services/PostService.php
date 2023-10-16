@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Interfaces\PostServiceInterface;
 use App\Models\User;
 use App\Models\UserPost;
+use Illuminate\Http\UploadedFile;
 
 class PostService implements PostServiceInterface
 {
@@ -62,5 +63,31 @@ class PostService implements PostServiceInterface
         $post->save();
 
         return $sharedPost;
+    }
+
+    /**
+     * To update the image on post
+     */
+    public function isPostImageUpdatable(UserPost $post, UploadedFile $image): bool
+    {
+        try {
+            if ($image != null) {
+                $imagePath = $image->store('images', 'public');
+                $userId = optional($post->user)->id;
+
+                $post->media()->updateOrCreate(
+                    [
+                        'user_id' => $userId,
+                    ],
+                    [
+                        'file_path' => $imagePath,
+                    ],
+                );
+            }
+
+            return true;
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 }

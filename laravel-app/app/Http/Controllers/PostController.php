@@ -88,14 +88,23 @@ class PostController extends Controller
     {
         $validatedData = $request->validated();
         $updated = $this->postService->updatePost($post, $validatedData);
+        $image = $request->file('image');
+        $successMessage = '';
 
-        if ($updated) {
-            $success = ['success' => 'Post updated successfully'];
-
-            return redirect()->route('post.show', ['post' => $post])->with($success);
+        if ($image && !$updated) {
+            return redirect()->back()->with('error', 'Failed to update post and/or image');
         }
 
-        return redirect()->back()->with('error', 'Failed to update post');
+        if ($image instanceof UploadedFile) {
+            $updatedImage = $this->postService->isPostImageUpdatable($post, $image);
+            $successMessage = $updatedImage ? 'Image updated successfully' : '';
+        }
+
+        if (!$image instanceof UploadedFile || $updated) {
+            $successMessage = $successMessage ?: 'Post updated successfully';
+        }
+
+        return redirect()->route('post.show', ['post' => $post])->with(['success' => $successMessage]);
     }
 
     /**
