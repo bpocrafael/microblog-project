@@ -31,7 +31,7 @@ class LoginControllerTest extends TestCase
             'password' => 'testpassword',
         ]);
 
-        $response->assertRedirect('/');
+        $response->assertRedirect('/login');
     }
 
     /** @test */
@@ -50,7 +50,7 @@ class LoginControllerTest extends TestCase
             'password' => 'testpassword',
         ]);
 
-        $response->assertRedirect('/');
+        $response->assertRedirect('/login');
     }
 
     /** @test */
