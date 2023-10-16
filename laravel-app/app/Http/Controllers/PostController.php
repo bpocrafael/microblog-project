@@ -90,22 +90,22 @@ class PostController extends Controller
         $updated = $this->postService->updatePost($post, $validatedData);
         $image = $request->file('image');
         $successMessage = '';
-    
+
         if ($image && !$updated) {
             return redirect()->back()->with('error', 'Failed to update post and/or image');
         }
-    
+
         if ($image instanceof UploadedFile) {
             $updatedImage = $this->postService->isPostImageUpdatable($post, $image);
             $successMessage = $updatedImage ? 'Image updated successfully' : '';
         }
-    
+
         if (!$image instanceof UploadedFile || $updated) {
             $successMessage = $successMessage ?: 'Post updated successfully';
         }
-    
+
         return redirect()->route('post.show', ['post' => $post])->with(['success' => $successMessage]);
-    }    
+    }
 
     /**
      * Soft delete of the post entry to the database.
