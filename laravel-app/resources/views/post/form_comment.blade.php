@@ -17,7 +17,6 @@
 
 				<div class="text-end m-2">
 					<button type="submit" class="button button-light">
-						<i class="fa-regular fa-comment"></i>
 						Comment
 					</button>
 				</div>

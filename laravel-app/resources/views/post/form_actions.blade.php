@@ -8,6 +8,12 @@
 				<i class="fa-regular fa-share-from-square"></i>
 			</a>
 		</div>
+		<div class="col-auto">
+			<a href="{{ route('post.show', $post->id) }}" class="button button-light">
+				{{ $post->comments->count() }}
+				<i class="fa-regular fa-comment"></i>
+			</a>
+		</div>
 		@csrf
 		@if ($post->likes->contains('user_id', $post->user->id))
 			@method('DELETE')
@@ -15,7 +21,6 @@
 				<button type="submit" class="button button-secondary">
 					{{ $post->likes->count() }}
 					<i class="fa-solid fa-thumbs-up"></i>
-					Liked
 				</button>
 			</div>
 		@else
@@ -23,7 +28,6 @@
 				<button type="submit" class="button button-light like-button">
 					{{ $post->likes->count() }}
 					<i class="fa-regular fa-thumbs-up"></i>
-					Like
 				</button>
 			</div>
 		@endif

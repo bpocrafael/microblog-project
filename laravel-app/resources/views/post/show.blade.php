@@ -31,7 +31,6 @@
                         @can('edit', $post)
                             <a href="{{ route('post.edit', $post) }}" class="button button-light">
                                 <i class="fa-solid fa-pen"></i>
-                                Edit
                             </a>
                         @endcan
                     </div>
