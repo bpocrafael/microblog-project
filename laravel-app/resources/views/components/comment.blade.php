@@ -21,6 +21,7 @@
                             <div class="card-footer fst-italic">{{ $comments->created_at->format('F j, Y h:m A') }}
                             </div>
                         </div>
+                        @can('delete', $comments)
                         <form method="POST" action="{{ route('comment.delete', $comments) }}">
                             @csrf
                             @method('DELETE')
@@ -28,6 +29,7 @@
                                 <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                             </div>
                         </form>
+                        @endcan
                     </div>
                 </div>
         </div>
