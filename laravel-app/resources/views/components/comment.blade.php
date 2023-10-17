@@ -2,16 +2,24 @@
     <div class="comments">
         <h6 class="mb-3">Comments</h6>
         @foreach ($post->comments as $comments)
-            <div class="row g-0 justify-content-center my-3">
+            <div class="row g-2 justify-content-center my-3">
                 <div class="col-auto">
-                    <a class="text-dark" href="{{ route('profile.show', $post->user->id) }}">
-                        <div class="profile-button" id="profileButtonContainer1">
-                            <div class="bg">
-                                <div class="letter">
-                                    {{ substr($comments->user->full_name, 0, 1) }}
+                    <a class="text-dark" href="{{ route('profile.show', $comments->user->id) }}">
+                        @if ($comments->user->image_path === "assets/images/user-solid.svg")
+                            <div class="profile-button" id="profileButtonContainer1">
+                                <div class="bg">
+                                    <div class="letter">
+                                        {{ substr($comments->user->full_name, 0, 1) }}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @else
+                            <button class="custom-profile-button" id="profileButtonContainer1">
+                                <div class="image-bg">
+                                    <img src="{{ asset($comments->user->image_path) }}" alt="Profile Image">
+                                </div>
+                            </button>
+                        @endif
                     </a>
                 </div>
                 <div class="col">

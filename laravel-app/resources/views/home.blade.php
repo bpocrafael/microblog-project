@@ -22,11 +22,11 @@
                 </div>
             </div>
         </div>
-        @foreach ($posts as $post)
+        @foreach ($user->following_posts as $post)
             <x-post-component :post="$post" :user=$user />
         @endforeach
 
-        {{ $posts->links('pagination::bootstrap-5') }}
+        {{ $user->following_posts->links('pagination::bootstrap-5') }}
     </div>
 </div>
 @include('partials._footer')

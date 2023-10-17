@@ -8,7 +8,7 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <img src="{{ asset('assets/images/microblog-logo-iconx30.png') }}" alt="Image">
-                <a class="text-dark" href="{{ route('profile.index') }}">{{ $post->user->username }}</a>
+                <a class="text-dark" href="{{ route('profile.show', $post->user->id) }}">{{ $post->user->username }}</a>
                 <div class="container p-3">
                     <form method="POST" action="{{ route('post.update', $post) }} " enctype="multipart/form-data">
                         @csrf
@@ -42,7 +42,7 @@
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
-                        @can('delete', $post)
+                        @can('delete-post', $post)
                             <form id="delete-post-form" method="POST" action="{{ route('post.destroy', $post) }}">
                                 @csrf
                                 @method('DELETE')

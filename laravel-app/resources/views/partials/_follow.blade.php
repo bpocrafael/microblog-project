@@ -9,17 +9,17 @@
 				@csrf
 				@method('DELETE')
 				<button class="button button-light" type="submit">
-					<i class="fa-regular fa-circle-check"></i>
-					Follow
+					<i class="fa-solid fa-circle-check"></i>
+					Following
 				</button>
 			</form>
-		@else
+			@else
 			<form method="POST" action="{{ route('follow.update', $post->user->id) }}">
 				@csrf
 				@method('PUT')
 				<button class="button button-light" type="submit">
-					<i class="fa-solid fa-circle-check"></i>
-					Following
+					<i class="fa-regular fa-circle-check"></i>
+					Follow
 				</button>
 			</form>
 		@endif
