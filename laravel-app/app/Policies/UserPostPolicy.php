@@ -31,11 +31,11 @@ class UserPostPolicy
         if ($user != null) {
 
             $isFollowing = ($user->isFollowing($post->user));
+            $isOwner = false;
             if ($user != null && $post->user != null) {
                 $isOwner = $user->id === $post->user->id;
-            } else {
-                $isOwner = false;
             }
+
             return  $isFollowing || $isOwner;
         }
 
