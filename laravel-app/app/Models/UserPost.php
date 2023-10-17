@@ -20,6 +20,31 @@ class UserPost extends Model
     ];
     public $timestamps = true;
 
+    /**
+     * Check if the original poster is still followed by the user.
+     */
+    public function isContentAvailableFor(User $user): bool
+    {
+        if (!$this->isShared() || ($this->originalPost != null && $this->originalPost->user != null && $user != null && $this->originalPost->user->id === $user->id)) {
+
+            return !$this->isOriginalDeleted();
+        }
+
+        if ($user != null && $this->originalPost !== null && $this->originalPost->user !== null) {
+            return $user->isFollowing($this->originalPost->user);
+        }
+
+        return false;
+    }
+
+    /**
+     * Check if the original post is deleted.
+     */
+    public function isOriginalDeleted(): bool
+    {
+        return $this->isShared() && $this->originalPost === null;
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

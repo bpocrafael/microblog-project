@@ -1,3 +1,4 @@
+// profile
 var profileImage = document.getElementById('profileImage');
 var fileInput = document.getElementById('profile_image');
 
@@ -12,4 +13,32 @@ fileInput.addEventListener('change', function() {
         };
         reader.readAsDataURL(selectedFile);
     }
+});
+
+// logout
+document.addEventListener("DOMContentLoaded", function () {
+    const logoutLink = document.querySelector(".text-share-link");
+    
+    if (logoutLink) {
+        logoutLink.addEventListener("click", function (event) {
+            event.preventDefault();
+            const logoutForm = document.getElementById('logout-form');
+            
+            if (logoutForm) {
+                logoutForm.submit();
+            }
+        });
+    }
+});
+
+// search
+$(document).ready(function() {
+    $('form[role="search"]').submit(function(e) {
+        e.preventDefault();
+
+        var query = $(this).find('input[name="query"]').val();
+        var searchUrl = $(this).attr('action') + '?query=' + query;
+        
+        window.location.href = searchUrl;
+    });
 });

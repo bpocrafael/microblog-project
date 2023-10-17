@@ -15,11 +15,8 @@ class HomeController extends Controller
     {
         /** @var User $user */
         $user = auth()->user();
-        $posts = $user->posts()
-            ->orderBy('created_at', 'desc')
-            ->paginate(4);
 
-        return view('home', compact('user', 'posts'));
+        return view('home', compact('user'));
     }
 
     /**

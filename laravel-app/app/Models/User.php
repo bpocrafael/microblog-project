@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -50,6 +51,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'password' => 'hashed',
     ];
 
+    /**
+     * Get the full name of the user.
+     */
     public function getFullNameAttribute(): string
     {
         $information = $this->information;
@@ -65,6 +69,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return '';
     }
 
+    /**
+     * Get the total likes of the user.
+     */
     public function getLikesAttribute(): int
     {
         return $this->posts->pluck('likes')->flatten()->count();
@@ -78,9 +85,30 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->media->last()->file_path ?? 'assets/images/user-solid.svg';
     }
 
-    public function isFollowing(User $user): bool
+    /**
+     * Get all the posts of following users and own posts.
+     */
+    public function getFollowingPostsAttribute(): LengthAwarePaginator
     {
-        return $this->following->contains($user);
+        $followingUserIds = $this->following->pluck('id');
+        $followingUserIds->push($this->id);
+
+        return UserPost::whereIn('user_id', $followingUserIds)
+            ->with('user')
+            ->latest('created_at')
+            ->paginate(4);
+    }
+
+    /**
+     * Check if this user is following the user.
+     */
+    public function isFollowing(?User $user): bool
+    {
+        if ($user != null) {
+            return $this->following->contains($user);
+        }
+
+        return false;
     }
 
     public function information(): HasOne
