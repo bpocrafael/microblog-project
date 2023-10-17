@@ -8,8 +8,8 @@ class ResendEmailRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * 
+     * @return array<string, mixed>
      */
     public function rules(): array
     {
@@ -24,7 +24,7 @@ class ResendEmailRequest extends FormRequest
     /**
      * Error messages for registration validation.
      *
-     * @return array<string, mixed>
+     * @return array<string>
      */
     public function messages(): array
     {

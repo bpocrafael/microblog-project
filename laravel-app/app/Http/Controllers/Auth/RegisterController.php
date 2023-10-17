@@ -59,9 +59,6 @@ class RegisterController extends Controller
 
     /**
      * Create a new user instance after a valid registration.
-     *
-     * @param  CreateUserRequest  $request
-     * @return RedirectResponse
      */
     public function register(CreateUserRequest $request): RedirectResponse
     {
