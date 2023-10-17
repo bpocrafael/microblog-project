@@ -1,11 +1,6 @@
 @if ($post->isContentAvailableFor($authUser))
     <div class="post-container my-5">
         <div class="row g-2 justify-content-center">
-            @if (session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
             <div class="col-auto">
                 <a class="text-dark" href="{{ route('profile.show', $post->user->id) }}">
                     @if ($post->user->image_path === "assets/images/user-solid.svg")
