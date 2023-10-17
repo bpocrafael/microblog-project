@@ -46,7 +46,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/posts/{post}/share', [PostController::class, 'share'])->name('share');
 });
 
-Route::middleware(['guest', 'rate.limit', 'throttle:50,1'])->group(function () {
+Route::middleware(['guest'])->group(function () {
     Route::get('/', [LoginController::class, 'index'])->name('welcome');
     Route::get('/login', [LoginController::class, 'login'])->name('login');
     Route::post('/login', [LoginController::class, 'authenticate'])->name('login.authenticate');
