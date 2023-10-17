@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Interfaces\UserVerificationServiceInterface;
 use App\Models\User;
-use Illuminate\Validation\ValidationException;
 
 class UserVerificationService implements UserVerificationServiceInterface
 {
@@ -18,7 +17,7 @@ class UserVerificationService implements UserVerificationServiceInterface
     {
         if (!$user->is_verified) {
             auth()->logout();
-            throw ValidationException::withMessages(['email' => 'Your account is not verified.']);
+            return false;
         }
 
         return true;
