@@ -1,23 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <style>
-        .email-content {
-            background-color: #f4f4f4;
-            padding: 20px;
-            font-family: Arial, sans-serif;
-        }
-        
-        .button {
-            background-color: #007BFF;
-            color: #fff;
-            text-decoration: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            display: inline-block;
-        }
-
-    </style>
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
     <div class="email-content">
