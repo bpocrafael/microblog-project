@@ -4,27 +4,15 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\Models\User;
 use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\ResendEmailRequest;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use App\Services\RegistrationService;
+use Illuminate\Http\RedirectResponse;
 
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
-
     use RegistersUsers;
 
     /**
@@ -33,52 +21,71 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
+    protected RegistrationService $registrationService;
 
     /**
      * Create a new controller instance.
-     *
-     * @return void
      */
-    public function __construct()
+    public function __construct(RegistrationService $registrationService)
     {
+        $this->registrationService = $registrationService;
         $this->middleware('guest');
     }
 
     /**
      * Show login form page.
-     *
-     * @return View
      */
-    public function showRegistrationForm()
+    public function showRegistrationForm(): view
     {
         return view('auth.register');
     }
 
     /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  CreateUserRequest  $request
-     * @return View
+     * Show resend page
      */
-    public function register(CreateUserRequest $request): View
+    public function resendPage(): view
+    {
+        return view('auth.resend');
+    }
+
+    /**
+     * Create a new user instance after a valid registration.
+     */
+    public function register(CreateUserRequest $request): RedirectResponse
     {
         $validatedData = $request->validated();
 
-        $user =  User::create([
-            'email' => $validatedData['email'],
-            'password' => Hash::make($validatedData['password']),
-            'username' => $validatedData['username'],
-        ]);
+        $this->registrationService->registerUser($validatedData);
 
-        $user->information()->create([
-            'first_name' => $validatedData['first_name'],
-            'last_name' => $validatedData['last_name'],
-        ]);
+        return redirect()->route('login')->with('success', 'Registration complete. Please check email');
+    }
 
-        event(new Registered($user));
+    /**
+     * Verifies email after registration
+     */
+    public function verifyEmail(string $verificationCode): RedirectResponse
+    {
+        $result = $this->registrationService->verifyEmail($verificationCode);
 
-        Auth::login($user);
+        if (!$result) {
+            return redirect()->route('resend')->with('error', 'Verification link expired or email already verified');
+        }
 
-        return view('auth.verify');
+        return redirect()->route('login')->with('success', 'Email successfully verified');
+    }
+
+    /**
+     * Resends email for verification
+     */
+    public function resendEmail(ResendEmailRequest $request): RedirectResponse
+    {
+        $email = $request->input('email-resend');
+
+        $result = $this->registrationService->resendEmail($email);
+
+        if (!$result) {
+            return redirect()->route('resend')->with('error', 'Email doesn\'t exist in the database or is already verified');
+        }
+        return redirect()->route('login')->with('success', 'Email verification link has been resent. Check your email.');
     }
 }

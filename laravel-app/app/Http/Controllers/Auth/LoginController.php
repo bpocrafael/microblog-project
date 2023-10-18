@@ -59,7 +59,7 @@ class LoginController extends Controller
 
         if ($user === null || !$this->userVerificationService->isUserVerified($user)) {
 
-            return redirect()->route('login');
+            return redirect()->route('resend');
         }
 
         return redirect()->route('home');

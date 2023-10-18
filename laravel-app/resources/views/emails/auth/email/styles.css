@@ -1,0 +1,14 @@
+.email-content {
+    background-color: #f4f4f4;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.button {
+    background-color: #007BFF;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    display: inline-block;
+}

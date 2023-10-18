@@ -6,6 +6,16 @@
         <div class="row justify-content-center">
             <div class="col-md-4">
                 <div class="text-center p-4">
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    @if (session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
                     <div class="logo-mini">
                         <span class="mi">Mi</span>
                         <span class="cro">cro</span>
@@ -99,8 +109,9 @@
 
                     </div>
                 </div>
-                <!-- End of register card -->
 
+                <!-- End of register card -->
+                
                 <div class="m-3 mt-5 text-center">
                     <div class="">
                         <div class="col-md">
@@ -111,18 +122,17 @@
                         <div class="row mb-0">
                             <div class="col-md text-center">
                             @if (Route::has('login'))
-                                <a href="{{ route('login') }}">
-                                    <button class="button button-secondary">
-                                        {{ __('Login') }}
-                                    </button>
-                                </a>
+                            <a href="{{ route('login') }}">
+                                <button class="button button-secondary">
+                                    {{ __('Login') }}
+                                </button>
+                            </a>
                             @endif
-                            </div>
                         </div>
                     </div>
                 </div>
-                <!-- End of login link group -->
-
+            </div>
+            <!-- End of login link group -->
             </div>
         </div>
     </div>
