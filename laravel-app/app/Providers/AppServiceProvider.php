@@ -16,6 +16,7 @@ use App\Services\PostService;
 use App\Services\ProfileService;
 use App\Services\SearchService;
 use App\Services\UserVerificationService;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -26,6 +27,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         User::observe(VerifiedObserver::class);
+
+        Paginator::defaultView('pagination');
     }
 
     public function register()

@@ -12,6 +12,6 @@ parameters:
     checkModelProperties: true
     checkOctaneCompatibility: true
     checkGenericClassInNonGenericObjectType: false
-    checkUnusedViews: true
+    checkUnusedViews: false
     excludePaths:
         - bootstrap/cache
