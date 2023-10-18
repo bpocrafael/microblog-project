@@ -39,19 +39,11 @@ class RegistrationService
     {
         $user = User::where('email_verification_code', $verificationCode)->first();
 
-        if (!$user) {
+        if (!$user || $user->email_verified_at) {
             return false;
         }
 
-        if ($user->email_verified_at) {
-            return false;
-        }
-
-        $user->update([
-            'email_verified_at' => now(),
-        ]);
-
-        return true;
+        return $user->update(['email_verified_at' => now()]);
     }
 
     /**
@@ -61,17 +53,12 @@ class RegistrationService
     {
         $user = User::where('email', $email)->first();
 
-        if (!$user) {
+        if (!$user || $user->email_verified_at) {
             return false;
         }
 
-        if ($user->email_verified_at) {
-            return false;
-        }
-
-        $verificationCode = Str::random(40);
         $user->update([
-            'email_verification_code' => $verificationCode,
+            'email_verification_code' => Str::random(40),
         ]);
 
         Mail::to($email)->send(new EmailVerificationMail($user));
