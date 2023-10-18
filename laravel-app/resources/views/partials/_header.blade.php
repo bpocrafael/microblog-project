@@ -28,7 +28,7 @@
                             <div class="profile-button" id="profileButtonContainer1">
                                 <div class="bg">
                                     <div class="letter">
-                                        {{ substr($post->user->full_name, 0, 1) }}
+                                        {{ substr($authUser->full_name, 0, 1) }}
                                     </div>
                                 </div>
                             </div>

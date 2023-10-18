@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\FollowController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -49,4 +50,8 @@ Route::middleware(['guest'])->group(function () {
     Route::get('/', [LoginController::class, 'index'])->name('welcome');
     Route::get('/login', [LoginController::class, 'login'])->name('login');
     Route::post('/login', [LoginController::class, 'authenticate'])->name('login.authenticate');
+    Route::post('/register', [RegisterController::class, 'register'])->name('register');
+    Route::get('/register/resend', [RegisterController::class, 'resendPage'])->name('resend');
+    Route::post('/register/resend', [RegisterController::class, 'resendEmail'])->name('resend-verification-email');
+    Route::get('/register/verify-email/{verification_code}', [RegisterController::class, 'verifyEmail'])->name('verify-email');
 });
