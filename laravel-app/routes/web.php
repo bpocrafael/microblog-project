@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\FollowController;
@@ -27,7 +28,7 @@ Auth::routes([
     'verify' => true,
 ]);
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified', 'throttle:20,1'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::post('/logout', [HomeController::class, 'logout'])->name('logout');
     Route::resource('/post', PostController::class, ['only' => ['create', 'store', 'show', 'update', 'edit', 'destroy']]);
@@ -46,10 +47,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/posts/{post}/share', [PostController::class, 'share'])->name('share');
 });
 
-Route::middleware(['guest'])->group(function () {
+Route::middleware(['guest', 'throttle:10,1'])->group(function () {
     Route::get('/', [LoginController::class, 'index'])->name('welcome');
     Route::get('/login', [LoginController::class, 'login'])->name('login');
     Route::post('/login', [LoginController::class, 'authenticate'])->name('login.authenticate');
+
+    // Password reset
+    Route::get('/password/reset', [ForgotPasswordController::class, 'showRequestForm'])->name('password.request');
+    Route::post('/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+    Route::get('/password/reset/{token}', [ForgotPasswordController::class, 'showResetForm'])->name('password.reset');
+    Route::post('/password/reset', [ForgotPasswordController::class, 'reset'])->name('password.update');
     Route::post('/register', [RegisterController::class, 'register'])->name('register');
     Route::get('/register/resend', [RegisterController::class, 'resendPage'])->name('resend');
     Route::post('/register/resend', [RegisterController::class, 'resendEmail'])->name('resend-verification-email');

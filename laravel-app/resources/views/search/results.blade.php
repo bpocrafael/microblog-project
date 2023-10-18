@@ -48,7 +48,7 @@
 							</div>
 						</div>
 					@endforeach
-					{{ $results->links('pagination::bootstrap-5') }}
+					{{ $results->links() }}
 				@else
 					<div class="row">
 						<div class="col">
