@@ -41,28 +41,27 @@
                         <span class="text-danger" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
-                        @enderror
-                        @can('delete-post', $post)
-                            <form id="delete-post-form" method="POST" action="{{ route('post.destroy', $post) }}">
-                                @csrf
-                                @method('DELETE')
-                                <button type="button" class="btn btn-danger" onclick="confirmDelete()">Delete Post</button>
-                            </form>
-
-                            <script>
-                                function confirmDelete() {
-                                    if (confirm('Are you sure you want to delete this post?')) {
-                                        document.getElementById('delete-post-form').submit();
-                                    }
-                                }
-                            </script>
-                        @endcan
-                        
+                        @enderror                        
                         <div class="text-end">
                             <a href="{{ route('home') }}" class="btn btn-secondary"> {{ __('Cancel') }} </a>
                             <button type="submit" class="btn btn-dark">Update Post</button>
                         </div>
                     </form>
+                    @can('delete-post', $post)
+                        <form id="delete-post-form" method="POST" action="{{ route('post.destroy', $post) }}">
+                            @csrf
+                            @method('DELETE')
+                            <button type="button" class="btn btn-danger" onclick="confirmDelete()">Delete Post</button>
+                        </form>
+
+                        <script>
+                            function confirmDelete() {
+                                if (confirm('Are you sure you want to delete this post?')) {
+                                    document.getElementById('delete-post-form').submit();
+                                }
+                            }
+                        </script>
+                    @endcan
                 </div>
             </div>
         </div>
