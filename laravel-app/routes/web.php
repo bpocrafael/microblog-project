@@ -28,11 +28,12 @@ Auth::routes([
     'verify' => true,
 ]);
 
-Route::middleware(['auth', 'verified', 'throttle:20,1'])->group(function () {
+Route::middleware(['auth', 'verified', 'throttle:60,1'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::post('/logout', [HomeController::class, 'logout'])->name('logout');
     Route::resource('/post', PostController::class, ['only' => ['create', 'store', 'show', 'update', 'edit', 'destroy']]);
-    Route::resource('/profile', ProfileController::class, ['only' => ['edit', 'update', 'show', 'store']]);
+    Route::resource('/profile', ProfileController::class, ['only' => ['edit', 'update', 'show', 'store']])
+        ->parameters(['profile' => 'user']);
     Route::post('/posts/{post}/like', [LikeController::class, 'like'])->name('post.like');
     Route::delete('/posts/{post}/unlike', [LikeController::class, 'unlike'])->name('post.unlike');
     Route::get('/posts/{post}/comments/create', [CommentController::class, 'create'])->name('comments.create');
@@ -42,12 +43,11 @@ Route::middleware(['auth', 'verified', 'throttle:20,1'])->group(function () {
     Route::get('/search', [SearchController::class, 'search'])->name('search');
     Route::resource('/follow', FollowController::class)->only(['show', 'update', 'destroy'])
         ->parameters(['follow' => 'user']);
-    Route::post('/follow/{user}', [FollowController::class, 'follow'])->name('follow');
-    Route::post('/unfollow/{user}', [FollowController::class, 'unfollow'])->name('unfollow');
-    Route::get('/posts/{post}/share', [PostController::class, 'share'])->name('share');
+    Route::post('/posts/{post}/share', [PostController::class, 'share'])->name('share');
+    Route::get('/posts/{post}/share/create', [PostController::class, 'createShare'])->name('share.create');
 });
 
-Route::middleware(['guest', 'throttle:10,1'])->group(function () {
+Route::middleware(['guest', 'throttle:60,1'])->group(function () {
     Route::get('/', [LoginController::class, 'index'])->name('welcome');
     Route::get('/login', [LoginController::class, 'login'])->name('login');
     Route::post('/login', [LoginController::class, 'authenticate'])->name('login.authenticate');

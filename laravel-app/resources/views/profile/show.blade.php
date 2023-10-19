@@ -7,6 +7,11 @@
 <div class="profile-page">
 	<div class="container-fluid">
 		<div class="row justify-content-center post-card p-5">
+			@if (session('success'))
+				<div class="alert alert-success">
+					{{ session('success') }}
+				</div>
+			@endif
 			<div class="col-md-5 text-center">
 				<div class="row justify-content-center text-center">
 					<div class="col-auto">
