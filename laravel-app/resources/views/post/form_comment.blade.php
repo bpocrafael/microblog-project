@@ -7,10 +7,10 @@
 					@csrf
 
 					<div class="form-group mt-3">
-						<textarea id="content" name="content" class="form-control" rows="3" placeholder="Add a comment"></textarea>
+						<textarea id="comment" name="comment" class="form-control" rows="3" placeholder="Add a comment"></textarea>
 					</div>
 
-					@error('content')
+					@error('comment')
 						<span class="text-danger" role="alert">
 							<strong>{{ $message }}</strong>
 						</span>
