@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Http\Requests\UpdateProfileImageRequest;
 use App\Interfaces\ProfileServiceInterface;
 use App\Models\User;
+use App\Models\UserInformation;
 use App\Models\UserMedia;
 use Illuminate\Http\UploadedFile;
 
@@ -16,6 +17,14 @@ class ProfileService implements ProfileServiceInterface
      */
     public function updateProfile(User $user, array $validatedData): Void
     {
+        $userInfo = $user->information;
+
+        if (!$userInfo) {
+            $userInfo = new UserInformation();
+        }
+
+        $userInfo->update($validatedData);
+
         $user->update($validatedData);
     }
 

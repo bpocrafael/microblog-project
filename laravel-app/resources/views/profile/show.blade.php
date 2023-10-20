@@ -18,7 +18,7 @@
 						@if ($user->image_path === "assets/images/user-solid.svg")
 							<div class="profile-letter">
 								<div class="letter-bg">
-									{{ substr($user->full_name, 0, 1) }}
+									{{ ucfirst(substr($authUser->full_name, 0, 1)) }}
 								</div>
 							</div>
 						@else
