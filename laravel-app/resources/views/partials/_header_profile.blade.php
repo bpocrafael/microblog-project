@@ -1,10 +1,10 @@
 <nav class="navbar navbar-expand-lg p-3 background-light navbar-custom">
     <div class="container light-bg">
         <a class="navbar-brand d-flex align-items-center" href="{{ route('home') }}">
-            <div class="logo-mini">
-                <span class="mi">Mi</span>
-                <span class="cro">cro</span>
-                <span class="blog">blog</span>
+            <div id="logo-mini">
+                <span id="mi">Mi</span>
+                <span id="cro">cro</span>
+                <span id="blog">blog</span>
             </div>
         </a>
 

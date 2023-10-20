@@ -82,19 +82,19 @@ body {
 	min-height: 100vh;
 	box-sizing: border-box;
 }
-.mi {
+#mi {
 	color: var(--color-peru);
 	margin-right: -.1em;
 }
-.cro {
+#cro {
 	color: var(--color-gray);
 	margin-right: -.1em;
 }
-.blog {
+#blog {
 	color: var(--color-tan);
 	margin-right: -.1em;
 }
-.logo-mini {
+#logo-mini {
 	letter-spacing: -0.05em;
 	font-weight: bold;
 	font-size: var(--font-size-5xl);

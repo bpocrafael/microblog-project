@@ -7,10 +7,10 @@
 			<div class="col-md-3">
 				<div class="text-center">
 					<a href="{{ route('login') }}">
-						<div class="logo-mini">
-							<span class="mi">Mi</span>
-							<span class="cro">cro</span>
-							<span class="blog">blog</span>
+						<div id="logo-mini">
+							<span id="mi">Mi</span>
+							<span id="cro">cro</span>
+							<span id="blog">blog</span>
 						</div>
 					</a>
 					<b class="title">Reset</b>

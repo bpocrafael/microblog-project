@@ -2,12 +2,12 @@
 
 namespace App\Interfaces;
 
-use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 interface SearchServiceInterface
 {
     /**
      * Search user table for the keywords.
      */
-    public function searchUser(string $query): Builder;
+    public function searchUser(string $query): LengthAwarePaginator;
 }
