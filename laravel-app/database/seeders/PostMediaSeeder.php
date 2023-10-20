@@ -2,16 +2,16 @@
 
 namespace Database\Seeders;
 
-use App\Models\UserPost;
+use App\Models\PostMedia;
 use Illuminate\Database\Seeder;
 
-class UserPostsTableSeeder extends Seeder
+class PostMediaSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        UserPost::factory(100)->create();
+        PostMedia::factory(20)->create();
     }
 }
