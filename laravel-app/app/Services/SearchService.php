@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Interfaces\SearchServiceInterface;
 use App\Models\User;
 use App\Models\UserPost;
-use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class SearchService implements SearchServiceInterface
@@ -19,20 +18,21 @@ class SearchService implements SearchServiceInterface
         $authUser = auth()->user();
 
         $users = User::where('username', 'like', '%' . $query . '%')
-            ->whereIn('is_verified', [1])
-            ->get()->all();
+            ->where('is_verified', 1)
+            ->get();
 
         $postsQuery = UserPost::whereIn('user_id', $authUser->following->pluck('id')->push($authUser->id))
-            ->where(function (EloquentBuilder $queryBuilder) use ($query) {
-                $queryBuilder->where('content', 'regexp', '\b' . $query . '\b');
-            })->get()->all();
+            ->where('content', 'regexp', '\b' . $query . '\b')
+            ->get()
+            ->collect()
+            ->all();
 
-        $combinedResults = array_merge($users, $postsQuery);
+        $combinedResults = $users->concat($postsQuery);
 
         $perPage = 4;
         $page = request()->get('page', 1);
         $offset = ($page - 1) * $perPage;
-        $slicedResults = array_slice($combinedResults, $offset, $perPage);
+        $slicedResults = $combinedResults->slice($offset, $perPage);
 
         return new LengthAwarePaginator($slicedResults, count($combinedResults), $perPage, $page);
     }
