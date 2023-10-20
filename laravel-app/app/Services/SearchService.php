@@ -19,7 +19,9 @@ class SearchService implements SearchServiceInterface
 
         $users = User::where('username', 'like', '%' . $query . '%')
             ->where('is_verified', 1)
-            ->get();
+            ->get()
+            ->collect()
+            ->all();
 
         $postsQuery = UserPost::whereIn('user_id', $authUser->following->pluck('id')->push($authUser->id))
             ->where('content', 'regexp', '\b' . $query . '\b')
@@ -27,12 +29,12 @@ class SearchService implements SearchServiceInterface
             ->collect()
             ->all();
 
-        $combinedResults = $users->concat($postsQuery);
+        $combinedResults = array_merge($users, $postsQuery);
 
         $perPage = 4;
         $page = request()->get('page', 1);
         $offset = ($page - 1) * $perPage;
-        $slicedResults = $combinedResults->slice($offset, $perPage);
+        $slicedResults = array_slice($combinedResults, $offset, $perPage);
 
         return new LengthAwarePaginator($slicedResults, count($combinedResults), $perPage, $page);
     }
