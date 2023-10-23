@@ -30,28 +30,28 @@ class CommentController extends Controller
      */
     public function store(CommentRequest $request, UserPost $post): RedirectResponse
     {
-        $this->commentService->storeComment($request, $post);
+        $result = $this->commentService->storeComment($request, $post);
 
-        return redirect()->back()->with('success', 'Comment added successfully.');
+        return redirect()->back()->with($result['comment'] ? 'success' : 'error', $result['message']);
     }
 
     /**
      * Deletes a comment
      */
-    public function deleteComment(int $id): RedirectResponse
+    public function deleteComment(int $id): ?RedirectResponse
     {
-        $this->commentService->deleteComment($id);
+        $result = $this->commentService->deleteComment($id);
 
-        return redirect()->back();
+        return redirect()->back()->with($result['comment'] ? 'success' : 'error', $result['message']);
     }
 
     /**
      * Updates a comment
      */
-    public function editComment(CommentRequest $request, int $id): RedirectResponse
+    public function editComment(CommentRequest $request, int $id): ?RedirectResponse
     {
-        $this->commentService->editComment($id, $request->validated('comment'));
+        $editedComment = $this->commentService->editComment($id, $request->validated('comment'));
 
-        return redirect()->back();
+        return redirect()->back()->with($editedComment['comment'] ? 'success' : 'error', $editedComment['message']);
     }
 }
