@@ -4,15 +4,38 @@ namespace App\Services;
 
 use App\Interfaces\SearchServiceInterface;
 use App\Models\User;
-use Illuminate\Contracts\Database\Eloquent\Builder;
+use App\Models\UserPost;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class SearchService implements SearchServiceInterface
 {
     /**
-     * To search the User table using the Eloquent of matching results.
+     * To search the User and Posts of followed users for the mathching keyword.
      */
-    public function searchUser(String $query): Builder
+    public function searchUser(string $query): LengthAwarePaginator
     {
-        return User::where('username', 'like', '%' . $query . '%');
+        /** @var User $authUser */
+        $authUser = auth()->user();
+
+        $users = User::where('username', 'like', '%' . $query . '%')
+            ->where('is_verified', 1)
+            ->get()
+            ->collect()
+            ->all();
+
+        $postsQuery = UserPost::whereIn('user_id', $authUser->following->pluck('id')->push($authUser->id))
+            ->where('content', 'regexp', '\b' . $query . '\b')
+            ->get()
+            ->collect()
+            ->all();
+
+        $combinedResults = array_merge($users, $postsQuery);
+
+        $perPage = 4;
+        $page = request()->get('page', 1);
+        $offset = ($page - 1) * $perPage;
+        $slicedResults = array_slice($combinedResults, $offset, $perPage);
+
+        return new LengthAwarePaginator($slicedResults, count($combinedResults), $perPage, $page);
     }
 }

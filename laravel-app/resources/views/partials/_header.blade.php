@@ -5,10 +5,10 @@
 <nav class="navbar navbar-expand-lg background-light navbar-custom">
     <div class="container">
         <a class="navbar-brand" href="{{ route('home') }}">
-            <div class="logo-mini">
-                <span class="mi">Mi</span>
-                <span class="cro">cro</span>
-                <span class="blog">blog</span>
+            <div id="logo-mini">
+                <span id="mi">Mi</span>
+                <span id="cro">cro</span>
+                <span id="blog">blog</span>
             </div>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

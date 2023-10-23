@@ -35,10 +35,5 @@ document.addEventListener("DOMContentLoaded", function () {
 $(document).ready(function() {
     $('form[role="search"]').submit(function(e) {
         e.preventDefault();
-
-        var query = $(this).find('input[name="query"]').val();
-        var searchUrl = $(this).attr('action') + '?query=' + query;
-        
-        window.location.href = searchUrl;
     });
 });

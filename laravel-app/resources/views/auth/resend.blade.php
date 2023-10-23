@@ -18,9 +18,9 @@
                         @endif
                         <a href="{{ route('login') }}">
                             <div class="logo">
-                                <span class="mi">Mi</span>
-                                <span class="cro">cro</span>
-                                <span class="blog">blog</span>
+                                <span id="mi">Mi</span>
+                                <span id="cro">cro</span>
+                                <span id="blog">blog</span>
                             </div>
                         </a>
                         <div class="card post-card m-3">
