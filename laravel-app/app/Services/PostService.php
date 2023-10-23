@@ -43,11 +43,12 @@ class PostService implements PostServiceInterface
 
     /**
      * To reference an existing post as a new post.
+     * @param  array<string> $validatedData
      */
-    public function sharePost(UserPost $post): UserPost
+    public function sharePost(UserPost $post, array $validatedData): UserPost
     {
         $sharedPost = new UserPost();
-        $sharedPost->content = $post->content;
+        $sharedPost->content = $validatedData['content'];
         $sharedPost->original_post_id = $post->id;
 
         if ($post->isShared()) {

@@ -13,30 +13,16 @@ class ProfileService implements ProfileServiceInterface
 {
     /**
      * Update the profile.
-     * @param  array<string> $data
+     * @param  array<string> $validatedData
      */
-    public function updateProfile(User $user, array $data): Void
+    public function updateProfile(User $user, array $validatedData): Void
     {
+        /** @var UserInformation $userInfo */
         $userInfo = $user->information;
 
-        if (!$userInfo) {
-            $userInfo = new UserInformation();
-        }
+        $userInfo->update($validatedData);
 
-        $userInfo->fill([
-            'first_name' => $data['first_name'],
-            'middle_name' => $data['middle_name'],
-            'last_name' => $data['last_name'],
-            'bio' => $data['bio'],
-            'gender' => $data['gender'],
-        ]);
-
-        $userInfo->save();
-
-        $user->update([
-            'username' => $data['username'],
-            'email' => $data['email'],
-        ]);
+        $user->update($validatedData);
     }
 
     /**

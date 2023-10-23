@@ -21,25 +21,9 @@
                 </div>
             </form>
             @auth
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="text-dark" href="{{ route('profile.show', auth()->id()) }}">
-                        @if ($authUser->image_path === "assets/images/user-solid.svg")
-                            <div class="profile-button" id="profileButtonContainer1">
-                                <div class="bg">
-                                    <div class="letter">
-                                        {{ substr($authUser->full_name, 0, 1) }}
-                                    </div>
-                                </div>
-                            </div>
-                        @else
-                            <button class="custom-profile-button" id="profileButtonContainer1">
-                                <div class="image-bg">
-                                    <img src="{{ asset($authUser->image_path) }}" alt="Profile Image">
-                                </div>
-                            </button>
-                        @endif
-                    </a>
+                    <x-profile-component :authUser="auth()->user()" />
                 </li>
             </ul>
             @endauth

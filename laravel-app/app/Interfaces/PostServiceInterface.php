@@ -22,8 +22,9 @@ interface PostServiceInterface
 
     /**
      * To reference an exsiting post in a new post.
+     * @param  array<string> $validatedData
      */
-    public function sharePost(UserPost $post): UserPost;
+    public function sharePost(UserPost $post, array $validatedData): UserPost;
 
     /**
      * To update the image on post

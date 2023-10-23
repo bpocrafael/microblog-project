@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SharePostRequest;
 use App\Http\Requests\UserPostRequest;
 use App\Models\UserPost;
 use Illuminate\Http\RedirectResponse;
@@ -20,7 +21,7 @@ class PostController extends Controller
     }
 
     /**
-     * Create a new post to user.
+     * Show the form for post creation.
      */
     public function create(): View
     {
@@ -118,14 +119,27 @@ class PostController extends Controller
     }
 
     /**
+     * Show the form for sharing a post.
+     */
+    public function createShare(UserPost $post): View
+    {
+        /** @var User $authUser */
+        $authUser = auth()->user();
+
+        return view('post.share', ['post' => $post, 'authUser' => $authUser]);
+    }
+
+
+    /**
      * Reference an existing post to a new post.
      */
-    public function share(UserPost $post): RedirectResponse
+    public function share(SharePostRequest $sharePostRequest, UserPost $post): RedirectResponse
     {
-        $this->postService->sharePost($post);
+        $validatedData = $sharePostRequest->validated();
+        $sharedPost = $this->postService->sharePost($post, $validatedData);
 
         $success = ['success' => 'Post shared successfully'];
 
-        return redirect()->route('post.show', ['post' => $post])->with($success);
+        return redirect()->route('post.show', ['post' => $sharedPost])->with($success);
     }
 }
