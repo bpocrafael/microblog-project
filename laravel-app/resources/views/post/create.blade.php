@@ -38,7 +38,7 @@
                                         <label for="photo">
                                             <a class="button button-secondary"><i class="fa-regular fa-image"></i></a>
                                         </label>
-                                        <input type="file" id="photo" name="image">
+                                        <input type="file" id="photo" name="image" hidden>
                                         @error('image')
                                         <span class="text-danger" role="alert">
                                             <i>{{ $message }}</i>
