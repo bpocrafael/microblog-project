@@ -31,9 +31,14 @@ class CommentService
     public function deleteComment(int $id): array
     {
         $comment = PostComment::find($id);
-        $message = $comment
-            ? "Comment with ID $id deleted from post {$comment->post_id}"
-            : "Comment with ID $id not found";
+
+        if (!$comment) {
+            $message = "Comment with ID $id not found";
+            return compact('message', 'comment');
+        }
+
+        $comment->delete();
+        $message = "Comment with ID $id deleted from post {$comment->post_id}";
 
         return compact('message', 'comment');
     }
