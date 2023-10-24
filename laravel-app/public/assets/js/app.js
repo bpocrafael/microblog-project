@@ -2,20 +2,27 @@
 const profileImage = document.getElementById('profileImage');
 const profileFileInput = document.getElementById('profile_image');
 
-if (profileFileInput){
+if (profileFileInput) {
     profileFileInput.addEventListener('change', function() {
-        if (profileFileInput.files.length > 0) {
-            const selectedFile = profileFileInput.files[0];
-    
-            const reader = new FileReader();
-    
-            reader.onload = function(event) {
-                profileImage.src = event.target.result;
-            };
-            reader.readAsDataURL(selectedFile);
+        if (profileFileInput.files.length === 0) return;
+
+        const selectedFile = profileFileInput.files[0];
+        if (!selectedFile || !selectedFile.type.startsWith('image/')) {
+            alert('Please select a valid image file.');
+            profileFileInput.value = '';
+            return;
         }
+
+        const reader = new FileReader();
+
+        reader.onload = function(event) {
+            profileImage.src = event.target.result;
+        };
+
+        reader.readAsDataURL(selectedFile);
     });
 }
+
 
 // post
 const postImage = document.getElementById('postImage');
