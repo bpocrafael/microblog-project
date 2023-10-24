@@ -34,7 +34,7 @@
 
                                     @error('first_name')
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
+                                            <i>{{ $message }}</i>
                                         </span>
                                     @enderror
                                 </div>
@@ -44,7 +44,7 @@
 
                                     @error('last_name')
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
+                                            <i>{{ $message }}</i>
                                         </span>
                                     @enderror
                                 </div>
@@ -56,7 +56,7 @@
                                     
                                     @error('username')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        <i>{{ $message }}</i>
                                     </span>
                                     @enderror
                                 </div>
@@ -68,7 +68,7 @@
 
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
+                                            <i>{{ $message }}</i>
                                         </span>
                                     @enderror
                                 </div>
@@ -80,7 +80,7 @@
 
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
+                                            <i>{{ $message }}</i>
                                         </span>
                                     @enderror
                                 </div>
@@ -92,7 +92,7 @@
                                     
                                     @error('password-confirm')
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
+                                            <i>{{ $message }}</i>
                                         </span>
                                     @enderror
                                 </div>
@@ -101,6 +101,7 @@
                             <div class="row p-2 mb-0 mt-3">
                                 <div class="col-md text-center">
                                     <button type="submit" class="button button-primary">
+                                        <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
                                         {{ __('Register') }}
                                     </button>
                                 </div>

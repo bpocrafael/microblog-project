@@ -45,6 +45,14 @@ class UserPost extends Model
         return $this->isShared() && $this->originalPost === null;
     }
 
+    /**
+     * Check if this post is liked the authUser.
+     */
+    public function isLikedBy(User $authUser): bool
+    {
+        return $this->likes->contains('user_id', $authUser->id);
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

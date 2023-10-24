@@ -4,67 +4,92 @@
 
 @include('partials._header')
 <div id="page-content">
-    <div class="container">
-        <div class="row justify-content-center">
+    <div class="container-fluid my-5">
+        <div class="row g-2 justify-content-center">
+            <div class="col-auto">
+                <x-profile-component :post="$post" />
+            </div>
             <div class="col-md-6">
-                <img src="{{ asset('assets/images/microblog-logo-iconx30.png') }}" alt="Image">
-                <a class="text-dark" href="{{ route('profile.show', $post->user->id) }}">{{ $post->user->username }}</a>
-                <div class="container p-3">
-                    <form method="POST" action="{{ route('post.update', $post) }} " enctype="multipart/form-data">
-                        @csrf
-                        
-                        @method('PUT')
-                        <div class="form-group my-3">
-                            <textarea id="content" name="content" class="form-control" rows="2" placeholder="Enter your microblog here...">{{ $post->content }}</textarea>
-                        </div>
-                        @if ($post->media)
-                            <img id="postImage" src="{{ asset($post->media->getFilePathAttribute()) }}" style="max-width: 100%; height: auto;">
-                        @else
-                            <img id="postImage" src="" style="max-width: 100%; height: auto;">
-                        @endif
-                        
-                        <div class="form-group my-3">
-                            <label for="photo">Update Photo:</label>
-                            <input type="file" id="post_image" name="image">
-                        </div>
-
-                        @error('content')
-                        <span class="text-danger" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                        
-                        @error('image')
-                        <span class="text-danger" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-
-                        @error('content')
-                        <span class="text-danger" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror                        
-                        <div class="text-end">
-                            <a href="{{ route('home') }}" class="btn btn-secondary"> {{ __('Cancel') }} </a>
-                            <button type="submit" class="btn btn-dark">Update Post</button>
-                        </div>
-                    </form>
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-auto">
+                        <a class="text-dark" href="{{ route('profile.show', $post->user->id) }}">
+                            <div class="name">
+                                {{ $post->user->full_name }}
+                            </div>
+                        </a>
+                    </div>
+                    @include('partials._follow')
                     @can('delete-post', $post)
-                        <form id="delete-post-form" method="POST" action="{{ route('post.destroy', $post) }}">
-                            @csrf
-                            @method('DELETE')
-                            <button type="button" class="btn btn-danger" onclick="confirmDelete()">Delete Post</button>
-                        </form>
+                        <div class="col-auto">
+                            <form id="delete-post-form" method="POST" action="{{ route('post.destroy', $post) }}">
+                                @csrf
+                                @method('DELETE')
+                                <button type="button" class="button button-danger" onclick="confirmDelete()">
+                                    <i class="fa-regular fa-trash-can"></i>
+                                </button>
+                            </form>
 
-                        <script>
-                            function confirmDelete() {
-                                if (confirm('Are you sure you want to delete this post?')) {
-                                    document.getElementById('delete-post-form').submit();
+                            <script>
+                                function confirmDelete() {
+                                    if (confirm('Are you sure you want to delete this post?')) {
+                                        document.getElementById('delete-post-form').submit();
+                                    }
                                 }
-                            }
-                        </script>
+                            </script>
+                        </div>
                     @endcan
+                    <i class="date">
+                        @if ($post->updated_at != $post->created_at)
+                            {{ $post->updated_at->format('F j, Y h:i a') }}  <i class="fa-solid fa-pen"></i>  Edited
+                        @else
+                            {{ $post->created_at->format('F j, Y h:i a') }}
+                        @endif
+                    </i>
+                </div>
+                <div class="card post-card my-2">
+                    <div class="card-body m-2 mb-0">
+                        <form method="POST" action="{{ route('post.update', $post) }} " enctype="multipart/form-data">
+                            @csrf
+                            
+                            @method('PUT')
+                            <div class="mb-3">
+                                <textarea id="content" name="content" class="form-control" rows="1" placeholder="Enter your microblog here..." autofocus>{{ $post->content }}</textarea>
+                                @error('content')
+                                <span class="text-danger" role="alert">
+                                    <i>{{ $message }}</i>
+                                </span>
+                                @enderror
+                            </div>
+                            @if ($post->media)
+                                <div class="container-fluid text-center">
+                                    <img id="postImage" src="{{ $post->media ? asset($post->media->file_path) : '' }}" class="rounded img-fluid my-2">
+                                </div>
+                            @endif
+
+                            <div class="mt-3">
+                                <div class="row justify-content-between align-items-center">
+                                    <div class="col-auto">
+                                        <label for="post_image">
+                                            <a class="button button-secondary"><i class="fa-regular fa-image"></i></a>
+                                        </label>
+                                        <input type="file" id="post_image" name="image" hidden>
+                                        @error('image')
+                                        <span class="text-danger" role="alert">
+                                            <i>{{ $message }}</i>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-auto">
+                                        <a href="{{ route('home') }}" class="button button-secondary me-3"> {{ __('Cancel') }} </a>
+                                        <button type="submit" class="button button-primary">
+                                            <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                                            Update Post
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>                       
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

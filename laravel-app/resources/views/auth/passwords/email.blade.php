@@ -31,7 +31,7 @@
 
 									@if ($errors->has('email'))
 										<span class="invalid-feedback">
-											<strong>{{ $errors->first('email') }}</strong>
+											<i>{{ $errors->first('email') }}</i>
 										</span>
 									@endif
 								</div>
@@ -44,6 +44,7 @@
 							<div class="row p-2 mb-0 mt-3">
 								<div class="col-md text-center">
 									<button type="submit" class="button button-primary">
+										<span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
 										{{ __('Send reset link') }}
 									</button>
 								</div>

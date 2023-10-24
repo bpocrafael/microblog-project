@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\UserPost;
 use App\Services\LikeService;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\JsonResponse;
 
 class LikeController extends Controller
 {
@@ -22,7 +22,7 @@ class LikeController extends Controller
     /**
      * For User to like a post.
      */
-    public function like(UserPost $post): RedirectResponse
+    public function like(UserPost $post): JsonResponse
     {
         /** @var User $user */
         $user = auth()->user();
@@ -30,19 +30,19 @@ class LikeController extends Controller
 
         $success = ['success' => 'Post liked successfully'];
 
-        return redirect()->back()->with($success);
+        return response()->json(['success' => $success]);
     }
 
     /**
      * For User to unlike the liked post.
      */
-    public function unlike(UserPost $post): RedirectResponse
+    public function unlike(UserPost $post): JsonResponse
     {
         /** @var User $user */
         $user = auth()->user();
         $this->likeService->unlike($user, $post);
 
         $success = ['success' => 'Post unliked successfully'];
-        return redirect()->back()->with($success);
+        return response()->json(['success' => $success]);
     }
 }
