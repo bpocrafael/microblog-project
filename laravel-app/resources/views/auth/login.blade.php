@@ -17,10 +17,10 @@
                             {{ session('error') }}
                         </div>
                     @endif
-                    <div class="logo-mini">
-                        <span class="mi">Mi</span>
-                        <span class="cro">cro</span>
-                        <span class="blog">blog</span>
+                    <div id="logo-mini">
+                        <span id="mi">Mi</span>
+                        <span id="cro">cro</span>
+                        <span id="blog">blog</span>
                     </div>
                     <b class="title">Login</b>
                 </div>

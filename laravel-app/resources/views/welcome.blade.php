@@ -9,9 +9,9 @@
 				<div class="text-center">
 				<img class="mr-0" src="{{ asset('assets/images/coffee-vector-min.webp') }}" alt="Coffee vector">
 					<div class="logo">
-                        <span class="mi">Mi</span>
-                        <span class="cro">cro</span>
-                        <span class="blog">blog</span>
+                        <span id="mi">Mi</span>
+                        <span id="cro">cro</span>
+                        <span id="blog">blog</span>
                     </div>
 					<p class="splash-text my-4">
 						Discover the Microverse: A Journey of Refined Imagination. <br>

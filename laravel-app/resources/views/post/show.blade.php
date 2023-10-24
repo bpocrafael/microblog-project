@@ -4,27 +4,26 @@
 
 @include('partials._header')
 
+@if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 <div id="page-content">
     <div class="post-container my-5">
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
         <div class="row g-2 justify-content-center">
             <div class="col-auto">
-                <a class="text-dark" href="{{ route('profile.show', $post->user->id) }}">
-                    @if ($post->user->image_path === "assets/images/user-solid.svg")
-                        <div class="profile-button" id="profileButtonContainer1">
-                            <div class="bg">
-                                <div class="letter">
-                                    {{ substr($post->user->full_name, 0, 1) }}
-                                </div>
-                            </div>
-                        </div>
-                    @else
-                        <button class="custom-profile-button" id="profileButtonContainer1">
-                            <div class="image-bg">
-                                <img src="{{ asset($post->user->image_path) }}" alt="Profile Image">
-                            </div>
-                        </button>
-                    @endif
-                </a>
+                <x-profile-component :post="$post" />
             </div>
             <div class="col-md-6">
                 <div class="row justify-content-between">
@@ -52,34 +51,45 @@
                     </i>
                     @can('view-post', $post)
                         <div class="my-2">
-                            @if ($post->isShared())
-                                @php 
-                                    $originalPost = $post->originalPost;
-                                @endphp
-                                <div class="d-flex align-items-center">
-                                    <div class="text-share m-1">Shared from
-                                        <a class="text-share-link" href="{{ route('post.show', $originalPost->id) }}">
-                                            {{ $originalPost->user->username }}'s Post
+                            <div class="card post-card">
+                                <div class="card-body m-2">
+                                    <p>{{ $post->content }}</p>
+                                    @if ($post->isShared())
+                                        @php 
+                                            $originalPost = $post->originalPost;
+                                        @endphp
+                                        <a class="text-share" href="{{ route('post.show', $originalPost->id) }}">
+                                            @can ('view-post', $originalPost)
+                                                <div class="d-flex align-items-center">
+                                                    <div class="text-share m-1">Shared from
+                                                        @if ($post->isOriginalDeleted())
+                                                            a deleted Post
+                                                        @else
+                                                        {{ $originalPost->user->username }}'s Post
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                <div class="card post-card-share">
+                                                    <div class="card-body mb-3">
+                                                        <p>{{ $originalPost->content }}</p>
+                                                        @if ($originalPost->media)
+                                                        <img src="{{ asset($originalPost->media->getFilePathAttribute()) }}" class="post-media" alt="Post Image">
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            @else
+                                                <div class="card bg-light">
+                                                    <div class="card-body m-2">
+                                                        <i class="text-share">Content unavailable.</i>
+                                                    </div>
+                                                </div>
+                                            @endcan
                                         </a>
-                                    </div>
+                                    @elseif ($post->media)
+                                        <img src="{{ asset($post->media->getFilePathAttribute()) }}" style="max-width: 100%; height: auto;" alt="Post Image">
+                                    @endif
                                 </div>
-                            @endif
-                            @if ($post->isContentAvailableFor($authUser))
-                                <div class="card post-card">
-                                    <div class="card-body m-2">
-                                        <p>{{ $post->content }}</p>
-                                        @if ($post->media)
-                                            <img src="{{ asset($post->media->getFilePathAttribute()) }}" style="max-width: 100%; height: auto;" alt="Post Image">
-                                        @endif
-                                    </div>
-                                </div>
-                            @else
-                                <div class="card bg-light">
-                                    <div class="card-body m-2">
-                                        <i class="text-share">Content unavailable.</i>
-                                    </div>
-                                </div>
-                            @endif
+                            </div>
                             @include('post.form_actions')
                             @include('post.form_comment')
                         </div>

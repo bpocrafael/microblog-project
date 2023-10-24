@@ -48,6 +48,21 @@ body {
 --br-11xl: 30px;
 }
 
+/* Scroll */
+::-webkit-scrollbar-thumb {
+    background-color: var(--color-tan);
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-peru);
+}
+::-webkit-scrollbar-track {
+    background-color: var(--color-light);
+}
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+
 #page-content {
 	min-height: 100vh;
 	padding-top: 2em;
@@ -71,7 +86,8 @@ body {
 .splash-page,
 .register-page,
 .forgot-page,
-.error-page {
+.error-page,
+.edit-profile {
 	background-color: var(--color-thistle);
 	min-height: 100vh;
 	background-color: var(--color-light);
@@ -82,19 +98,19 @@ body {
 	min-height: 100vh;
 	box-sizing: border-box;
 }
-.mi {
+#mi {
 	color: var(--color-peru);
 	margin-right: -.1em;
 }
-.cro {
+#cro {
 	color: var(--color-gray);
 	margin-right: -.1em;
 }
-.blog {
+#blog {
 	color: var(--color-tan);
 	margin-right: -.1em;
 }
-.logo-mini {
+#logo-mini {
 	letter-spacing: -0.05em;
 	font-weight: bold;
 	font-size: var(--font-size-5xl);
@@ -176,6 +192,9 @@ input {
 	background-color: var(--color-light) !important;
 	border: 0 !important;
 }
+.post-card-share {
+	border-width: 0 !important;
+}
 .post-card-unavailable {
 	background-color: var(--color-thistle) !important;
 	border: 1px solid var(--color-gray);
@@ -186,7 +205,6 @@ input {
 	cursor: pointer;
 }
 .bg {
-	position: absolute;
 	top: 0;
 	left: 0;
 	border-radius: var(--br-11xl);
@@ -197,7 +215,7 @@ input {
 	align-items: center;
 	justify-content: center;
 	padding: var(--padding-4xs) var(--padding-base);
-	border: 1px solid var(--color-dimgray);
+	border: 2px solid var(--color-dimgray);
 }
 .name,
 .date {

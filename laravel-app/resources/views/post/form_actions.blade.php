@@ -5,7 +5,7 @@
 		<div class="row justify-content-end align-items-center p-2">
 			<div class="col-auto">
 				@csrf
-				<a href="{{ route('share', $post->id) }}" class="button button-light">
+				<a href="{{ route('share.create', $post->id) }}" class="button button-light">
 					<i class="fa-regular fa-share-from-square"></i>
 				</a>
 			</div>

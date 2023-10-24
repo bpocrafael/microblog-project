@@ -14,7 +14,7 @@ class CommentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'content' => 'required|max:255',
+            'comment' => 'required|max:255',
         ];
     }
 
@@ -26,8 +26,8 @@ class CommentRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'content.required' => 'The comment content is required.',
-            'content.max' => 'The comment content cannot exceed 255 characters.',
+            'comment.required' => 'The comment is required.',
+            'comment.max' => 'The comment cannot exceed 255 characters.',
         ];
     }
 }

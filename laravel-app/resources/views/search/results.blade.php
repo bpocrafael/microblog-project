@@ -10,52 +10,26 @@
 
 <div id="page-content">
 	<div class="container my-3">
-		<div class="row justify-content-center text-center">
-			<div class="col-md-6">
-				<div class="mb-4">
-					<h4>Microblog User results for "{{ $query }}"</h4>
+		<div class="row">
+			<div class="col">
+				<div class="mb-4 text-center">
+					<h4>Microblog results for "{{ $query }}"</h4>
 				</div>
+				@if ($searchResults->count() > 0)
 
-				@if ($results->count() > 0)
-					@foreach ($results as $result)
-						<div class="card m-2">
-							<div class="card-body">
-								<div class="row">
-									<div class="col text-start">
-										<a class="text-dark" href="{{ route('profile.show', $result->id) }}">
-											<img src="{{ asset('assets/images/microblog-logo-iconx30.png') }}" alt="Image">
-											{{ $result->username }}
-										</a>
-									</div>
-									<div class="col-3 align-self-center">
-										@if($authUser->isNot($result))
-											@if($authUser->isFollowing($result))
-												<form method="POST" action="{{ route('follow.destroy', $result->id) }}">
-													@csrf
-													@method('DELETE')
-													<button class="btn btn-dark" type="submit">Unfollow</button>
-												</form>
-											@else
-												<form method="POST" action="{{ route('follow.update', $result->id) }}">
-													@csrf
-													@method('PUT')
-													<button class="btn btn-dark" type="submit">Follow</button>
-												</form>
-											@endif
-										@endif
-									</div>
-								</div>
-							</div>
-						</div>
+					@foreach ($searchResults as $searchResult)
+						@include('search.result')
 					@endforeach
-					{{ $results->links() }}
+					
+					{{ $searchResults->appends(['query' => request('query')])->withPath(Request::url())->links() }}
+
 				@else
-					<div class="row">
+					<div class="row my-5 text-center">
 						<div class="col">
-							<img 
-								src="{{ asset('assets/images/empty.png') }}"
-								alt="Image"
-								class="w-50">
+							<img src="{{ asset('assets/images/coffee-vector-min.webp') }}" alt="Coffee">
+							<div class="my-3">
+								<h5 class="">No results found</h5>
+							</div>
 						</div>
 					</div>
 				@endif

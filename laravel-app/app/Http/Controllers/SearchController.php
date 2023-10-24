@@ -25,8 +25,8 @@ class SearchController extends Controller
     {
         $query = $request->input('query');
 
-        $results = $this->searchService->searchUser($query)->paginate(4);
+        $searchResults = $this->searchService->searchUser($query);
 
-        return view('search.results', ['results' => $results, 'query' => $query]);
+        return view('search.results', ['searchResults' => $searchResults, 'query' => $query]);
     }
 }

@@ -92,10 +92,9 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function getFollowingPostsAttribute(): LengthAwarePaginator
     {
-        $followingUserIds = $this->following->pluck('id');
-        $followingUserIds->push($this->id);
+        $followingWithAuthId = $this->following->pluck('id')->push($this->id);
 
-        return UserPost::whereIn('user_id', $followingUserIds)
+        return UserPost::whereIn('user_id', $followingWithAuthId)
             ->with('user')
             ->latest('created_at')
             ->paginate(4);
