@@ -17,12 +17,15 @@
                         <div class="form-group my-3">
                             <textarea id="content" name="content" class="form-control" rows="2" placeholder="Enter your microblog here...">{{ $post->content }}</textarea>
                         </div>
-                            @if ($post->media)
-                                <img id="preview-image" src="{{ asset($post->media->getFilePathAttribute()) }}" style="max-width: 100%; height: auto;">
-                            @endif
+                        @if ($post->media)
+                            <img id="postImage" src="{{ asset($post->media->getFilePathAttribute()) }}" style="max-width: 100%; height: auto;">
+                        @else
+                            <img id="postImage" src="" style="max-width: 100%; height: auto;">
+                        @endif
+                        
                         <div class="form-group my-3">
                             <label for="photo">Update Photo:</label>
-                            <input type="file" id="photo" name="image">
+                            <input type="file" id="post_image" name="image">
                         </div>
 
                         @error('content')
@@ -70,4 +73,3 @@
 @include('partials._footer')
 
 @endsection
-<script type="module" src="{{ asset('assets/js/post_create.js')}}"></script>

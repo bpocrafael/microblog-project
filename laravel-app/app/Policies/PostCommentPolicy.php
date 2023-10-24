@@ -14,4 +14,11 @@ class PostCommentPolicy
     {
         return $user->id === $comments->user_id;
     }
+    /**
+     * Determines whether the user can edit his/her own comment.
+     */
+    public function edit(User $user, PostComment $comments): bool
+    {
+        return $user->id === $comments->user_id;
+    }
 }

@@ -10,7 +10,17 @@
     </div>
 @endif
 <div id="page-content">
-    <div class="container-fluid post-container my-5">
+    <div class="post-container my-5">
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
         <div class="row g-2 justify-content-center">
             <div class="col-auto">
                 <x-profile-component :post="$post" />

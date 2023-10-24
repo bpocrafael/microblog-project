@@ -26,7 +26,7 @@
                     </div>
                     <form method="POST" action="{{ route('profile.store') }}" enctype="multipart/form-data">
                         @csrf
-                        <div class="row justify-content-center">
+                        <div class="row justify-content-center align-items-center">
                             <div class="col-auto">
                                 <div class="form-group">
                                     <label for="profile_image">
