@@ -24,9 +24,9 @@ $(document).ready(function () {
             },
             success: function () {
                 handleFollowUnfollow(button, isFollowing);
-				if (window.location.href.includes('/profile/')) {
-					location.reload();
-				}
+                if (window.location.href.includes('/profile/')) {
+                    location.reload();
+                }
             }
         });
     });
@@ -36,7 +36,7 @@ function handleFollowUnfollow(button, isFollowing) {
     button.data('is-following', !isFollowing);
 
     setTimeout(function () {
-		button.prop('disabled', false);
+        button.prop('disabled', false);
         updateButtonText(button, !isFollowing);
     }, 400);
 }
@@ -45,7 +45,7 @@ function updateButtonText(button, isFollowing) {
     const buttonText = button.find('.button-text');
     if (isFollowing) {
         buttonText.html('<i class="fa-solid fa-circle-check"></i> Following');
-		return;
+        return;
     }
-	buttonText.html('<i class="fa-regular fa-circle-check"></i> Follow');
+    buttonText.html('<i class="fa-regular fa-circle-check"></i> Follow');
 }
