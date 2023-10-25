@@ -27,9 +27,12 @@ class FollowController extends Controller
 
         $authUser->following()->attach($user);
 
-        $success = ['success' => 'Successfully followed ' . $user->username];
+        $message = 'Successfully followed ' . $user->username;
 
-        return response()->json(['success' => $success]);
+        return response()->json([
+            'status' => 'success',
+            'message' => $message,
+        ], 200);
     }
 
     public function destroy(User $user): JsonResponse
@@ -39,8 +42,11 @@ class FollowController extends Controller
 
         $authUser->following()->detach($user);
 
-        $success = ['success' => 'Successfully unfollowed ' . $user->username];
+        $message = 'Successfully unfollowed ' . $user->username;
 
-        return response()->json(['success' => $success]);
+        return response()->json([
+            'status' => 'success',
+            'message' => $message,
+        ], 200);
     }
 }
