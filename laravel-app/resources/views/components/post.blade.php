@@ -16,20 +16,20 @@
                     </a>
                 </div>
                 <div class="col">
-                    @include('partials._follow')
+                    <x-follow-button :user="$post->user"/>
                 </div>
                 <i class="date">
                     @if ($post->updated_at != $post->created_at)
-                        {{ $post->updated_at->format('F j, Y') }}  <i class="fa-solid fa-pen"></i>  Edited
+                        {{ $post->updated_at->format('F j, Y  h:i a') }}  <i class="fa-solid fa-pen"></i>  Edited
                     @else
-                        {{ $post->created_at->format('F j, Y') }}
+                        {{ $post->created_at->format('F j, Y  h:i a') }}
                     @endif
                 </i>
                 <div class="my-2">
                     <a id="post-card" href="{{ route('post.show', $post->id) }}">
                         <div class="card post-card">
                             <div class="card-body m-2">
-                                <p>{{ $post->content }}</p>
+                                <p>{!! nl2br(e($post->content)) !!}</p>
                                 @if ($post->isShared())
                                     @php 
                                         $originalPost = $post->originalPost;
@@ -47,9 +47,9 @@
                                                 </div>
                                                 <div class="card post-card-share">
                                                     <div class="card-body mb-3">
-                                                        <p>{{ $originalPost->content }}</p>
+                                                        <p>{!! nl2br(e($originalPost->content)) !!}</p>
                                                         @if ($originalPost->media)
-                                                        <img src="{{ asset($originalPost->media->getFilePathAttribute()) }}" class="post-media" alt="Post Image">
+                                                        <img src="{{ asset($originalPost->media->file_path) }}" class="post-media" alt="Post Image">
                                                         @endif
                                                     </div>
                                                 </div>
@@ -62,7 +62,9 @@
                                         </a>
                                     @endcan
                                 @elseif ($post->media)
-                                    <img src="{{ asset($post->media->getFilePathAttribute()) }}" class="post-media" alt="Post Image">
+                                    <div class="container-fluid text-center">
+                                        <img src="{{ asset($post->media->file_path) }}" class="img-fluid rounded my-2" alt="Post Image">
+                                    </div>
                                 @endif
                             </div>
                         </div>

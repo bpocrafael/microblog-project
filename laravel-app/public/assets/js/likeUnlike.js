@@ -50,19 +50,20 @@ function handleLikeUnlike(postId, action, element) {
 
     
     setTimeout(function () {
+        element.prop('disabled', false);
+
         if (action === 'unlike') {
             _likeCounter.text(parseInt(_likeCounter.text()) - 1);
             _likedCounter.text(parseInt(_likedCounter.text()) - 1);
             likeButton.show();
             unlikeButton.hide();
-        } else {
-            _likeCounter.text(parseInt(_likeCounter.text()) + 1);
-            _likedCounter.text(parseInt(_likedCounter.text()) + 1);
-            likeButton.hide();
-            unlikeButton.show();
+            return;
         }
 
-        element.prop('disabled', false);
-        
+        _likeCounter.text(parseInt(_likeCounter.text()) + 1);
+        _likedCounter.text(parseInt(_likedCounter.text()) + 1);
+        likeButton.hide();
+        unlikeButton.show();
+
     }, 400);
 }

@@ -18,11 +18,11 @@
 						@if ($user->image_path === "assets/images/user-solid.svg")
 							<div class="profile-letter">
 								<div class="letter-bg">
-									{{ ucfirst(substr($authUser->full_name, 0, 1)) }}
+									{{ ucfirst(substr($user->full_name, 0, 1)) }}
 								</div>
 							</div>
 						@else
-							<img id="profileImage" class="img-fluid w-50 profile-image" src="{{ asset($user->image_path) }}" alt="Profile Picture">
+							<img id="profile-image" class="img-fluid w-50 profile-image" src="{{ asset($user->image_path) }}" alt="Profile Picture">
 						@endif
 					</div>
 				</div>
@@ -47,29 +47,7 @@
 						</div>
 					</div>
 				@endcan
-				@if($authUser->isNot($user))
-					<div class="col-auto">
-						@if($authUser->isFollowing($user))
-							<form method="POST" action="{{ route('follow.destroy', $user->id) }}">
-								@csrf
-								@method('DELETE')
-								<button class="button button-light" type="submit">
-									<i class="fa-solid fa-circle-check"></i>
-									Following
-								</button>
-							</form>
-							@else
-							<form method="POST" action="{{ route('follow.update', $user->id) }}">
-								@csrf
-								@method('PUT')
-								<button class="button button-light" type="submit">
-									<i class="fa-regular fa-circle-check"></i>
-									Follow
-								</button>
-							</form>
-						@endif
-					</div>
-				@endif
+				<x-follow-button :user="$user" />
 			</div>
 			<div class="col">
 				<div class="row mb-5">

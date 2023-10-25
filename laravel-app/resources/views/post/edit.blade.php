@@ -18,7 +18,7 @@
                             </div>
                         </a>
                     </div>
-                    @include('partials._follow')
+                    <x-follow-button :user="$post->user" />
                     @can('delete-post', $post)
                         <div class="col-auto">
                             <form id="delete-post-form" method="POST" action="{{ route('post.destroy', $post) }}">

@@ -5,3 +5,4 @@
 <script type="module" src="{{ asset('assets/js/comment.js') }}"></script>
 <script type="module" src="{{ asset('assets/js/images.js') }}"></script>
 <script type="module" src="{{ asset('assets/js/likeUnlike.js') }}"></script>
+<script type="module" src="{{ asset('assets/js/followUnfollow.js') }}"></script>

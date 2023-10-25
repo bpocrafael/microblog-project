@@ -12,7 +12,10 @@
 	@enderror
 
 	<div class="text-end">
-		<a href="{{ route('home') }}" class="button button-secondary me-5"> {{ __('Cancel') }} </a>
-		<button type="submit" class="button button-primary">Share</button>
+		<a href="{{ route('home') }}" class="button button-secondary me-3"> {{ __('Cancel') }} </a>
+		<button type="submit" class="button button-primary">
+			<span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+			Share
+		</button>
 	</div>
 </form>

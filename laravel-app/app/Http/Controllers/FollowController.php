@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\JsonResponse;
 
 class FollowController extends Controller
 {
@@ -20,7 +20,7 @@ class FollowController extends Controller
         ]);
     }
 
-    public function update(User $user): RedirectResponse
+    public function update(User $user): JsonResponse
     {
         /** @var User $authUser */
         $authUser = auth()->user();
@@ -29,10 +29,10 @@ class FollowController extends Controller
 
         $success = ['success' => 'Successfully followed ' . $user->username];
 
-        return redirect()->back()->with($success);
+        return response()->json(['success' => $success]);
     }
 
-    public function destroy(User $user): RedirectResponse
+    public function destroy(User $user): JsonResponse
     {
         /** @var User $authUser */
         $authUser = auth()->user();
@@ -41,6 +41,6 @@ class FollowController extends Controller
 
         $success = ['success' => 'Successfully unfollowed ' . $user->username];
 
-        return redirect()->back()->with($success);
+        return response()->json(['success' => $success]);
     }
 }

@@ -29,6 +29,6 @@ const profileFileInput = document.getElementById('profile_image');
 handleFileInputChange(profileFileInput, profileImage);
 
 // Post
-const postImage = document.getElementById('postImage');
-const postFileInput = document.getElementById('post_image');
+const postImage = document.getElementById('preview-image');
+const postFileInput = document.getElementById('photo');
 handleFileInputChange(postFileInput, postImage);
