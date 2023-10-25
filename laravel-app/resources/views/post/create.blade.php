@@ -1,50 +1,58 @@
 @extends('layouts.app')
 
 @section('content')
-    @include('partials._header')
-    <div id="page-content">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-6">
-                    <img src="{{ asset('assets/images/microblog-logo-iconx30.png') }}" alt="Image">
-                    <a class="text-dark" href="{{ route('profile.show', $user->id) }}">{{ $user->username }}</a>
-
-                    <div class="container p-3">
-                        <form method="POST" action="{{ route('post.store', $user->id) }}" enctype="multipart/form-data">
-
+@include('partials._header')
+<div id="page-content">
+    <div class="container-fluid my-5">
+        <div class="row g-2 justify-content-center">
+            <div class="col-auto">
+                <x-profile-component :authUser="$user" />
+            </div>
+            <div class="col-md-6">
+                <a class="text-dark" href="{{ route('profile.show', $user->id) }}">
+                    <div class="name my-2 mb-4">
+                        {{ $user->full_name }}
+                    </div>
+                </a>
+                <div class="card post-card my-2">
+                    <div class="card-body m-2">
+                        <form method="POST" action="{{ route('post.store', $user->id)}}" enctype="multipart/form-data">
+                            
                             @csrf
-                            <div class="form-group my-3">
-                                <textarea id="content" name="content" class="form-control" rows="2" placeholder="Enter your microblog here..."></textarea>
-                            </div>
-
-                            <div id="photo-preview" style="width: 100%;">
-                                @if (isset($post->media))
-                                    <img id="postImage" src="{{ asset($post->media->getFilePathAttribute()) }}" style="max-width: 100%; height: auto;">
-                                @else
-                                    <img id="postImage" src="" style="max-width: 100%; height: auto;">
-                                @endif
-                            </div>
-
-                            <div class="form-group my-3">
-                                <label for="photo">Add Photo:</label>
-                                <input type="file" id="post_image" name="image">
-                            </div>
-
-                            @error('content')
+                            <div class="mb-3">
+                                <textarea id="content" name="content" class="form-control" rows="2" placeholder="Fill the world with your ideas." autofocus></textarea>
+                                @error('content')
                                 <span class="text-danger" role="alert">
-                                    <strong>{{ $message }}</strong>
+                                    <i>{{ $message }}</i>
                                 </span>
-                            @enderror
+                                @enderror
+                            </div>
+                            
+                            <div id="photo-preview" class="container-fluid text-center">
+                                <img id="preview-image" class="img-fluid my-2">
+                            </div>                       
 
-                            @error('image')
-                                <span class="text-danger" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-
-                            <div class="text-end">
-                                <a href="{{ route('home') }}" class="btn btn-secondary"> {{ __('Cancel') }} </a>
-                                <button type="submit" class="btn btn-dark">Create Post</button>
+                            <div class="my-3">
+                                <div class="row justify-content-between align-items-center">
+                                    <div class="col-auto">
+                                        <label for="photo">
+                                            <a class="button button-secondary"><i class="fa-regular fa-image"></i></a>
+                                        </label>
+                                        <input type="file" id="photo" name="image" hidden>
+                                        @error('image')
+                                        <span class="text-danger" role="alert">
+                                            <i>{{ $message }}</i>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-auto">
+                                        <a href="{{ route('home') }}" class="button button-secondary me-3"> {{ __('Cancel') }} </a>
+                                        <button type="submit" class="button button-primary">
+                                            <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                                            Create Post
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -52,6 +60,7 @@
             </div>
         </div>
     </div>
+</div>
 
     @include('partials._footer')
 @endsection

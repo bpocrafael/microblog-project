@@ -17,7 +17,12 @@ class SearchService implements SearchServiceInterface
         /** @var User $authUser */
         $authUser = auth()->user();
 
-        $users = User::where('username', 'like', '%' . $query . '%')
+        $users = User::whereHas('information', function ($queryBuilder) use ($query) {
+            $queryBuilder->where('username', 'like', '%' . $query . '%')
+                ->orWhere('first_name', 'like', '%' . $query . '%')
+                ->orWhere('middle_name', 'like', '%' . $query . '%')
+                ->orWhere('last_name', 'like', '%' . $query . '%');
+        })
             ->where('is_verified', 1)
             ->get()
             ->collect()

@@ -27,12 +27,12 @@
 
                 <div class="m-3">
                     <div class="card-body">
-                        <form method="POST" action="{{ route('login.authenticate') }}">
+                        <form id="login-form" method="POST" action="{{ route('login.authenticate') }}">
                             @csrf
 
                             @if ($errors->has('email'))
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('email') }}</strong>
+                                    <i>{{ $errors->first('email') }}</i>
                                 </span>
                             @endif
 
@@ -48,7 +48,7 @@
 
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
+                                            <i>{{ $message }}</i>
                                         </span>
                                     @enderror
                                 </div>
@@ -60,7 +60,7 @@
 
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
+                                            <i>{{ $message }}</i>
                                         </span>
                                     @enderror
                                 </div>
@@ -89,6 +89,7 @@
                             <div class="row p-2 mb-0 mt-3">
                                 <div class="col-md text-center">
                                     <button type="submit" class="button button-primary">
+                                        <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
                                         {{ __('Login') }}
                                     </button>
                                 </div>
