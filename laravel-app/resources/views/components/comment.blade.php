@@ -55,8 +55,8 @@
                                     <p id="commentComment_{{ $comments->id }}">{{ $comments->comment }}</p>
                                     <div class="buttons-container">
                                         @can('delete', $comments)
-                                            <form method="GET"
-                                                action="{{ route('comment.delete', $post->id, $comments->id) }}"
+                                            <form method="DELETE"
+                                                action="{{ route('comment.destroy', $post->id, $comments->id) }}"
                                                 id="deleteForm">
                                                 @csrf
                                                 @method('DELETE')
@@ -68,7 +68,7 @@
                                         @endcan
                                         @can('edit', $comments)
                                             <form method="POST"
-                                                action="{{ route('comment.edit', $comments->id, $comments->comment) }}"
+                                                action="{{ route('comment.update', $comments->id, $comments->comment) }}"
                                                 style="display: none;" class="editForm" id="editForm_{{ $comments->id }}">
                                                 @csrf
                                                 <input type="hidden" name="comment_id" value="{{ $comments->id }}">

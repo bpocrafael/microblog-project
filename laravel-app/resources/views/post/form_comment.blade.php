@@ -3,7 +3,7 @@
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col">
-				<form action="{{ route('comments.store', $post) }}" method="POST">
+				<form action="{{ route('comment.store', $post) }}" method="POST">
 					@csrf
 
 					<div class="form-group mt-3">
@@ -17,7 +17,8 @@
 					@enderror
 
 					<div class="text-end m-2">
-						<button type="submit" class="button button-light">
+						<button type="submit" class="button button-primary">
+							<span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
 							Comment
 						</button>
 					</div>

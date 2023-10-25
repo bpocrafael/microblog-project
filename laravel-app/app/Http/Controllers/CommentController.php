@@ -22,7 +22,7 @@ class CommentController extends Controller
      */
     public function create(UserPost $post): view
     {
-        return view('comments.create', compact('post'));
+        return view('comment.create', compact('post'));
     }
 
     /**
@@ -38,7 +38,7 @@ class CommentController extends Controller
     /**
      * Deletes a comment
      */
-    public function deleteComment(int $id): ?RedirectResponse
+    public function destroy(int $id): ?RedirectResponse
     {
         $result = $this->commentService->deleteComment($id);
 
@@ -48,7 +48,7 @@ class CommentController extends Controller
     /**
      * Updates a comment
      */
-    public function editComment(CommentRequest $request, int $id): ?RedirectResponse
+    public function update(CommentRequest $request, int $id): ?RedirectResponse
     {
         $editedComment = $this->commentService->editComment($id, $request->validated('comment'));
 
