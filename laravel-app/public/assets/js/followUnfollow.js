@@ -1,14 +1,14 @@
 $(document).ready(function () {
     $('.follow-button').each(function () {
         const button = $(this);
-        const isFollowing = button.data('isFollowing') === true;
+        const isFollowing = button.data('isFollowing');
         updateButtonText(button, isFollowing);
     });
 
     $(document).on('click', '.follow-button', $.throttle(500 ,function () {
         const button = $(this);
         const userId = button.data('user-id');
-        const isFollowing = button.data('isFollowing') === true;
+        const isFollowing = button.data('isFollowing');
         const csrfToken = $('meta[name="csrf-token"]').attr('content');
         const url = isFollowing ? button.data('delete-url') : button.data('url');
 
