@@ -52,7 +52,7 @@ function handleLikeUnlike(postId, action, element) {
         unlikeButton.hide();
         return;
     }
-    
+
     _likeCounter.text(parseInt(_likeCounter.text()) + 1);
     _likedCounter.text(parseInt(_likedCounter.text()) + 1);
     likeButton.hide();

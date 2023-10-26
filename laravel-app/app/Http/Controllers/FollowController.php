@@ -8,6 +8,9 @@ use Illuminate\Http\JsonResponse;
 
 class FollowController extends Controller
 {
+    /**
+     * Show all currently followers and following users
+     */
     public function show(User $user): View
     {
         $followers = $user->followers()->get();
@@ -20,6 +23,9 @@ class FollowController extends Controller
         ]);
     }
 
+    /**
+     * To follow the user.
+     */
     public function update(User $user): JsonResponse
     {
         /** @var User $authUser */
@@ -35,6 +41,9 @@ class FollowController extends Controller
         ], 200);
     }
 
+    /**
+     * To unfollow the user.
+     */
     public function destroy(User $user): JsonResponse
     {
         /** @var User $authUser */

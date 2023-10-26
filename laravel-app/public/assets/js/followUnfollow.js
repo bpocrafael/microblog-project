@@ -24,7 +24,7 @@ $(document).ready(function () {
                 const currentLocation = ['/profile/', '/post/', '/follow/'];
                 if (currentLocation.some(substring => window.location.href.includes(substring))) {
                     location.reload();
-                }                  
+                }
             }
         });
     }));
