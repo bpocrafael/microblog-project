@@ -5,7 +5,7 @@ $(document).ready(function () {
         updateButtonText(button, isFollowing);
     });
 
-    $(document).on('click', '.follow-button', function () {
+    $(document).on('click', '.follow-button', $.throttle(500 ,function () {
         const button = $(this);
         const userId = button.data('user-id');
         const isFollowing = button.data('isFollowing') === true;
@@ -19,26 +19,20 @@ $(document).ready(function () {
                 user: userId,
                 _token: csrfToken,
             },
-            beforeSend: function () {
-                button.prop('disabled', true);
-            },
             success: function () {
                 handleFollowUnfollow(button, isFollowing);
-                if (window.location.href.includes('/profile/')) {
+                const currentLocation = ['/profile/', '/post/', '/follow/'];
+                if (currentLocation.some(substring => window.location.href.includes(substring))) {
                     location.reload();
-                }
+                }                  
             }
         });
-    });
+    }));
 });
 
 function handleFollowUnfollow(button, isFollowing) {
     button.data('is-following', !isFollowing);
-
-    setTimeout(function () {
-        button.prop('disabled', false);
-        updateButtonText(button, !isFollowing);
-    }, 400);
+    updateButtonText(button, !isFollowing);
 }
 
 function updateButtonText(button, isFollowing) {
