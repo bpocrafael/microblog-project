@@ -6,7 +6,21 @@
             <div class="row g-2 justify-content-center my-3">
                 <div class="col-auto">
                     <a class="text-dark" href="{{ route('profile.show', $comments->user->id) }}">
-                        <x-profile-component :user="$comments->user" />
+                        @if (!$comments->user->image_path)
+                            <div class="profile-button" id="profileButtonContainer1">
+                                <div class="bg">
+                                    <div class="letter">
+                                        {{ substr($comments->user->full_name, 0, 1) }}
+                                    </div>
+                                </div>
+                            </div>
+                        @else
+                            <button class="custom-profile-button" id="profileButtonContainer1">
+                                <div class="image-bg">
+                                    <img src="{{ asset($comments->user->image_path) }}" alt="Profile Image">
+                                </div>
+                            </button>
+                        @endif
                     </a>
                 </div>
                 <div class="col">

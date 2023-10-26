@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UpdateProfileImageRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Models\User;
+use App\Models\UserMedia;
 use App\Services\ProfileService;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -86,5 +87,23 @@ class ProfileController extends Controller
 
         $success = ['success' => 'Profile image uploaded successfully'];
         return redirect()->route('profile.show', $user->id)->with($success);
+    }
+
+    /**
+     * Delete user's profile image
+     */
+    public function destroy(User $user): RedirectResponse
+    {
+        $userMedia = UserMedia::where('user_id', $user->id)->first();
+
+        if (!$userMedia) {
+            return redirect()->back()->with('error', 'No profile image found to delete.');
+        }
+
+        if ($this->userService->deleteProfileImage($user)) {
+            return redirect()->back()->with('success', 'Profile image deleted successfully.');
+        }
+
+        return redirect()->back()->with('error', 'An error occurred while deleting the profile image.');
     }
 }

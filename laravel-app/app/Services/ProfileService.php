@@ -7,7 +7,10 @@ use App\Interfaces\ProfileServiceInterface;
 use App\Models\User;
 use App\Models\UserInformation;
 use App\Models\UserMedia;
+use Exception;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileService implements ProfileServiceInterface
 {
@@ -44,6 +47,32 @@ class ProfileService implements ProfileServiceInterface
                 ]);
                 $userMedia->save();
             }
+        }
+    }
+
+    /**
+     * Delete user's profile image
+     */
+    public function deleteProfileImage(User $user): bool
+    {
+        DB::beginTransaction();
+
+        try {
+            $userMedia = UserMedia::where('user_id', $user->id)->first();
+
+            if ($userMedia) {
+                Storage::delete($userMedia->file_path);
+
+                $userMedia->delete();
+
+                DB::commit();
+                return true;
+            }
+
+            return false;
+        } catch (Exception $e) {
+            DB::rollBack();
+            return false;
         }
     }
 }
