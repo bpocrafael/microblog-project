@@ -29,6 +29,7 @@ body {
 --color-lightred: rgba(253, 145, 145, 0.6);
 --color-green: rgba(158, 252, 180, 1);
 --color-lightgreen: rgba(158, 252, 180, .3);
+--color-yellow: rgba(253, 221, 138, .7);
 
 /* Gaps */
 --gap-5xl: 24px;
@@ -87,6 +88,9 @@ body {
 	background-color: var(--color-lightgreen) !important;
 	border-color: var(--color-lightgreen) !important;
 	color: var(--color-gray) !important;
+}
+.text-highlight-yellow {
+	background-color: var(--color-yellow);
 }
 
 /* login */
