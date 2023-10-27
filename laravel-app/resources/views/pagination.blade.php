@@ -7,7 +7,7 @@
 					@if (!$paginator->onFirstPage())
 						<li class="page-item">
 							<a class="page-link" href="{{ $paginator->url(1) }}" rel="prev">
-								<i class="fa-solid fa-angles-right fa-rotate-180"></i>
+								<i class="fa-solid fa-angles-right fa-rotate-180 fa-2xs"></i>
 							</a>
 						</li>
 					@endif
@@ -16,7 +16,7 @@
 					@if (!$paginator->onFirstPage())
 						<li class="page-item">
 							<a class="page-link" href="{{ $paginator->previousPageUrl() }}" rel="prev">
-								<i class="fa-solid fa-chevron-right fa-rotate-180"></i>
+								<i class="fa-solid fa-chevron-right fa-rotate-180 fa-2xs"></i>
 							</a>
 						</li>
 					@endif
@@ -39,7 +39,7 @@
 					@if ($paginator->hasMorePages())
 						<li class="page-item">
 							<a class="page-link" href="{{ $paginator->nextPageUrl() }}" rel="next">
-								<i class="fa-solid fa-chevron-right"></i>
+								<i class="fa-solid fa-chevron-right fa-2xs"></i>
 							</a>
 						</li>
 					@endif
@@ -48,7 +48,7 @@
 					@if ($paginator->hasMorePages())
 						<li class="page-item">
 							<a class="page-link" href="{{ $paginator->url($paginator->lastPage()) }}" rel="next">
-								<i class="fa-solid fa-angles-right"></i>
+								<i class="fa-solid fa-angles-right fa-2xs"></i>
 							</a>
 						</li>
 					@endif

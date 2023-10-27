@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\JsonResponse;
 
 class FollowController extends Controller
 {
+    /**
+     * Show all currently followers and following users
+     */
     public function show(User $user): View
     {
         $followers = $user->followers()->get();
@@ -20,27 +23,39 @@ class FollowController extends Controller
         ]);
     }
 
-    public function update(User $user): RedirectResponse
+    /**
+     * To follow the user.
+     */
+    public function update(User $user): JsonResponse
     {
         /** @var User $authUser */
         $authUser = auth()->user();
 
         $authUser->following()->attach($user);
 
-        $success = ['success' => 'Successfully followed ' . $user->username];
+        $message = 'Successfully followed ' . $user->username;
 
-        return redirect()->back()->with($success);
+        return response()->json([
+            'status' => 'success',
+            'message' => $message,
+        ], 200);
     }
 
-    public function destroy(User $user): RedirectResponse
+    /**
+     * To unfollow the user.
+     */
+    public function destroy(User $user): JsonResponse
     {
         /** @var User $authUser */
         $authUser = auth()->user();
 
         $authUser->following()->detach($user);
 
-        $success = ['success' => 'Successfully unfollowed ' . $user->username];
+        $message = 'Successfully unfollowed ' . $user->username;
 
-        return redirect()->back()->with($success);
+        return response()->json([
+            'status' => 'success',
+            'message' => $message,
+        ], 200);
     }
 }
