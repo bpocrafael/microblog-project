@@ -45,24 +45,15 @@ class PostController extends Controller
 
         $success = ['success' => 'Post created successfully'];
 
-        if (!$request->hasFile('image')) {
-            return redirect()->route('post.show', ['post' => $post])->with($success);
-        }
-
-        $image = $request->file('image');
-
-        if (!$image instanceof UploadedFile || $image == null) {
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            if ($image instanceof UploadedFile) {
+                if ($this->postService->addPostMedia($user, $post, $image)) {
+                    return redirect()->route('post.show', ['post' => $post])->with($success);
+                }
+            }
             return back()->with('error', 'Failed to create post');
         }
-
-        $imagePath = $image->store('images', 'public');
-
-        $post->media()->create([
-            'user_id' => $user->id,
-            'post_id' => $post->id,
-            'file_path' => $imagePath,
-        ]);
-
         return redirect()->route('post.show', ['post' => $post])->with($success);
     }
 
@@ -113,7 +104,7 @@ class PostController extends Controller
      */
     public function destroy(UserPost $post): RedirectResponse
     {
-        $post->delete();
+        $this->postService->deletePost($post);
 
         return redirect()->route('home')->with('success', 'Post deleted successfully');
     }

@@ -91,4 +91,29 @@ class PostService implements PostServiceInterface
             return false;
         }
     }
+
+    /**
+     * To add an image on post
+     */
+    public function addPostMedia(User $user, UserPost $post, UploadedFile $image): bool
+    {
+        if ($image == null) {
+            return false;
+        }
+
+        $imagePath = $image->store('images', 'public');
+
+        $post->media()->create([
+            'user_id' => $user->id,
+            'post_id' => $post->id,
+            'file_path' => $imagePath,
+        ]);
+
+        return true;
+    }
+
+    public function deletePost(UserPost $post): void
+    {
+        $post->delete();
+    }
 }
