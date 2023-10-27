@@ -2,16 +2,16 @@
 
 namespace Database\Seeders;
 
-use App\Models\UserPost;
+use App\Models\PostComment;
 use Illuminate\Database\Seeder;
 
-class UserPostsTableSeeder extends Seeder
+class PostCommentSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        UserPost::factory(100)->create();
+        PostComment::factory(200)->create();
     }
 }
