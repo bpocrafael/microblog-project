@@ -30,7 +30,10 @@ class LikeController extends Controller
 
         $success = ['success' => 'Post liked successfully'];
 
-        return response()->json(['success' => $success]);
+        return response()->json([
+            'status' => 'success',
+            'success' => $success,
+        ], 200);
     }
 
     /**
@@ -43,6 +46,10 @@ class LikeController extends Controller
         $this->likeService->unlike($user, $post);
 
         $success = ['success' => 'Post unliked successfully'];
-        return response()->json(['success' => $success]);
+
+        return response()->json([
+            'status' => 'success',
+            'success' => $success,
+        ], 200);
     }
 }

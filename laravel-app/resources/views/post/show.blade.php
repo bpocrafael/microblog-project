@@ -31,7 +31,7 @@
                             </a>
                         @endcan
                     </div>
-                    @include('partials._follow')
+                    <x-follow-button :user="$post->user" />
                     <i class="date">
                         @if ($post->updated_at != $post->created_at)
                             {{ $post->updated_at->format('F j, Y h:i a') }}  <i class="fa-solid fa-pen"></i>  Edited

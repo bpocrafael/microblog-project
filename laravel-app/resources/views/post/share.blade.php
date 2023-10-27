@@ -10,7 +10,7 @@
     </div>
 @endif
 <div id="page-content">
-    <div class="container post-container my-5">
+    <div class="container-fluid post-container my-5">
         <div class="row g-2 justify-content-center mb-3">
 			<div class="col-auto">
                 <x-profile-component :authUser="$authUser"/>
@@ -38,6 +38,7 @@
 						<a class="text-dark" href="{{ route('profile.show', $post->user->id) }}">
 							<div class="name">
 								{{ $post->user->full_name }}
+								<i>'s post to be shared</i>
 							</div>
 						</a>
 					</div>
@@ -55,18 +56,18 @@
 							</div>
 							<div class="card post-card">
 								<div class="card-body mb-3">
-									<p>{{ $originalPost->content }}</p>
+									<p>{!! nl2br(e($originalPost->content)) !!}</p>
 									@if ($originalPost->media)
-									<img src="{{ asset($originalPost->media->getFilePathAttribute()) }}" class="post-media" alt="Post Image">
+									<img src="{{ asset($originalPost->media->file_path) }}" class="post-media" alt="Post Image">
 									@endif
 								</div>
 							</div>
 						@else
 							<div class="card post-card">
 								<div class="card-body mb-3">
-									<p>{{ $post->content }}</p>
+									<p>{!! nl2br(e($post->content)) !!}</p>
 									@if ($post->media)
-									<img src="{{ asset($post->media->getFilePathAttribute()) }}" class="post-media" alt="Post Image">
+									<img src="{{ asset($post->media->file_path) }}" class="post-media" alt="Post Image">
 									@endif
 								</div>
 							</div>

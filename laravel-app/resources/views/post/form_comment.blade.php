@@ -1,27 +1,38 @@
 <!-- Comment Form -->
 @if ($post->isContentAvailableFor($authUser))
 	<div class="container">
-		<div class="row justify-content-center">
+		<div class="row g-2">
+			<div class="col-auto">
+				<x-profile-component :authUser="$authUser" />
+			</div>
 			<div class="col">
-				<form action="{{ route('comments.store', $post) }}" method="POST">
-					@csrf
-
-					<div class="form-group mt-3">
-						<textarea id="comment" name="comment" class="form-control" rows="3" placeholder="Add a comment"></textarea>
+				<a class="text-dark" href="{{ route('profile.show', $authUser->id) }}">
+					<div class="name my-2">
+						{{ $authUser->full_name }}
 					</div>
-
-					@error('comment')
-						<span class="text-danger" role="alert">
-							<strong>{{ $message }}</strong>
-						</span>
-					@enderror
-
-					<div class="text-end m-2">
-						<button type="submit" class="button button-light">
-							Comment
-						</button>
+				</a>
+				<div class="row justify-content-center">
+					<div class="col">
+						<form action="{{ route('comments.store', $post) }}" method="POST">
+							@csrf
+		
+							<textarea id="comment" name="comment" class="form-control comment" rows="1" placeholder="Add a comment"></textarea>
+		
+							@error('comment')
+								<span class="text-danger" role="alert">
+									<i>{{ $message }}</i>
+								</span>
+							@enderror
+		
+							<div class="text-end m-2">
+								<button type="submit" class="button button-primary">
+									<span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+									Comment
+								</button>
+							</div>
+						</form>
 					</div>
-				</form>
+				</div>
 			</div>
 		</div>
 		<x-comment :comments="$post->comment" :post="$post" />

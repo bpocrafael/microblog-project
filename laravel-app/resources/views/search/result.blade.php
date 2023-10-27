@@ -1,7 +1,7 @@
 @if ($searchResult instanceof App\Models\User)
 <div class="row justify-content-center">
 	<div class="col-md-7">
-		<div class="card post-card m-2">
+		<div class="card m-2">
 			<div class="card-body">
 				<div class="row justify-content-between align-items-center">
 					<div class="col-auto">
@@ -28,25 +28,7 @@
 
 						@if($authUser->isNot($searchResult))
 							<div class="col-auto">
-								@if($authUser->isFollowing($searchResult))
-									<form method="POST" action="{{ route('follow.destroy', $searchResult->id) }}">
-										@csrf
-										@method('DELETE')
-										<button class="button button-secondary" type="submit">
-											<i class="fa-solid fa-circle-check"></i>
-											Following
-										</button>
-									</form>
-									@else
-									<form method="POST" action="{{ route('follow.update', $searchResult->id) }}">
-										@csrf
-										@method('PUT')
-										<button class="button btn-secondary" type="submit">
-											<i class="fa-regular fa-circle-check"></i>
-											Follow
-										</button>
-									</form>
-								@endif
+								<x-follow-button :user="$searchResult" />
 							</div>
 						@endif
 					</div>
