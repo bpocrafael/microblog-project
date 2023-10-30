@@ -18,18 +18,19 @@
                 <div class="col-md-5 text-center">
                     <div class="row justify-content-center text-center my-4">
                         <div class="col-auto">
-                            @if (!$user->image_path)
-                                <div class="d-flex justify-content-center align-items-center">
+                            <div class="d-flex justify-content-center align-items-center">
+                                @if (!$user->image_path)
                                     <div class="profile-letter">
                                         <div class="letter-bg">
                                             {{ $user->first_letter }}
                                         </div>
                                     </div>
-                                </div>
-                            @else
-                                <img id="profileImage" class="img-fluid w-50 profile-image"
-                                    src="{{ asset($user->image_path) }}" alt="Profile Picture">
-                            @endif
+                                    <img id="profileImage" class="img-fluid w-50 profile-image" hidden>
+                                @else
+                                    <img id="profileImage" class="img-fluid w-50 profile-image"
+                                        src="{{ asset($user->image_path) }}" alt="Profile Picture">
+                                @endif
+                            </div>
                             <div class="d-flex align-items-center justify-content-center my-3">
                                 <form id="delete-profile-image" method="POST"
                                     action="{{ route('profile.destroy', $user) }}">
