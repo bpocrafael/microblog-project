@@ -33,15 +33,29 @@ class CommentService
         $comment = PostComment::find($id);
 
         if (!$comment) {
-            $message = "Comment with ID $id not found";
-            return compact('message', 'comment');
+            return ['message' => 'Comment not found', 'comment' => null];
         }
 
+        $post = $comment->post;
+
+        if (!$post) {
+            return ['message' => 'Post not found for the comment', 'comment' => null];
+        }
+
+        $user = $post->user;
+
+        if (!$user) {
+            return ['message' => 'User not found for the post', 'comment' => null];
+        }
+
+        $username = $user->username;
+        $message = "Comment deleted from {$username}'" . (str_ends_with($username, 's') ? '' : 's') . " post";
+
         $comment->delete();
-        $message = "Comment with ID $id deleted from post {$comment->post_id}";
 
         return compact('message', 'comment');
     }
+
 
     /**
      * Logic for editing comment
