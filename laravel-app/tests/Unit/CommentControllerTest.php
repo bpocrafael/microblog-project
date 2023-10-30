@@ -7,12 +7,14 @@ use App\Http\Requests\UserPostRequest;
 use App\Models\User;
 use App\Services\CommentService;
 use App\Services\PostService;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class CommentControllerTest extends TestCase
 {
     use WithFaker;
+    use RefreshDatabase;
 
     /** @var CommentService */
     protected $commentService;
