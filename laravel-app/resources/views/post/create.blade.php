@@ -6,7 +6,7 @@
     <div class="container-fluid my-5">
         <div class="row g-2 justify-content-center">
             <div class="col-auto">
-                <x-profile-component :authUser="$user" />
+                <x-profile-component :user="$user" />
             </div>
             <div class="col-md-6">
                 <a class="text-dark" href="{{ route('profile.show', $user->id) }}">

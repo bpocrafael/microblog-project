@@ -71,6 +71,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the first letter of the username of the user.
+     */
+    public function getFirstLetterAttribute(): string
+    {
+        return ucfirst(substr($this->full_name, 0, 1));
+    }
+
+    /**
      * Get the total likes of the user.
      */
     public function getLikesAttribute(): int
@@ -97,6 +105,14 @@ class User extends Authenticatable
             ->with('user')
             ->latest('created_at')
             ->paginate(4);
+    }
+
+    /**
+     * Check if this user has no following or own posts
+     */
+    public function hasNoDashboardPost(): bool
+    {
+        return $this->following_posts->count() === 0;
     }
 
     /**

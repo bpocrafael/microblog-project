@@ -12,7 +12,7 @@
         @endif
         
         <div class="row justify-content-center">
-            <div class="col-7">
+            <div class="col-9">
                 <div class="card background-light p-3">
                     <div class="card-body text-center">
                         <h5 class="card-title">MicroPost🎉</h5>
@@ -23,10 +23,21 @@
             </div>
         </div>
         @foreach ($user->following_posts as $post)
-            <x-post-component :post="$post" :user=$user />
+            <x-post-component :post="$post" />
         @endforeach
 
         {{ $user->following_posts->links() }}
+        @if ($user->hasNoDashboardPost())
+            <div class="row my-5 text-center">
+                <div class="col">
+                    <img src="{{ asset('assets/images/coffee-vector-min.webp') }}" alt="Coffee">
+                    <div class="my-3">
+                        <h5 class="">No posts yet</h5>
+                        <i class="text-share">Follow microblog users or create one :)</i>
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
 </div>
 @include('partials._footer')
