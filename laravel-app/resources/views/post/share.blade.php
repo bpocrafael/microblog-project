@@ -12,70 +12,70 @@
 <div id="page-content">
     <div class="container-fluid post-container my-5">
         <div class="row g-2 justify-content-center mb-3">
-			<div class="col-auto">
-                <x-profile-component :authUser="$authUser"/>
+            <div class="col-auto">
+                <x-profile-component :user="$authUser"/>
             </div>
-			<div class="col-md-6">
-				<div class="row justify-content-between">
-					<div class="col-auto">
-						<a class="text-dark" href="{{ route('profile.show', $authUser->id) }}">
-							<div class="name">
-								{{ $authUser->full_name }}
-							</div>
-						</a>
-					</div>
-					@include('post.form_share')
-				</div>
-			</div>
-		</div>
-		<div class="row g-2 justify-content-center">
-			<div class="col-auto">
-				<x-profile-component :post="$post" />
-			</div>
-			<div class="col-md-6">
-				<div class="row justify-content-between">
-					<div class="col-auto">
-						<a class="text-dark" href="{{ route('profile.show', $post->user->id) }}">
-							<div class="name">
-								{{ $post->user->full_name }}
-								<i>'s post to be shared</i>
-							</div>
-						</a>
-					</div>
-					<div class="my-2">
-						@if ($post->isShared())
-							@php 
-								$originalPost = $post->originalPost;
-							@endphp
-							<div class="d-flex align-items-center">
-								<div class="text-share m-1">Shared from
-									<a class="text-share-link" href="{{ route('post.show', $originalPost->id) }}">
-										{{ $originalPost->user->username }}
-									</a>
-								</div>
-							</div>
-							<div class="card post-card">
-								<div class="card-body mb-3">
-									<p>{!! nl2br(e($originalPost->content)) !!}</p>
-									@if ($originalPost->media)
-									<img src="{{ asset($originalPost->media->file_path) }}" class="post-media" alt="Post Image">
-									@endif
-								</div>
-							</div>
-						@else
-							<div class="card post-card">
-								<div class="card-body mb-3">
-									<p>{!! nl2br(e($post->content)) !!}</p>
-									@if ($post->media)
-									<img src="{{ asset($post->media->file_path) }}" class="post-media" alt="Post Image">
-									@endif
-								</div>
-							</div>
-						@endif
-					</div>
-				</div>
-			</div>
-		</div>
+            <div class="col-md-6">
+                <div class="row justify-content-between">
+                    <div class="col-auto">
+                        <a class="text-dark" href="{{ route('profile.show', $authUser->id) }}">
+                            <div class="name">
+                                {{ $authUser->full_name }}
+                            </div>
+                        </a>
+                    </div>
+                    @include('post.form_share')
+                </div>
+            </div>
+        </div>
+        <div class="row g-2 justify-content-center">
+            <div class="col-auto">
+                <x-profile-component :user="$post->user" />
+            </div>
+            <div class="col-md-6">
+                <div class="row justify-content-between">
+                    <div class="col-auto">
+                        <a class="text-dark" href="{{ route('profile.show', $post->user->id) }}">
+                            <div class="name">
+                                {{ $post->user->full_name }}
+                                <i>'s post to be shared</i>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="my-2">
+                        @if ($post->isShared())
+                            @php 
+                                $originalPost = $post->originalPost;
+                            @endphp
+                            <div class="d-flex align-items-center">
+                                <div class="text-share m-1">Shared from
+                                    <a class="text-share-link" href="{{ route('post.show', $originalPost->id) }}">
+                                        {{ $originalPost->user->username }}
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="card post-card">
+                                <div class="card-body mb-3">
+                                    <p>{!! nl2br(e($originalPost->content)) !!}</p>
+                                    @if ($originalPost->media)
+                                    <img src="{{ asset($originalPost->media->file_path) }}" class="post-media" alt="Post Image">
+                                    @endif
+                                </div>
+                            </div>
+                        @else
+                            <div class="card post-card">
+                                <div class="card-body mb-3">
+                                    <p>{!! nl2br(e($post->content)) !!}</p>
+                                    @if ($post->media)
+                                    <img src="{{ asset($post->media->file_path) }}" class="post-media" alt="Post Image">
+                                    @endif
+                                </div>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 @include('partials._footer')

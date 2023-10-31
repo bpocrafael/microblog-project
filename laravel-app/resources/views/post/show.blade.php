@@ -13,7 +13,7 @@
     <div class="container-fluid post-container my-5 pb-5">
         <div class="row g-2 justify-content-center">
             <div class="col-auto">
-                <x-profile-component :post="$post" />
+                <x-profile-component :user="$post->user" />
             </div>
             <div class="col-md-6">
                 <div class="row justify-content-between">
@@ -21,6 +21,10 @@
                         <a class="text-dark" href="{{ route('profile.show', $post->user->id) }}">
                             <div class="name">
                                 {{ $post->user->full_name }}
+                                <i class="text-identifier text-to-highlight">({{$post->user->username }})</i>
+                                @if ($post->user->id === $authUser->id)
+                                    <i class="fa-regular fa-user fa-xs ms-2" title="you"></i>
+                                @endif
                             </div>
                         </a>
                     </div>
@@ -33,7 +37,7 @@
                     </div>
                     <x-follow-button :user="$post->user" />
                     <i class="date">
-                        @if ($post->updated_at != $post->created_at)
+                        @if ($post->isEdited())
                             {{ $post->updated_at->format('F j, Y h:i a') }}  <i class="fa-solid fa-pen"></i>  Edited
                         @else
                             {{ $post->created_at->format('F j, Y h:i a') }}
@@ -49,14 +53,10 @@
                                             $originalPost = $post->originalPost;
                                         @endphp
                                         <a class="text-share" href="{{ route('post.show', $originalPost->id) }}">
-                                            @can ('view-post', $originalPost)
+                                            @can ('view-post', $post)
                                                 <div class="d-flex align-items-center">
                                                     <div class="text-share m-1">Shared from
-                                                        @if ($post->isOriginalDeleted())
-                                                            a deleted Post
-                                                        @else
                                                         {{ $originalPost->user->username }}'s Post
-                                                        @endif
                                                     </div>
                                                 </div>
                                                 <div class="card post-card-share">
@@ -86,6 +86,15 @@
                             @include('post.form_comment')
                         </div>
                     @else
+                        @if ($post->isOriginalDeleted())
+                            <div class="my-2">
+                                <div class="card bg-light">
+                                    <div class="card-body m-2">
+                                        <i class="text-share">Original post was deleted :(</i>
+                                    </div>
+                                </div>
+                            </div>
+                        @else
                         <div class="my-2">
                             <div class="card bg-light">
                                 <div class="card-body m-2">
@@ -93,6 +102,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
                     @endcan
                 </div>
             </div>

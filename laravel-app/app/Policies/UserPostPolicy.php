@@ -35,8 +35,12 @@ class UserPostPolicy
             if ($user != null && $post->user != null) {
                 $isOwner = $user->id === $post->user->id;
             }
+            $isOriginalDeleted = false;
+            if ($post->isShared()) {
+                $isOriginalDeleted = $post->originalPost === null;
+            }
 
-            return  $isFollowing || $isOwner;
+            return  ($isFollowing || $isOwner) && !$isOriginalDeleted;
         }
 
         return false;

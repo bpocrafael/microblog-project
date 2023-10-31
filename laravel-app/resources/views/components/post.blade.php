@@ -9,6 +9,7 @@
                     <a class="text-dark" href="{{ route('profile.show', $post->user->id) }}">
                         <div class="name">
                             {{ $post->user->full_name }}
+                            <i class="text-identifier">({{$post->user->username }})</i>
                             @if ($post->user->id === $authUser->id)
                                 <i class="fa-regular fa-user fa-xs ms-2" title="you"></i>
                             @endif
@@ -16,7 +17,7 @@
                     </a>
                 </div>
                 <div class="col">
-                    @include('partials._follow')
+                    <x-follow-button :user="$post->user" />
                 </div>
                 <i class="date">
                     @if ($post->isEdited())

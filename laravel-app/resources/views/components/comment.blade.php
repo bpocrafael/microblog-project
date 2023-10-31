@@ -6,21 +6,7 @@
             <div class="row g-2 justify-content-center my-3">
                 <div class="col-auto">
                     <a class="text-dark" href="{{ route('profile.show', $comments->user->id) }}">
-                        @if ($comments->user->image_path === 'assets/images/user-solid.svg')
-                            <div class="profile-button" id="profileButtonContainer1">
-                                <div class="bg">
-                                    <div class="letter">
-                                        {{ substr($comments->user->full_name, 0, 1) }}
-                                    </div>
-                                </div>
-                            </div>
-                        @else
-                            <button class="custom-profile-button" id="profileButtonContainer1">
-                                <div class="image-bg">
-                                    <img src="{{ asset($comments->user->image_path) }}" alt="Profile Image">
-                                </div>
-                            </button>
-                        @endif
+                        <x-profile-component :user="$comments->user" />
                     </a>
                 </div>
                 <div class="col">
@@ -29,16 +15,17 @@
                             <a class="text-dark" href="{{ route('profile.show', $comments->user->id) }}">
                                 <div class="name">
                                     {{ $comments->user->full_name }}
+                                    <i class="text-identifier">({{$comments->user->username }})</i>
                                 </div>
                             </a>
                         </div>
                         <i class="date">
                             @if ($post->deleted_at)
-                                Deleted at: {{ $post->deleted_at->format('F j, Y') }}
+                                Deleted at: {{ $post->deleted_at->format('F j, Y h:i a') }}
                             @elseif ($post->updated_at != $post->created_at)
-                                Updated at: {{ $post->updated_at->format('F j, Y') }}
+                                Updated at: {{ $post->updated_at->format('F j, Y h:i a') }}
                             @else
-                                {{ $comments->created_at->format('F j, Y') }}
+                                {{ $comments->created_at->format('F j, Y h:i a') }}
                             @endif
                         </i>
                         @can('edit', $comments)

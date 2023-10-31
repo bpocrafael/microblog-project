@@ -53,6 +53,19 @@ class UserPost extends Model
         return $this->likes->contains('user_id', $authUser->id);
     }
 
+    /**
+     * Check if the post and post media is edited.
+     */
+    public function isEdited(): bool
+    {
+        $isMediaUpdated = false;
+        if ($this->media) {
+            $isMediaUpdated = $this->media->created_at != $this->media->updated_at || $this->media->created_at != $this->created_at;
+        }
+
+        return $this->updated_at != $this->created_at || $isMediaUpdated;
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
