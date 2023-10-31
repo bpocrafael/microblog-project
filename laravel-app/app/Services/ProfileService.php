@@ -10,7 +10,6 @@ use App\Models\UserMedia;
 use Exception;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 
 class ProfileService implements ProfileServiceInterface
 {
@@ -33,43 +32,46 @@ class ProfileService implements ProfileServiceInterface
      */
     public function updateProfileImage(User $user, UpdateProfileImageRequest $request): void
     {
-        if ($request->hasFile('profile_image')) {
-            $file = $request->file('profile_image');
-            if ($file instanceof UploadedFile) {
-                $fileName = time() . '_' . $file->getClientOriginalName();
+        DB::beginTransaction();
 
-                $file->storeAs('public/profile_images', $fileName);
+        try {
+            if ($request->hasFile('profile_image')) {
 
-                $userMedia = new UserMedia([
-                    'user_id' => $user->id,
-                    'file_path' => 'storage/profile_images/' . $fileName,
-                    'file_name' => $fileName,
-                ]);
-                $userMedia->save();
+                UserMedia::where('user_id', $user->id)->delete();
+
+                $file = $request->file('profile_image');
+                if ($file instanceof UploadedFile) {
+                    $fileName = time() . '_' . $file->getClientOriginalName();
+
+                    $file->storeAs('public/profile_images', $fileName);
+
+                    $userMedia = new UserMedia([
+                        'user_id' => $user->id,
+                        'file_path' => 'storage/profile_images/' . $fileName,
+                        'file_name' => $fileName,
+                    ]);
+                    $userMedia->save();
+                }
             }
+
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollBack();
         }
     }
 
     /**
      * Delete user's profile image
      */
-    public function deleteProfileImage(User $user): bool
+    public function deleteProfileImage(UserMedia $userMedia): bool
     {
         DB::beginTransaction();
 
         try {
-            $userMedia = UserMedia::where('user_id', $user->id)->first();
+            $userMedia->delete();
 
-            if ($userMedia) {
-                Storage::delete($userMedia->file_path);
-
-                $userMedia->delete();
-
-                DB::commit();
-                return true;
-            }
-
-            return false;
+            DB::commit();
+            return true;
         } catch (Exception $e) {
             DB::rollBack();
             return false;

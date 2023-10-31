@@ -43,7 +43,18 @@
                                         </button>
                                     </div>
                                 </form>
-                                <form method="POST" action="{{ route('profile.store') }}" enctype="multipart/form-data">
+                                <script>
+                                    function confirmDelete() {
+                                        if (confirm('Are you sure you want to delete this image?')) {
+                                            document.getElementById('delete-profile-image').submit();
+                                        }
+                                    }
+                                </script>
+
+                                <form id="profile-image-form" enctype="multipart/form-data">
+                                    <script>
+                                        const profileStoreRoute = '{{ route('profile.store') }}';
+                                    </script>
                                     @csrf
                                     <div class="row justify-content-center align-items-center g-0">
                                         <div class="col-auto">
@@ -57,17 +68,11 @@
                                             </div>
                                         </div>
                                         <div class="col-auto">
-                                            <button type="submit" class="button button-primary">Upload Image</button>
+                                            <button type="button" class="button button-primary"
+                                                id="upload-image-button">Upload Image</button>
                                         </div>
                                     </div>
                                 </form>
-                                <script>
-                                    function confirmDelete() {
-                                        if (confirm('Are you sure you want to delete this post?')) {
-                                            document.getElementById('delete-profile-image').submit();
-                                        }
-                                    }
-                                </script>
                             </div>
                         </div>
                     </div>
@@ -79,4 +84,5 @@
         </div>
     </div>
     @include('partials._footer')
+    </div>
 @endsection

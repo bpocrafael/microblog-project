@@ -22,12 +22,15 @@
         "**/*.{css,js}": [
             "eslint resources/js --fix",
             "prettier --write"
-        ]   
-    },   
+        ]
+    },
     "husky": {
         "hooks": {
             "pre-commit": "npm run lint",
             "pre-commit-php": "npm run lint:php"
         }
+    },
+    "dependencies": {
+        "jquery": "^3.7.1"
     }
 }

@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateProfileRequest;
 use App\Models\User;
 use App\Models\UserMedia;
 use App\Services\ProfileService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 
@@ -79,14 +80,17 @@ class ProfileController extends Controller
     /**
      * Store the user's profile image.
      */
-    public function store(UpdateProfileImageRequest $request): RedirectResponse
+    public function store(UpdateProfileImageRequest $request): JsonResponse
     {
-        /** @var User $user */
-        $user = auth()->user();
-        $this->userService->updateProfileImage($user, $request);
+        try {
+            /** @var User $user */
+            $user = auth()->user();
+            $this->userService->updateProfileImage($user, $request);
 
-        $success = ['success' => 'Profile image uploaded successfully'];
-        return redirect()->route('profile.show', $user->id)->with($success);
+            return response()->json(['message' => 'Profile image uploaded successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An error occurred while uploading the profile image'], 500);
+        }
     }
 
     /**
@@ -94,13 +98,15 @@ class ProfileController extends Controller
      */
     public function destroy(User $user): RedirectResponse
     {
-        $userMedia = UserMedia::where('user_id', $user->id)->first();
+        $userMedia = UserMedia::where('user_id', $user->id)
+        ->latest()
+        ->first();
 
         if (!$userMedia) {
             return redirect()->back()->with('error', 'No profile image found to delete.');
         }
 
-        if ($this->userService->deleteProfileImage($user)) {
+        if ($this->userService->deleteProfileImage($userMedia)) {
             return redirect()->back()->with('success', 'Profile image deleted successfully.');
         }
 
