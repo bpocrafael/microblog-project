@@ -77,6 +77,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     commentElement.style.display = 'block';
                     document.getElementById('comment_' + commentId).value = editedComment;
                     document.querySelector(`.editButton[data-commentid="${commentId}"]`).style.display = 'block';
+
+                    location.reload()
                 } else {
                     const errorMessage = document.getElementById('error-message');
                     errorMessage.textContent = 'Failed to update comment';

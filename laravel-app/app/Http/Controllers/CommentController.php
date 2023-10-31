@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CommentRequest;
 use App\Models\UserPost;
 use App\Services\CommentService;
-use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
 class CommentController extends Controller
@@ -15,14 +14,6 @@ class CommentController extends Controller
     public function __construct(CommentService $commentService)
     {
         $this->commentService = $commentService;
-    }
-
-    /**
-     * Redirects to create blade file
-     */
-    public function create(UserPost $post): view
-    {
-        return view('comments.create', compact('post'));
     }
 
     /**

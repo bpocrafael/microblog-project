@@ -33,12 +33,10 @@
                             </a>
                         </div>
                         <i class="date">
-                            @if ($post->deleted_at)
-                                Deleted at: {{ $post->deleted_at->format('F j, Y') }}
-                            @elseif ($post->updated_at != $post->created_at)
-                                Updated at: {{ $post->updated_at->format('F j, Y') }}
+                            @if ($comments->updated_at != $comments->created_at)
+                                Updated at: {{ $comments->updated_at->format('F j, Y h:i A') }}  <i class="fa Edited-solid fa-pen"></i>  
                             @else
-                                {{ $comments->created_at->format('F j, Y') }}
+                                {{ $comments->created_at->format('F j, Y h:i A') }}
                             @endif
                         </i>
                         @can('edit', $comments)
