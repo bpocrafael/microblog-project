@@ -60,12 +60,9 @@
                                 </span>
                                 @enderror
                             </div>
-                            @if ($post->media)
-                                <div class="container-fluid text-center">
-                                    <img id="postImage" src="{{ $post->media ? asset($post->media->file_path) : '' }}" class="rounded img-fluid my-2">
-                                </div>
-                            @endif
-
+                            <div class="container-fluid text-center">
+                                <img id="postImage" src="{{ $post->media ? asset($post->media->file_path) : '' }}" class="rounded img-fluid my-2">
+                            </div>
                             <div class="mt-3">
                                 <div class="row justify-content-between align-items-center">
                                     <div class="col-auto">

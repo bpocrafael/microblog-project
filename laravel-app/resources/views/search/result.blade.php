@@ -12,7 +12,8 @@
 							<div class="col-auto">
 								<label class="name">
 									<a class="text-dark" href="{{ route('profile.show', $searchResult->id) }}">
-										{{ $searchResult->full_name }}
+										<span class="text-to-highlight">{{ $searchResult->full_name }}</span>
+										<i class="text-identifier text-to-highlight">({{$searchResult->username }})</i>
 										@if ($searchResult->id === $authUser->id)
 											<i class="text-identifier">(you)</i>
 										@endif

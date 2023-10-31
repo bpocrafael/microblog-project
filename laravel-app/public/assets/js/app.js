@@ -13,11 +13,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Search
-    $('form[role="search"]').on('submit', function(e) {
-        e.preventDefault();
-    });
-
     // Form Submission
     $('form').on('submit', function (e) {
         e.preventDefault();
