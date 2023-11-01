@@ -8,3 +8,4 @@
 <script type="module" src="{{ asset('assets/js/likeUnlike.js') }}"></script>
 <script type="module" src="{{ asset('assets/js/followUnfollow.js') }}"></script>
 <script type="module" src="{{ asset('assets/js/search.js') }}"></script>
+<script type="module" src="{{ asset('assets/js/postImageDelete.js') }}"></script>
