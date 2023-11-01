@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $('#upload-image-button').click(function () {
-        var formData = new FormData($('#profile-image-form')[0]);
+        const formData = new FormData($('#profile-image-form')[0]);
 
         $.ajax({
             type: 'POST',
