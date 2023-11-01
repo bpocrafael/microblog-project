@@ -18,7 +18,7 @@ $(document).ready(function () {
                         }
                     },
                     error: function (xhr, status, error) {
-                        var errorMessage = "Error deleting image";
+                        const errorMessage = "Error deleting image";
                         if (xhr.status === 404) {
                             errorMessage = "Image not found";
                         }

@@ -120,7 +120,6 @@ class PostService implements PostServiceInterface
     /**
      * Delete image on post
      */
-
     public function deleteImage(UserPost $post): bool
     {
         if ($post->media) {
