@@ -7,7 +7,7 @@
     <div class="container-fluid my-5">
         <div class="row g-2 justify-content-center">
             <div class="col-auto">
-                <x-profile-component :post="$post" />
+                <x-profile-component :user="$post->user" />
             </div>
             <div class="col-md-6">
                 <div class="row justify-content-between align-items-center">
@@ -39,10 +39,10 @@
                         </div>
                     @endcan
                     <i class="date">
-                        @if ($post->updated_at != $post->created_at)
-                            {{ $post->updated_at->format('F j, Y h:i a') }}  <i class="fa-solid fa-pen"></i>  Edited
+                        @if ($post->isEdited())
+                            {{ $post->updated_at->format('F j, Y h:i A') }}  <i class="fa-solid fa-pen"></i>  Edited
                         @else
-                            {{ $post->created_at->format('F j, Y h:i a') }}
+                            {{ $post->created_at->format('F j, Y h:i A') }}
                         @endif
                     </i>
                 </div>
@@ -50,7 +50,6 @@
                     <div class="card-body m-2 mb-0">
                         <form method="POST" action="{{ route('post.update', $post) }} " enctype="multipart/form-data">
                             @csrf
-                            
                             @method('PUT')
                             <div class="mb-3">
                                 <textarea id="content" name="content" class="form-control" rows="1" placeholder="Enter your microblog here..." autofocus>{{ $post->content }}</textarea>
@@ -60,21 +59,26 @@
                                 </span>
                                 @enderror
                             </div>
-                            <div class="container-fluid text-center">
-                                <img id="postImage" src="{{ $post->media ? asset($post->media->file_path) : '' }}" class="rounded img-fluid my-2">
-                            </div>
+                            @if ($post->media && !$post->isShared())
+                                <div class="container-fluid text-center">
+                                    <img id="postImage" src="{{ $post->media ? asset($post->media->file_path) : '' }}" class="rounded img-fluid my-2">
+                                </div>
+                            @endif
+
                             <div class="mt-3">
                                 <div class="row justify-content-between align-items-center">
                                     <div class="col-auto">
-                                        <label for="post_image">
-                                            <a class="button button-secondary"><i class="fa-regular fa-image"></i></a>
-                                        </label>
-                                        <input type="file" id="post_image" name="image" hidden>
-                                        @error('image')
-                                        <span class="text-danger" role="alert">
-                                            <i>{{ $message }}</i>
-                                        </span>
-                                        @enderror
+                                        @if (!$post->isShared())
+                                            <label for="post_image">
+                                                <a class="button button-secondary"><i class="fa-regular fa-image"></i></a>
+                                            </label>
+                                            <input type="file" id="post_image" name="image" hidden>
+                                            @error('image')
+                                            <span class="text-danger" role="alert">
+                                                <i>{{ $message }}</i>
+                                            </span>
+                                            @enderror
+                                        @endif
                                     </div>
                                     <div class="col-auto">
                                         <a href="{{ route('home') }}" class="button button-secondary me-3"> {{ __('Cancel') }} </a>

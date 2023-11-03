@@ -5,21 +5,17 @@ namespace App\View\Components;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
-use App\Models\UserPost;
 
 class ProfileComponent extends Component
 {
-    public ?UserPost $post;
-    public ?User $authUser;
+    public User $user;
 
     /**
      * Create a new component instance.
      */
-    public function __construct(User $authUser, UserPost $post)
+    public function __construct(User $user)
     {
-        /** @var User $authUser */
-        $this->authUser = $authUser;
-        $this->post = $post;
+        $this->user = $user;
     }
 
     /**

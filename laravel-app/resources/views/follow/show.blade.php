@@ -5,70 +5,96 @@
 @include('partials._header')
 
 @php
-	$authUser = auth()->user();
+    $authUser = auth()->user();
 @endphp
 
 <div id="page-content">
-	<div class="container">
-		<div class="row">
-			<div class="col">
-				<h6>Followers</h6>
-				@foreach ($followers as $follower)
-					<div class="card mb-2">
-						<div class="card-body">
-							<div class="row">
-								<div class="col">
-									<a class="text-dark" href="{{ route('profile.show', $follower->id) }}">
-										<img src="{{ asset('assets/images/microblog-logo-iconx30.png') }}" alt="Image">
-										{{ $follower->username }}
-									</a>
-								</div>
-								<div class="col-2">
-									@if($authUser->isNot($follower))
-										@if(!$authUser->isFollowing($follower))
-											<form method="POST" action="{{ route('follow.update', $follower->id) }}">
-												@csrf
-												@method('PUT')
-												<button class="btn btn-dark" type="submit">Follow</button>
-											</form>
-										@endif
-									@endif
-								</div>
-							</div>
-						</div>
-					</div>
-				@endforeach
-			</div>
-			<div class="col">
-				<h6>Following</h6>
-				@foreach ($followings as $following)
-					<div class="card mb-2">
-						<div class="card-body">
-							<div class="row">
-								<div class="col">
-									<a class="text-dark" href="{{ route('profile.show', $following->id) }}">
-										<img src="{{ asset('assets/images/microblog-logo-iconx30.png') }}" alt="Image">
-										{{ $following->username }}
-									</a>
-								</div>
-								<div class="col-2">
-									@if($authUser->isNot($following))
-										@if($authUser->isFollowing($following))
-											<form method="POST" action="{{ route('follow.destroy', $following->id) }}">
-												@csrf
-												@method('DELETE')
-												<button class="btn btn-dark" type="submit">Unfollow</button>
-											</form>
-										@endif
-									@endif
-								</div>
-							</div>
-						</div>
-					</div>
-				@endforeach
-			</div>
-		</div>
-	</div>
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-5">
+                <h4>Followers</h4>
+                <div class="card p-4">
+                @foreach ($followers as $follower)
+                <div class="card post-card mb-2">
+                        <div class="card-body">
+                            <div class="row justify-content-between align-items-center">
+                                <div class="col-auto">
+                                    <div class="row align-items-center">
+                                        <div class="col-auto">
+                                            <x-profile-component :user="$follower" />
+                                        </div>
+                                        <div class="col-auto">
+                                            <label class="name">
+                                                <a class="text-dark" href="{{ route('profile.show', $follower->id) }}">
+                                                    {{ $follower->full_name }}
+                                                </a>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <x-follow-button :user="$follower" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+                @if ($followers->count() == 0)
+                <div class="card post-card mb-2">
+                    <div class="card-body">
+                        <div class="row justify-content-between align-items-center">
+                            <div class="col-auto">
+                                You currently have no followers.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endif
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <h4>Following</h4>
+                <div class="card p-4">
+                @foreach ($followings as $following)
+                    <div class="card post-card mb-2">
+                        <div class="card-body">
+                            <div class="row justify-content-between align-items-center">
+                                <div class="col-auto">
+                                    <div class="row align-items-center">
+                                        <div class="col-auto">
+                                            <x-profile-component :user="$following" />
+                                        </div>
+                                        <div class="col-auto">
+                                            <label class="name">
+                                                <a class="text-dark" href="{{ route('profile.show', $following->id) }}">
+                                                    {{ $following->full_name }}
+                                                </a>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <x-follow-button :user="$following" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+                @if ($followings->count() == 0)
+                <div class="card post-card mb-2">
+                    <div class="card-body">
+                        <div class="row justify-content-between align-items-center">
+                            <div class="col-auto">
+                                You are currently not following any users.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endif
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 @include('partials._footer')

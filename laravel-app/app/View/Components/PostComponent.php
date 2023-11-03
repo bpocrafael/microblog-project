@@ -10,16 +10,14 @@ use App\Models\UserPost;
 class PostComponent extends Component
 {
     public UserPost $post;
-    public User $user;
     public ?User $authUser;
 
     /**
      * Create a new component instance.
      */
-    public function __construct(User $user, UserPost $post)
+    public function __construct(UserPost $post)
     {
         $this->authUser = auth()->user();
-        $this->user = $user;
         $this->post = $post;
     }
 
