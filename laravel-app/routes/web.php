@@ -12,6 +12,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\NotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +45,8 @@ Route::middleware(['auth', 'verified', 'throttle:60,1'])->group(function () {
         ->parameters(['follow' => 'user']);
     Route::post('/posts/{post}/share', [PostController::class, 'share'])->name('share');
     Route::get('/posts/{post}/share/create', [PostController::class, 'createShare'])->name('share.create');
+    Route::get('/notifications/mark-as-read/{notificationId}', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
+    Route::get('notifications/mark-all-as-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.markAllAsRead');
 });
 
 Route::middleware(['guest', 'throttle:60,1'])->group(function () {

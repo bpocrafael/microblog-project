@@ -2,10 +2,14 @@
 
 namespace App\Services;
 
+use App\Events\PostShared;
 use App\Interfaces\PostServiceInterface;
 use App\Models\User;
 use App\Models\UserPost;
+use App\Notifications\ShareSucessful;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Log;
+use SebastianBergmann\Type\NullType;
 
 class PostService implements PostServiceInterface
 {
@@ -47,6 +51,8 @@ class PostService implements PostServiceInterface
      */
     public function sharePost(UserPost $post, array $validatedData): UserPost
     {
+        $authUser = auth()->user();
+
         $sharedPost = new UserPost();
         $sharedPost->content = $validatedData['content'];
         $sharedPost->original_post_id = $post->id;
@@ -55,13 +61,23 @@ class PostService implements PostServiceInterface
             $sharedPost->original_post_id = $post->original_post_id;
         }
 
-        if (auth()->user()) {
-            $sharedPost->user_id = auth()->user()->id;
-        }
-
+        $sharedPost->user_id = auth()->user()->id;
         $sharedPost->save();
 
-        $post->save();
+        try {
+            $message = $authUser->username . ' shared your post';
+            $postUser = User::find($post->user_id);
+            $postUser->notify(new ShareSucessful($sharedPost->id, $message));
+            $latestNotification = $postUser->notifications()->latest()->first();
+            PostShared::dispatch(
+                $sharedPost->id,
+                $message,
+                $latestNotification->id,
+                $latestNotification->created_at->format('m/d/y  h:i a')
+            );
+        } catch (\Exception $e) {
+            Log::error('Comment event/notif failed: ' . $e->getMessage() . $postUser . $message . $latestNotification);
+        }
 
         return $sharedPost;
     }

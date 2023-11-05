@@ -49,6 +49,16 @@ body {
 /* Border radiuses */
 --br-7xs: 6px;
 --br-11xl: 30px;
+
+/* Box shadows */
+--box-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1), 0 0.5px 0.5px rgba(0, 0, 0, 0.1);
+--box-shadow-base: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+--box-shadow-lg: 0 3px 6px rgba(0, 0, 0, 0.12), 0 3px 6px rgba(0, 0, 0, 0.2);
+--box-shadow-xl: 0 14px 28px rgba(0, 0, 0, 0.15), 0 10px 10px rgba(0, 0, 0, 0.13);
+
+/* Transitions */
+--transition-base: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+
 }
 
 /* Scroll */
@@ -69,6 +79,23 @@ body {
 #page-content {
 	min-height: 100vh;
 	padding-top: 2em;
+	padding-bottom: 10em;
+}
+#app {
+	position: relative;
+}
+#app::before {
+	content: '';
+	background-image: url("../images/Cloudy.svg");
+	background-repeat: no-repeat;
+	background-position: center bottom;
+	background-size: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: -1;
 }
 #post-card {
 	text-decoration: none !important;
@@ -138,13 +165,14 @@ a {
 }
 input {
 	border: none !important;
-	border-bottom: 1px solid var(--color-gray) !important;
+	border-bottom: 1px solid var(--color-tan) !important;
 	background-color: var(--color-light) !important;
 	border-radius: 0px !important;
 	font-size: var(--font-size-smi) !important;
 }
 .form-control:focus {
-	border-color: var(--color-dimgray) !important;
+	box-shadow: none !important;
+	border-bottom: 2px solid var(--color-tan) !important;
 }
 .form-checkbox {
 	border-radius: 3px;
@@ -166,9 +194,17 @@ button[disabled] {
 	font-size: var(--font-size-smi);
 	color: var(--color-gray) !important;
 	font-weight: var(--button-weight);
+	box-shadow: var(--box-shadow-sm);
+}
+.button:hover {
+	outline: .5px solid var(--color-tan) !important;
+	box-shadow: var(--box-shadow-base);
 }
 .button-primary {
 	background-color: var(--color-tan);
+}
+.button-secondary:hover, .button-primary:hover {
+	outline: .5px solid var(--color-peru) !important;
 }
 .button-secondary {
 	background-color: var(--color-thistle);
@@ -179,12 +215,20 @@ button[disabled] {
 .button-danger {
 	background-color: var(--color-lightred);
 }
+.button-big {
+	padding: var(--padding-base) var(--padding-5xl) !important;
+}
 
 /* navbar */
 .background-light {
 	background-color: var(--color-light) !important;
 }
-
+.tan-label {
+	color: var(--color-tan);
+}
+.peru-label {
+	color: var(--color-peru);
+}
 .navbar {
 	min-height: 96px !important;
 }
@@ -203,15 +247,30 @@ button[disabled] {
 	max-width: 100%;
 	height: auto;
 }
-.post-card {
+.card {
+	border-color: var(--color-thistle) !important;
+	border-width: .5px !important;
+}
+.light-card, .post-card {
+	outline: 0px solid var(--color-tan) !important;
 	background-color: var(--color-light) !important;
 	border: 0 !important;
 	padding: 7px 0px;
+	box-shadow: var(--box-shadow-sm);
+}
+.post-card:hover {
+	outline: .5px solid var(--color-tan) !important;
+	box-shadow: var(--box-shadow-base);
 }
 .post-card-secondary {
 	background-color: var(--color-thistle) !important;
 }
-.post-card p {
+.tan-card {
+	background-color: var(--color-tan) !important;
+	border: 0 !important;
+	padding: 7px 0px;
+}
+.light-card, .tan-card, .post-card p {
 	margin: 0;
 }
 .post-card-share {
@@ -274,7 +333,7 @@ textarea.form-control {
 	padding: 1rem !important;
 	border-width: 0 !important;
 	background-color: var(--color-light) !important;
-	border-bottom: 1px solid var(--color-gray) !important;
+	border-bottom: 1px solid var(--color-tan) !important;
 	font-size: var(--font-size-smi) !important;
 }
 textarea.comment {
@@ -338,6 +397,7 @@ textarea.form-control:focus {
     border-radius: 50%;
     overflow: hidden;
 	border: 2px solid var(--color-peru);
+	box-shadow: var(--box-shadow-sm);
 }
 .image-bg {
     width: 100%;
@@ -369,4 +429,32 @@ textarea.form-control:focus {
 	background-color: var(--color-light) !important;
 	border-width: 0 !important;
 	border-radius: var(--br-7xs);
+}
+.pagination a:hover {
+	color: var(--color-light) !important;
+	background-color: var(--color-tan) !important;
+}
+
+#notification-tab {
+	overflow-y: auto;
+	max-height: 600px;
+	min-width: 280px;
+}
+.link-text {
+	font-size: var(--font-size-smi);
+	color: var(--color-dimgray);
+	text-decoration: underline !important;
+}
+.link-text:hover {
+	cursor: pointer;
+}
+.unread {
+	background-color: var(--color-lightgreen) !important;
+}
+.unread h6 {
+	font-weight: 700;
+}
+.read {
+	background-color: white !important;
+	color: var(--color-dimgray);
 }

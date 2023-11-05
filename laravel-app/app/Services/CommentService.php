@@ -2,9 +2,13 @@
 
 namespace App\Services;
 
+use App\Events\PostCommented;
 use App\Http\Requests\CommentRequest;
 use App\Models\PostComment;
+use App\Models\User;
 use App\Models\UserPost;
+use App\Notifications\CommentSucessful;
+use Illuminate\Support\Facades\Log;
 
 class CommentService
 {
@@ -14,14 +18,32 @@ class CommentService
      */
     public function storeComment(CommentRequest $request, UserPost $post): array
     {
-        if ($user = auth()->user()) {
-            $comment = $post->comments()->create([
-                'user_id' => $user->id,
-                'comment' => $request->comment,
-            ]);
-            return ['message' => 'Comment added successfully', 'comment' => $comment];
+        $authUser = auth()->user();
+        if ($authUser->id === null) {
+            return ['message' => 'Comment not added', 'comment' => null];
         }
-        return ['message' => 'Comment not added', 'comment' => null];
+
+        $comment = $post->comments()->create([
+            'user_id' => $authUser->id,
+            'comment' => $request->comment,
+        ]);
+        
+        try {
+            $message = $comment->user->username . ' commented on your post';
+            $postUser = User::find($post->user_id);
+            $postUser->notify(new CommentSucessful($comment->id, $message));
+            $latestNotification = $postUser->notifications()->latest()->first();
+            PostCommented::dispatch(
+                $comment->id,
+                $message,
+                $latestNotification->id,
+                $latestNotification->created_at->format('m/d/y  h:i a')
+            );
+        } catch (\Exception $e) {
+            Log::error('Comment event/notif failed: ' . $e->getMessage() . $postUser . $message . $latestNotification);
+        }
+        
+        return ['message' => 'Comment added successfully', 'comment' => $comment];
     }
 
     /**
