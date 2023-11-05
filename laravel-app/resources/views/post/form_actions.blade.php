@@ -13,7 +13,7 @@
 		</div>
 		<div
 			id="likeSection"
-			class="col-sm-2"
+			class="col-auto"
 			data-is-liked="{{ $post->isLikedBy($authUser) }}"
 			data-post-id="{{ $post->id }}"
 			>

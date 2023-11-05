@@ -50,19 +50,6 @@
 
 	<div class="row justify-content-center mb-1 mb-3">
 		<div class="col-md">
-			<div class="text-label">Email</div>
-			<input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $user->email }}" autocomplete="email" placeholder="Email">
-
-			@error('email')
-				<span class="invalid-feedback" role="alert">
-					<i>{{ $message }}</i>
-				</span>
-			@enderror
-		</div>
-	</div>
-
-	<div class="row justify-content-center mb-1 mb-3">
-		<div class="col-md">
 			<div class="text-label">Bio</div>
 			<input id="bio" type="text" class="form-control @error('bio') is-invalid @enderror" name="bio" value="{{ $user->information->bio }}" autocomplete="bio" placeholder="Bio">
 
@@ -95,6 +82,7 @@
 		<div class="col-auto">
 			<a href="{{ route('profile.show', $user->id) }}" class="button button-secondary me-3"> {{ __('Cancel') }} </a>
 			<button type="submit" class="button button-primary">
+				<span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
 				{{ __('Update') }}
 			</button>
 		</div>

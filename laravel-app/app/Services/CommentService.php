@@ -27,6 +27,10 @@ class CommentService
             'user_id' => $authUser->id,
             'comment' => $request->comment,
         ]);
+
+        if ($post->user_id === $authUser->id) {
+            return ['message' => 'Comment added successfully', 'comment' => $comment];
+        }
         
         try {
             $message = $comment->user->username . ' commented on your post';

@@ -62,6 +62,6 @@ class LoginController extends Controller
             return redirect()->route('resend');
         }
 
-        return redirect()->route('home');
+        return redirect()->route('home')->with('success', 'Welcome ' . $user->username . ' to Microblog!');
     }
 }

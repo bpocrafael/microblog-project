@@ -5,9 +5,7 @@
 @include('partials._header')
 
 @if (session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
+    @include('partials._toast')
 @endif
 <div id="page-content">
     <div class="container-fluid post-container my-5">

@@ -51,11 +51,13 @@ document.addEventListener('DOMContentLoaded', function() {
             const commentElement = document.getElementById('commentComment_' + commentId);
             
             if (editedComment.trim() === '') {
-                alert('Comment cannot be empty');
+                const message = 'Comment cannot be empty';
+                showAlert(message);
                 return;
             }
             if (editedComment.length > 255) {
-                alert('Comment exceeds 255 characters');
+                const message = 'Comment exceeds 255 characters';
+                showAlert(message);
                 return;
             }
             fetch(`/comment/${commentId}`, {
@@ -91,3 +93,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+function showAlert(message) {
+    $('#alertModal').modal('show');
+    $('#alertModal .modal-body').html(message);
+}

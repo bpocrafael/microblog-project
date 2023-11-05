@@ -5,10 +5,9 @@
 @include('partials._header')
 
 @if (session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
+    @include('partials._toast')
 @endif
+@include('partials._alert')
 <div id="page-content">
     <div class="container-fluid post-container my-5 pb-5">
         <div class="row g-2 justify-content-center">
@@ -45,7 +44,7 @@
                     </i>
                     @can('view-post', $post)
                         <div class="my-2">
-                            <div class="card post-card">
+                            <div class="card light-card">
                                 <div class="card-body m-2">
                                     <p>{!! nl2br(e($post->content)) !!}</p>
                                     @if ($post->isShared())
@@ -53,7 +52,7 @@
                                             $originalPost = $post->originalPost;
                                         @endphp
                                         <a class="text-share" href="{{ route('post.show', $originalPost->id) }}">
-                                            @can ('view-post', $post)
+                                            @can ('view-post', $originalPost)
                                                 <div class="d-flex align-items-center">
                                                     <div class="text-share m-1">Shared from
                                                         {{ $originalPost->user->username }}'s Post

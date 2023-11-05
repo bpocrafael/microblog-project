@@ -5,7 +5,6 @@ namespace App\Notifications;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
-use Illuminate\Support\Facades\Log;
 
 class LikeSucessful extends Notification implements ShouldQueue
 {
@@ -46,18 +45,5 @@ class LikeSucessful extends Notification implements ShouldQueue
             'likerId' => $this->likerId,
             'message' => $this->message,
         ];
-    }
-
-    /**
-     * Determines if the notification can be sent.
-     */
-    public function shouldSend($notifiable): bool
-    {
-        Log::error('at interval');
-        $interval = now()->subSeconds(30);
-        return $notifiable->notifications()
-            ->where('type', get_class($this))
-            ->where('created_at', '>=', $interval)
-            ->count() === 0;
     }
 }

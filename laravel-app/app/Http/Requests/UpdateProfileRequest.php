@@ -16,7 +16,6 @@ class UpdateProfileRequest extends FormRequest
 
         return [
             'username' => ['required', Rule::unique('users')->ignore($authUserId)],
-            'email' => ['required', 'email', Rule::unique('users')->ignore($authUserId)],
             'first_name' => ['required'],
             'last_name' => ['required'],
             'middle_name' => ['nullable', 'string'],
@@ -36,9 +35,6 @@ class UpdateProfileRequest extends FormRequest
             'last_name.required' => 'The last name field is required.',
             'username.required' => 'The username field is required.',
             'username.unique' => 'The username has already been taken.',
-            'email.required' => 'The email address field is required.',
-            'email.email' => 'The email address must be a valid email address.',
-            'email.unique' => 'The email address has already been taken.',
         ];
     }
 }

@@ -43,18 +43,11 @@ function handleNotificationEvent(event, message, notificationUrl, createdAt) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    // Logout
-    const logoutLink = document.querySelector(".text-share-link");
-    
-    if (logoutLink) {
-        logoutLink.addEventListener("click", function (event) {
-            event.preventDefault();
-            const logoutForm = document.getElementById('logout-form');
-            
-            if (logoutForm) {
-                logoutForm.submit();
-            }
-        });
+    // Toasts
+    const toastElement = document.querySelector('.toast');
+    if (toastElement) {
+        const toast = new bootstrap.Toast(toastElement);
+        toast.show();
     }
 
     // Form Submission

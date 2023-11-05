@@ -21,21 +21,35 @@
                     <x-follow-button :user="$post->user" />
                     @can('delete-post', $post)
                         <div class="col-auto">
-                            <form id="delete-post-form" method="POST" action="{{ route('post.destroy', $post) }}">
-                                @csrf
-                                @method('DELETE')
-                                <button type="button" class="button button-danger" onclick="confirmDelete()">
-                                    <i class="fa-regular fa-trash-can"></i>
-                                </button>
-                            </form>
-
-                            <script>
-                                function confirmDelete() {
-                                    if (confirm('Are you sure you want to delete this post?')) {
-                                        document.getElementById('delete-post-form').submit();
-                                    }
-                                }
-                            </script>
+                            <button type="button" class="button button-danger" data-bs-toggle="modal" data-bs-target="#deletePostModal">
+                                <i class="fa-regular fa-trash-can"></i>
+                            </button>
+                            <div class="modal fade" id="deletePostModal" tabindex="-1" role="dialog" aria-labelledby="deletePostModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content light-card">
+                                        <div class="modal-header">
+                                            <h6 class="" id="deletePostModalLabel">Confirm Deletion</h6>
+                                            <button type="button" class="button button-secondary" data-bs-dismiss="modal" aria-label="Close">
+                                                <i class="fa-solid fa-xmark"></i>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Are you sure you want to delete this post?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="button button-secondary" data-bs-dismiss="modal">Cancel</button>
+                                            <form id="delete-post-form" method="POST" action="{{ route('post.destroy', $post) }}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="button button-danger">
+                                                    <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                                                    Delete
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     @endcan
                     <i class="date">

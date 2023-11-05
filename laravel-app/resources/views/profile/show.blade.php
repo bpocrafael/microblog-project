@@ -4,15 +4,23 @@
 
 @include('partials._header_profile')
 
+@if (session('success'))
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        <div class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header alert-success">
+                <label class="fw-bold text-share me-auto">Success</label>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                {{ session('success') }}
+            </div>
+        </div>
+    </div>
+@endif
 <div class="profile-page">
     <div class="container-fluid">
-        <div class="row justify-content-center post-card p-5">
-            @if (session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
-            <div class="col-md-5 text-center">
+        <div class="row justify-content-center light-card p-5">
+            <div class="col-md-5 text-center mb-5">
                 <div class="row justify-content-center text-center">
                     <div class="col-auto">
                         @if ($user->image_path === "assets/images/user-solid.svg")
@@ -39,7 +47,7 @@
                 </div>
                 @can('update-user-profile', $user)
                     <div class="row justify-content-center">
-                        <div class="col-3">
+                        <div class="col-auto">
                             <a href="{{ route('profile.edit', $user->id) }}" class="button button-primary">
                                 <i class="fa-solid fa-pen"></i>
                                 Edit
@@ -49,58 +57,58 @@
                 @endcan
                 <x-follow-button :user="$user" />
             </div>
-            <div class="col">
+            <div class="col justify-content-center">
                 <div class="row mb-5">
-                    <div class="input-group">
-                        <div class="text-label text-end me-4">Name</div>
+                    <div class="col-auto">
+                        <div class="text-label">Name</div>
+                    </div>
+                    <div class="col-sm">
                         <div>{{ $user->full_name }}</div>
                     </div>
                 </div>
                 <div class="row mb-5">
-                    <div class="input-group">
-                        <div class="text-label text-end me-4">Username</div>
+                    <div class="col-auto">
+                        <div class="text-label">Username</div>
+                    </div>
+                    <div class="col-sm">
                         <div>{{ $user->username }}</div>
                     </div>
                 </div>
                 <div class="row mb-5">
-                    <div class="input-group">
-                        <div class="text-label text-end me-4">Email</div>
-                        <div>{{ $user->email}}</div>
+                    <div class="col-auto">
+                        <div class="text-label">Bio</div>
                     </div>
-                </div>
-                <div class="row mb-5">
-                    <div class="input-group">
-                        <div class="text-label text-end me-4">Bio</div>
+                    <div class="col-sm">
                         <div>{{ $user->information->bio }}</div>
                     </div>
                 </div>
                 <div class="row mb-5">
-                    <div class="input-group">
-                        <div class="text-label text-end me-4">Gender</div>
+                    <div class="col-auto">
+                        <div class="text-label">Gender</div>
+                    </div>
+                    <div class="col-sm">
                         <div>{{ $user->information->gender }}</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="container">
+    <div id="page-content" class="container">
         @if ($authUser->isFollowing($user) || $authUser->id === $user->id)
             @foreach ($posts as $post)
                 <x-post-component :post="$post" :user="$user"/>
             @endforeach
             {{ $posts->links() }}
-
-            @if ($user->following_posts->count() === 0)
-                <div class="row my-5 text-center">
-                    <div class="col">
-                        <img src="{{ asset('assets/images/coffee-vector-min.webp') }}" alt="Coffee">
-                        <div class="my-3">
-                            <h5 class="">No posts yet</h5>
-                            <i class="text-share">Follow microblog users or create one :)</i>
-                        </div>
+        @else
+            <div class="row my-5 text-center">
+                <div class="col">
+                    <img src="{{ asset('assets/images/coffee-vector-min.webp') }}" alt="Coffee">
+                    <div class="my-3">
+                        <h5 class="">No posts available</h5>
+                        <i class="text-share">Follow microblog users or create one :)</i>
                     </div>
                 </div>
-            @endif
+            </div>
         @endif
     </div>
 </div>

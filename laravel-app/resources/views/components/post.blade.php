@@ -1,9 +1,8 @@
-<div class="post-container my-5">
-    <div class="row g-2 justify-content-center">
+    <div class="row g-2 justify-content-start mb-4">
         <div class="col-auto">
             <x-profile-component :user="$post->user" />
         </div>
-        <div class="col-md-6">
+        <div class="col-md-10">
             <div class="row align-items-center">
                 <div class="col-auto">
                     <a class="text-dark" href="{{ route('profile.show', $post->user->id) }}">
@@ -35,7 +34,7 @@
                                     @php 
                                         $originalPost = $post->originalPost;
                                     @endphp
-                                        @can('view-post', $post)
+                                        @can('view-post', $originalPost)
                                             <a class="text-share" href="{{ route('post.show', $originalPost->id) }}">
                                                 <div class="d-flex align-items-center mt-4">
                                                     <div class="text-share m-1">Shared from
@@ -63,7 +62,7 @@
                                             </div>
                                         @endcan
                                 @elseif ($post->media)
-                                    <img src="{{ asset($post->media->getFilePathAttribute()) }}" class="post-media" alt="Post Image">
+                                    <img src="{{ asset($post->media->getFilePathAttribute()) }}" class="post-media img-fluid rounded mx-auto d-block" alt="Post Image">
                                 @endif
                             </div>
                         </div>
@@ -73,4 +72,3 @@
             </div>
         </div>
     </div>
-</div>

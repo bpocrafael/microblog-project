@@ -1,5 +1,5 @@
 @if (count($post->comments) > 0)
-    <div class="comments">
+    <div class="comments pb-5 mb-5">
         <div id="error-message" class="alert alert-danger" style="display: none;"></div>
         <h6 class="mb-3">Comments</h6>
         @foreach ($post->comments as $comments)
@@ -30,27 +30,49 @@
                             <div class="row justify-content-end">
                                 <div class="col-auto">
                                     <button class="button button-light editButton" data-commentid="{{ $comments->id }}"><i
-                                            class="fa-solid fa-pen"></i></button>
+                                        class="fa-solid fa-pen"></i>
+                                    </button>
                                 </div>
+                                @can('delete', $comments)
+                                    <div class="col-auto">
+                                        <button type="button" class="button button-danger" data-bs-toggle="modal" data-bs-target="#deleteCommentModal{{ $comments->id }}">
+                                            <i class="fa-regular fa-trash-can"></i>
+                                        </button>
+                                        <div class="modal fade" id="deleteCommentModal{{ $comments->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteCommentModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content light-card">
+                                                    <div class="modal-header">
+                                                        <h6 class="" id="deleteCommentModalLabel">Confirm Deletion</h6>
+                                                        <button type="button" class="button button-secondary" data-bs-dismiss="modal" aria-label="Close">
+                                                            <i class="fa-solid fa-xmark"></i>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Are you sure you want to delete this comment?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="button button-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                        <form method="GET" action="{{ route('comment.delete', $comments->id) }}">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="button button-danger">
+                                                                <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                                                                Delete
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endcan
                             </div>
                         @endcan
                         <div class="my-2">
-                            <div class="card post-card">
+                            <div class="card light-card">
                                 <div class="card-body m-2">
                                     <p id="commentComment_{{ $comments->id }}">{{ $comments->comment }}</p>
                                     <div class="buttons-container">
-                                        @can('delete', $comments)
-                                            <form method="GET"
-                                                action="{{ route('comment.delete', $post->id, $comments->id) }}"
-                                                id="deleteForm">
-                                                @csrf
-                                                @method('DELETE')
-                                                <div class="col-md-2 text-center">
-                                                    <button type="submit" class="btn btn-sm btn-danger deleteButton"
-                                                        style="display: none;">Delete</button>
-                                                </div>
-                                            </form>
-                                        @endcan
                                         @can('edit', $comments)
                                             <form method="POST"
                                                 action="{{ route('comment.edit', $comments->id, $comments->comment) }}"
@@ -68,10 +90,6 @@
                                                             data-commentid="{{ $comments->id }}">Submit</button>
                                                         <button type="button"
                                                             class="button button-secondary cancel-button">Cancel</button>
-                                                    </div>
-                                                    <div class="col-auto text-end">
-                                                        <button type="button" class="button button-danger delete-button"><i
-                                                                class="fa-regular fa-trash-can"></i></button>
                                                     </div>
                                                 </div>
                                             </form>

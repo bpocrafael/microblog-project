@@ -2,15 +2,14 @@
 
 @section('content')
     @include('partials._header_profile')
+    @if (session('success'))
+        @include('partials._toast')
+    @endif
+    @include('partials._alert')
     <div class="edit-profile">
         <div class="container text-center">
-            @if (session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
             <div class="row justify-content-center">
-                <div class="col-md-5 text-center">
+                <div class="col-lg-5 text-center mb-5">
                     <div class="row justify-content-center text-center my-4">
                         <div class="col-auto">
                             @if ($user->image_path === "assets/images/user-solid.svg")
@@ -36,12 +35,15 @@
                                 </div>
                             </div>
                             <div class="col-auto">
-                                <button type="submit" class="button button-primary">Upload Image</button>
+                                <button type="submit" class="button button-primary">
+                                    <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                                    Upload Image
+                                </button>
                             </div>
                         </div>
                     </form>
                 </div>
-                <div class="col p-5 post-card">
+                <div class="col-lg p-5 light-card">
                     @include('profile.form')
                 </div>
             </div>

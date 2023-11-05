@@ -65,16 +65,6 @@
                                     @enderror
                                 </div>
                             </div>
-                            
-                            <div class="row my-4">
-                                <div class="col-md">
-                                    <input class="form-checkbox" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
                             <div class="row mb-4">
                                 <div class="col-md">
                                     @if (Route::has('password.request'))

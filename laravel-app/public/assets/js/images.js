@@ -8,14 +8,14 @@ function handleFileInputChange(inputElement, imageElement, maxSizeInBytes) {
 
         const selectedFile = files[0];
         if (!selectedFile || !selectedFile.type.startsWith('image/')) {
-            alert('Please select a valid image file.');
-            inputElement.value = '';
+            const message = 'Please select a valid image file.';
+            showAlert(inputElement, message);
             return;
         }
         
         if (selectedFile.size > maxSizeInBytes) {
-            alert('File is too large. Please select a smaller image.');
-            inputElement.value = '';
+            const message = 'File is too large. Please select a smaller image (Less than 2MB).';
+            showAlert(inputElement, message);
             return;
         }
 
@@ -27,6 +27,12 @@ function handleFileInputChange(inputElement, imageElement, maxSizeInBytes) {
 
         reader.readAsDataURL(selectedFile);
     });
+}
+
+function showAlert(inputElement, message) {
+    $('#alertModal').modal('show');
+    $('#alertModal .modal-body').html(message);
+    inputElement.value = '';
 }
 
 const maxSizeInBytes = 2 * 1024 * 1024; 

@@ -449,7 +449,7 @@ textarea.form-control:focus {
 	cursor: pointer;
 }
 .unread {
-	background-color: var(--color-lightgreen) !important;
+	background-color: var(--color-light) !important;
 }
 .unread h6 {
 	font-weight: 700;

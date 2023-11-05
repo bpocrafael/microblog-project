@@ -13,8 +13,8 @@ class FollowController extends Controller
      */
     public function show(User $user): View
     {
-        $followers = $user->followers()->get();
-        $followings = $user->following()->get();
+        $followers = $user->followers()->orderBy('username')->get();
+        $followings = $user->following()->orderBy('username')->get();
 
         return view('follow.show', [
             'user' => $user,

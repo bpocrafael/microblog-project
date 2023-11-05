@@ -15,12 +15,13 @@
 
                     @error('comment')
                         <span class="text-danger" role="alert">
-                            <strong>{{ $message }}</strong>
+                            <i>{{ $message }}</i>
                         </span>
                     @enderror
 
                     <div class="text-end m-2">
                         <button type="submit" class="button button-light">
+                            <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
                             Comment
                         </button>
                     </div>

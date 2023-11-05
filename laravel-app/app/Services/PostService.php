@@ -64,6 +64,10 @@ class PostService implements PostServiceInterface
         $sharedPost->user_id = auth()->user()->id;
         $sharedPost->save();
 
+        if ($post->user_id === $authUser->id) {
+            return $sharedPost;
+        }
+
         try {
             $message = $authUser->username . ' shared your post';
             $postUser = User::find($post->user_id);
