@@ -31,10 +31,11 @@ class ProfileService implements ProfileServiceInterface
     public function updateProfileImage(User $user, UpdateProfileImageRequest $request): void
     {
         if ($request->hasFile('profile_image')) {
+            UserMedia::where('user_id', $user->id)->delete();
+
             $file = $request->file('profile_image');
             if ($file instanceof UploadedFile) {
                 $fileName = time() . '_' . $file->getClientOriginalName();
-
                 $file->storeAs('public/profile_images', $fileName);
 
                 $userMedia = new UserMedia([
@@ -45,5 +46,14 @@ class ProfileService implements ProfileServiceInterface
                 $userMedia->save();
             }
         }
+    }
+
+    /**
+     * Delete user's profile image
+     */
+    public function deleteProfileImage(UserMedia $userMedia): bool
+    {
+        $userMedia->delete();
+        return true;
     }
 }
