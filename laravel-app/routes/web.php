@@ -44,6 +44,7 @@ Route::middleware(['auth', 'verified', 'throttle:60,1'])->group(function () {
         ->parameters(['follow' => 'user']);
     Route::post('/posts/{post}/share', [PostController::class, 'share'])->name('share');
     Route::get('/posts/{post}/share/create', [PostController::class, 'createShare'])->name('share.create');
+    Route::get('/posts/{post}/image/delete', [PostController::class, 'deleteImage'])->name('post.deleteImage');
 });
 
 Route::middleware(['guest', 'throttle:60,1'])->group(function () {

@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use App\Models\User;
 use App\Services\PostService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\UploadedFile;
 
 class PostController extends Controller
@@ -132,5 +133,16 @@ class PostController extends Controller
         $success = ['success' => 'Post shared successfully'];
 
         return redirect()->route('post.show', ['post' => $sharedPost])->with($success);
+    }
+
+    /**
+     * Delete image on post
+     */
+    public function deleteImage(UserPost $post): JsonResponse
+    {
+        if ($this->postService->deleteImage($post)) {
+            return response()->json(['message' => 'Image successfully deleted'], 200);
+        }
+        return response()->json(['message' => 'Image not found'], 404);
     }
 }

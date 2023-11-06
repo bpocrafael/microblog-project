@@ -116,4 +116,18 @@ class PostService implements PostServiceInterface
     {
         $post->delete();
     }
+
+    /**
+     * Delete image on post
+     */
+    public function deleteImage(UserPost $post): bool
+    {
+        if ($post->media) {
+            if ($post->media->file_path) {
+                $post->media()->delete();
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -9,6 +9,11 @@
         {{ session('success') }}
     </div>
 @endif
+@if (session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
 <div id="page-content">
     <div class="container-fluid post-container my-5 pb-5">
         <div class="row g-2 justify-content-center">

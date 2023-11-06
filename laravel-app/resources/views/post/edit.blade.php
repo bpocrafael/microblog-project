@@ -59,7 +59,7 @@
                                 </span>
                                 @enderror
                             </div>
-                            @if ($post->media && !$post->isShared())
+                            @if ($post->media || !$post->isShared())
                                 <div class="container-fluid text-center">
                                     <img id="postImage" src="{{ $post->media ? asset($post->media->file_path) : '' }}" class="rounded img-fluid my-2">
                                 </div>
@@ -79,6 +79,12 @@
                                             </span>
                                             @enderror
                                         @endif
+                                        <button id="delete-image-button" type="button" class="button button-danger" >
+                                            <i class="fa-regular fa-trash-can"></i>
+                                        </button>
+                                        <script>
+                                            const postImageDelete = '{{ route('post.deleteImage', $post) }}';
+                                        </script>
                                     </div>
                                     <div class="col-auto">
                                         <a href="{{ route('home') }}" class="button button-secondary me-3"> {{ __('Cancel') }} </a>
