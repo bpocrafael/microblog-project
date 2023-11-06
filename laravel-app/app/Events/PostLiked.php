@@ -31,7 +31,7 @@ class PostLiked implements ShouldBroadcast
         int $likerId,
         string $message,
         string $notificationId,
-        string $createdAt
+        string $createdAt,
     ) {
         $this->postId = $postId;
         $this->likerId = $likerId;

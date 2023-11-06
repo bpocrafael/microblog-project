@@ -31,7 +31,7 @@ class CommentService
         if ($post->user_id === $authUser->id) {
             return ['message' => 'Comment added successfully', 'comment' => $comment];
         }
-        
+
         try {
             $message = $comment->user->username . ' commented on your post';
             $postUser = User::find($post->user_id);
@@ -41,12 +41,12 @@ class CommentService
                 $comment->id,
                 $message,
                 $latestNotification->id,
-                $latestNotification->created_at->format('m/d/y  h:i a')
+                $latestNotification->created_at->format('m/d/y  h:i a'),
             );
         } catch (\Exception $e) {
             Log::error('Comment event/notif failed: ' . $e->getMessage() . $postUser . $message . $latestNotification);
         }
-        
+
         return ['message' => 'Comment added successfully', 'comment' => $comment];
     }
 

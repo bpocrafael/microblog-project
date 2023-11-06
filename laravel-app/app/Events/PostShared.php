@@ -30,7 +30,7 @@ class PostShared implements ShouldBroadcast
         int $postId,
         string $message,
         string $notificationId,
-        string $createdAt
+        string $createdAt,
     ) {
         $this->postId = $postId;
         $this->originalPostId = UserPost::find($postId)->original_post_id;

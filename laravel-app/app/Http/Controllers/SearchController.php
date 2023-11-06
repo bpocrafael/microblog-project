@@ -23,10 +23,11 @@ class SearchController extends Controller
      */
     public function search(SearchRequest $request): View
     {
+        $authUser = auth()->user();
         $query = $request->input('query');
 
         $searchResults = $this->searchService->searchUser($query);
 
-        return view('search.results', ['searchResults' => $searchResults, 'query' => $query]);
+        return view('search.results', compact('authUser', 'searchResults', 'query'));
     }
 }

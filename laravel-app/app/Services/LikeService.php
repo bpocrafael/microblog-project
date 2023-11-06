@@ -16,7 +16,7 @@ class LikeService
         PostLike::updateOrCreate(
             ['user_id' => $user->id, 'post_id' => $post->id],
         );
-        
+
         if ($user->id === $post->user->id) {
             return;
         }
@@ -31,7 +31,7 @@ class LikeService
                 $user->id,
                 $message,
                 $latestNotification->id,
-                $latestNotification->created_at->format('m/d/y  h:i a')
+                $latestNotification->created_at->format('m/d/y  h:i a'),
             );
         } catch (\Exception $e) {
             Log::error('Like event/notif failed: ' . $e->getMessage());

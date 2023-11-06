@@ -9,7 +9,6 @@ use App\Models\UserPost;
 use App\Notifications\ShareSucessful;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Log;
-use SebastianBergmann\Type\NullType;
 
 class PostService implements PostServiceInterface
 {
@@ -77,7 +76,7 @@ class PostService implements PostServiceInterface
                 $sharedPost->id,
                 $message,
                 $latestNotification->id,
-                $latestNotification->created_at->format('m/d/y  h:i a')
+                $latestNotification->created_at->format('m/d/y  h:i a'),
             );
         } catch (\Exception $e) {
             Log::error('Comment event/notif failed: ' . $e->getMessage() . $postUser . $message . $latestNotification);

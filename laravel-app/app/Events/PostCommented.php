@@ -31,7 +31,7 @@ class PostCommented implements ShouldBroadcast
         int $commentId,
         string $message,
         string $notificationId,
-        string $createdAt
+        string $createdAt,
     ) {
         $this->postId = PostComment::find($commentId)->post_id;
         $this->commentId = $commentId;
