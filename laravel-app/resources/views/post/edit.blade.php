@@ -59,7 +59,7 @@
                                 </span>
                                 @enderror
                             </div>
-                            @if ($post->media && !$post->isShared())
+                            @if ($post->media || !$post->isShared())
                                 <div class="container-fluid text-center">
                                     <img id="postImage" src="{{ $post->media ? asset($post->media->file_path) : '' }}" class="rounded img-fluid my-2">
                                 </div>

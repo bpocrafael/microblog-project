@@ -142,8 +142,7 @@ class PostController extends Controller
     {
         if ($this->postService->deleteImage($post)) {
             return response()->json(['message' => 'Image successfully deleted'], 200);
-        } else {
-            return response()->json(['message' => 'Image not found'], 404);
         }
+        return response()->json(['message' => 'Image not found'], 404);
     }
 }
