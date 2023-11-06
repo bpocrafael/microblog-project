@@ -10,6 +10,7 @@ use App\Services\ProfileService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 
 class ProfileController extends Controller
 {
@@ -85,11 +86,19 @@ class ProfileController extends Controller
         try {
             /** @var User $user */
             $user = auth()->user();
-            $this->userService->updateProfileImage($user, $request);
 
-            return response()->json(['message' => 'Profile image uploaded successfully']);
+            DB::beginTransaction();
+
+            try {
+                $this->userService->updateProfileImage($user, $request);
+                DB::commit();
+                return response()->json(['message' => 'Profile image uploaded successfully']);
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return response()->json(['error' => 'An error occurred while uploading the profile image'], 500);
+            }
         } catch (\Exception $e) {
-            return response()->json(['error' => 'An error occurred while uploading the profile image'], 500);
+            return response()->json(['error' => 'An error occurred while starting the transaction'], 500);
         }
     }
 
@@ -98,18 +107,27 @@ class ProfileController extends Controller
      */
     public function destroy(User $user): RedirectResponse
     {
-        $userMedia = UserMedia::where('user_id', $user->id)
-        ->latest()
-        ->first();
+        try {
+            DB::beginTransaction();
 
-        if (!$userMedia) {
-            return redirect()->back()->with('error', 'No profile image found to delete.');
+            $userMedia = UserMedia::where('user_id', $user->id)
+                ->latest()
+                ->first();
+
+            if (!$userMedia) {
+                return redirect()->back()->with('error', 'No profile image found to delete.');
+            }
+
+            if ($this->userService->deleteProfileImage($userMedia)) {
+                DB::commit();
+                return redirect()->back()->with('success', 'Profile image deleted successfully.');
+            }
+
+            DB::rollBack();
+            return redirect()->back()->with('error', 'An error occurred while deleting the profile image.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'An error occurred while starting the transaction');
         }
-
-        if ($this->userService->deleteProfileImage($userMedia)) {
-            return redirect()->back()->with('success', 'Profile image deleted successfully.');
-        }
-
-        return redirect()->back()->with('error', 'An error occurred while deleting the profile image.');
     }
 }
