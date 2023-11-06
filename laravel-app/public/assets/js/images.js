@@ -22,7 +22,11 @@ function handleFileInputChange(inputElement, imageElement, maxSizeInBytes) {
         const reader = new FileReader();
 
         reader.onload = function (event) {
+            imageElement.removeAttribute('hidden');
             imageElement.src = event.target.result;
+
+            const initialsElement = imageElement.previousElementSibling;
+            initialsElement.hidden = true;
         };
 
         reader.readAsDataURL(selectedFile);

@@ -30,7 +30,7 @@ Route::middleware(['auth', 'verified', 'throttle:60,1'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::post('/logout', [HomeController::class, 'logout'])->name('logout');
     Route::resource('/post', PostController::class, ['only' => ['create', 'store', 'show', 'update', 'edit', 'destroy']]);
-    Route::resource('/profile', ProfileController::class, ['only' => ['edit', 'update', 'show', 'store']])
+    Route::resource('/profile', ProfileController::class, ['only' => ['edit', 'update', 'show', 'store', 'destroy']])
         ->parameters(['profile' => 'user']);
     Route::post('/posts/{post}/like', [LikeController::class, 'like'])->name('post.like');
     Route::delete('/posts/{post}/unlike', [LikeController::class, 'unlike'])->name('post.unlike');

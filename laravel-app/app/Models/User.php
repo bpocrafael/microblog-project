@@ -89,9 +89,9 @@ class User extends Authenticatable
     /**
      * Get the image path of the latest uploaded profile.
      */
-    public function getImagePathAttribute(): string
+    public function getImagePathAttribute(): string|null
     {
-        return $this->media->last()->file_path ?? 'assets/images/user-solid.svg';
+        return $this->media->last()->file_path ?? null;
     }
 
     /**

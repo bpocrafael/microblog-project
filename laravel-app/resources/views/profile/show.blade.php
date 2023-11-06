@@ -15,10 +15,10 @@
             <div class="col-md-5 text-center">
                 <div class="row justify-content-center text-center">
                     <div class="col-auto">
-                        @if ($user->image_path === "assets/images/user-solid.svg")
+                        @if (!$user->image_path)
                             <div class="profile-letter">
                                 <div class="letter-bg">
-                                    {{ $user->first_letter }}
+                                    {{$user->first_letter }}
                                 </div>
                             </div>
                         @else
