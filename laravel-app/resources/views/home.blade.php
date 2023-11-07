@@ -60,10 +60,13 @@
                 @endif
                 @if ($user->recommended_users->count())
                     <i class="text-share">People you may know</i>
+                    @foreach ($user->recommended_users as $recommend)
+                        <x-user-component :user="$recommend" />
+                    @endforeach
+                    <div class="text-center">
+                        <a href="{{ route('home.recommend') }}" class="link-text">Show more</a>
+                    </div>
                 @endif
-                @foreach ($user->recommended_users as $recommend)
-                    <x-user-component :user="$recommend" />
-                @endforeach
             </div>
         </div>
     </div>

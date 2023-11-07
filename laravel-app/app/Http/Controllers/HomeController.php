@@ -27,4 +27,16 @@ class HomeController extends Controller
         auth()->logout();
         return redirect()->route('login');
     }
+
+    /**
+     * Show recommended users.
+     */
+    public function showRecommend(): View
+    {
+        /** @var User $user */
+        $authUser = auth()->user();
+
+        return view('recommend', compact('authUser'));
+
+    }
 }

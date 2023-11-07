@@ -439,6 +439,7 @@ textarea.form-control:focus {
 	overflow-y: auto;
 	max-height: 600px;
 	max-width: 280px;
+	min-width: 230px;
 }
 .link-text {
 	font-size: var(--font-size-smi);

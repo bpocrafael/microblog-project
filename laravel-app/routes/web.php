@@ -29,6 +29,7 @@ Auth::routes();
 
 Route::middleware(['auth', 'verified', 'throttle:60,1'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/home/recommend', [HomeController::class, 'showRecommend'])->name('home.recommend');
     Route::post('/logout', [HomeController::class, 'logout'])->name('logout');
     Route::resource('/post', PostController::class, ['only' => ['create', 'store', 'show', 'update', 'edit', 'destroy']]);
     Route::resource('/profile', ProfileController::class, ['only' => ['edit', 'update', 'show', 'store']])
