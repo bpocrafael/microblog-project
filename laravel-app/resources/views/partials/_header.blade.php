@@ -14,10 +14,10 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNav" aria-controls="offcanvasNav">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNav" aria-labelledby="offcanvasNavLabel">
+        <div class="offcanvas offcanvas-end" tabindex="" id="offcanvasNav" aria-labelledby="offcanvasNavLabel">
             <div class="offcanvas-header background-light">
-                <h5 class="" id="navbarOffcanvasLabel">Menu</h5>
-                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                <!-- <h5 class="" id="navbarOffcanvasLabel">Menu</h5> -->
+                <button type="button" class="btn-close ms-auto" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body background-light">
                 <form class="mx-auto my-auto" role="search" action="{{ route('search') }}" method="GET">
@@ -26,26 +26,34 @@
                         <label for="query" class="tan-label ms-1"><i class="fa-solid fa-magnifying-glass fa-xs pt-3"></i></label>
                     </div>
                 </form>
-                <ul class="navbar-nav">
-                    <li class="nav-item m-3">
-                        <div class="btn-group">
+                <ul class="navbar-nav d-flex justify-content-center">
+                    <li class="nav-item">
+                        <a type="button" class="button button-light m-3" href="{{ route('home') }}">
+                            <span id="home-label" class="peru-label">Home</span>
+                            <i class="fa-solid fa-house fa-sm peru-label"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <div class="btn-group m-3">
                             <button id="notif-bell"
                                 type="button" 
                                 class="button button-light position-relative" 
                                 data-bs-toggle="dropdown" 
                                 data-count="{{ $authUser->unreadNotifications()->count() }}"
-                                aria-expanded="false">
+                                aria-expanded="false"
+                            >
+                                <span id="notif-label" class="peru-label">Notifications</span>
                                 <i class="fa-regular fa-bell fa-lg peru-label"></i>
                                 <span id="notif-dot" class="position-absolute top-70 start-70 translate-middle p-1 bg-danger rounded-circle d-none">
                                     <span class="visually-hidden">New notifications</span>
                                 </span>
                                 <i class="fa-solid fa-caret-down fa-2xs ms-2 peru-label"></i>
                             </button>
-                            <ul id="notification-tab" class="dropdown-menu dropdown-menu-lg-end">
+                            <ul id="notification-tab" class="dropdown-menu dropdown-menu-end">
                                 @csrf
                                 <li id="notif-title" class="p-1 px-3">
                                     <label class="fw-bold text-share">Notifications</label>
-                                    <a id="mark-all" class="link-text ps-3 ms-5" data-url="{{ route('notifications.markAllAsRead') }}">
+                                    <a id="mark-all" class="link-text ms-3" data-url="{{ route('notifications.markAllAsRead') }}">
                                         mark all as read
                                     </a>
                                 </li>
@@ -66,9 +74,43 @@
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item mx-3">
-                        <x-profile-component :user="auth()->user()" />
+                    <li class="nav-item">
+                        <span class="mx-3">
+                            <x-profile-component :user="auth()->user()" />
+                        </span>
                     </li>
+                    <li id="logout-nav-item" class="nav-item">
+                        <a type="button" class="button button-light m-3 ms-0" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                            <span id="logout-label" class="peru-label">Logout</span>
+                            <i class="fa-solid fa-arrow-right-from-bracket fa-sm peru-label"></i>
+                        </a>
+                        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content light-card">
+                                    <div class="modal-header">
+                                        <h6 class="" id="logoutModalLabel">Confirm Logout</h6>
+                                        <button type="button" class="button button-secondary" data-bs-dismiss="modal" aria-label="Close">
+                                            <i class="fa-solid fa-xmark"></i>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure you want to logout?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="button button-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="button button-danger">
+                                                <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                                                Logout
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    
                 </ul>
             </div>
         </div>

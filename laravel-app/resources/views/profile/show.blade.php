@@ -2,7 +2,7 @@
 
 @section('content')
 
-@include('partials._header_profile')
+@include('partials._header')
 
 @if (session('success'))
     @include('partials._toast')

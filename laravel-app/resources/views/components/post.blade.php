@@ -49,7 +49,7 @@
                                                     <div class="card-body mb-3">
                                                         <p class="word-to-highlight">{!! nl2br(e($originalPost->content)) !!}</p>
                                                         @if ($originalPost->media)
-                                                        <img src="{{ asset($originalPost->media->getFilePathAttribute()) }}" class="post-media" alt="Post Image">
+                                                        <img src="{{ asset($originalPost->media->getFilePathAttribute()) }}" class="post-media img-fluid rounded mx-auto d-block" alt="Post Image">
                                                         @endif
                                                     </div>
                                                 </div>

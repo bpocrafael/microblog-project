@@ -438,7 +438,7 @@ textarea.form-control:focus {
 #notification-tab {
 	overflow-y: auto;
 	max-height: 600px;
-	min-width: 280px;
+	max-width: 280px;
 }
 .link-text {
 	font-size: var(--font-size-smi);
@@ -457,4 +457,42 @@ textarea.form-control:focus {
 .read {
 	background-color: white !important;
 	color: var(--color-dimgray);
+}
+.modal-backdrop {
+	z-index: 0 !important;
+}
+#home-label {
+	display: none;
+}
+#notif-label {
+	display: none;
+}
+#logout-label {
+	display: none;
+}
+.navbar-nav .dropdown-menu {
+	position: absolute !important;
+}
+@media only screen and (max-width: 992px) {
+    .navbar-nav {
+        display: flex !important;
+        justify-content: center !important; /* Center items horizontally */
+        align-items: center !important; /* Center items vertically */
+    }
+    #notif-label {
+		display: inline-block;
+	}
+	#logout-label {
+		display: inline-block;
+	}
+	#home-label {
+		display: inline-block;
+	}
+	.nav-item {
+		margin-top: 1.5em;
+	}
+	#logout-nav-item {
+		position: absolute;
+		bottom: 0;
+	}
 }
