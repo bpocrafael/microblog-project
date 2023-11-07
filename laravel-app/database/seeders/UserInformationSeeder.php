@@ -12,6 +12,6 @@ class UserInformationSeeder extends Seeder
      */
     public function run(): void
     {
-        UserInformation::factory(20)->create();
+        UserInformation::factory(40)->create();
     }
 }

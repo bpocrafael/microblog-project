@@ -58,8 +58,8 @@
                         </div>
                     </div>
                 @endif
-                @if ($user->recommended_users->count())
-                    <i class="text-share">People you may know</i>
+                @if ($user->recommended_users->total())
+                    <i class="text-share">People you may know ({{$user->recommended_users->total()}})</i>
                     @foreach ($user->recommended_users as $recommend)
                         <x-user-component :user="$recommend" />
                     @endforeach

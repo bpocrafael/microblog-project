@@ -100,7 +100,7 @@
 
                             <div class="row p-2 mb-0 mt-3">
                                 <div class="col-md text-center">
-                                    <button type="submit" class="button button-primary loader">
+                                    <button type="submit" class="long-loader button button-primary loader">
                                         <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
                                         {{ __('Register') }}
                                     </button>

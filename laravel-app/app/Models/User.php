@@ -132,19 +132,13 @@ class User extends Authenticatable
     {
         $followingIds = $this->following->pluck('id');
 
-        $followersOfFollowings = User::whereIn('id', $followingIds)
+        $unfollowedFollowers = User::whereIn('id', $followingIds)
             ->with('followers')
-            ->get();
-    
-        $followersOfFollowingsCollection = collect();
-    
-        foreach ($followersOfFollowings as $followingUser) {
-            $followersOfFollowingsCollection = $followersOfFollowingsCollection->concat($followingUser->followers);
-        }
-    
-        $unfollowedFollowers = $followersOfFollowingsCollection->filter(function ($follower) {
-            return !$this->isFollowing($follower) && $this->id !== $follower->id;
-        });
+            ->get()
+            ->flatMap->followers
+            ->whereNotIn('id', $this->following->pluck('id'))
+            ->where('id', '!=', $this->id)
+            ->unique('id');
 
         $perPage = 4;
         $currentPage = LengthAwarePaginator::resolveCurrentPage();

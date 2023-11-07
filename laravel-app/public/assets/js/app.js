@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
         setTimeout(function () {
             submitButtons.prop('disabled', false);
             submitButtons.find('.spinner-border').addClass('d-none');
-        }, 1000);
+        }, 7000);
 
         // Submit after a delay to avoid spam
         setTimeout(function () {
