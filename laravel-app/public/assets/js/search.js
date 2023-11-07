@@ -1,8 +1,8 @@
 $('form[role="search"]').on('submit', function(e) {
     e.preventDefault();
 });
-
-if (window.location.href.includes('/search?')) {
+const currentLocation = ['/search?', '/search/followers/'];
+if (currentLocation.some(substring => window.location.href.includes(substring))) {
     const urlParams = new URLSearchParams(window.location.search);
     const wordToHighlight = urlParams.get('query');
 

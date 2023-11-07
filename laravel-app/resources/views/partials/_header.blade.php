@@ -16,13 +16,12 @@
         </button>
         <div class="offcanvas offcanvas-end" tabindex="" id="offcanvasNav" aria-labelledby="offcanvasNavLabel">
             <div class="offcanvas-header background-light">
-                <!-- <h5 class="" id="navbarOffcanvasLabel">Menu</h5> -->
                 <button type="button" class="btn-close ms-auto" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body background-light">
                 <form class="mx-auto my-auto" role="search" action="{{ route('search') }}" method="GET">
                     <div class="input-group">
-                        <input class="form-control text-center" id="query" type="search" name="query" placeholder="Search" aria-label="Search user">
+                        <input class="form-control text-center" id="query" type="search" name="query" placeholder="Search" aria-label="Search user" autocomplete="off">
                         <label for="query" class="tan-label ms-1"><i class="fa-solid fa-magnifying-glass fa-xs pt-3"></i></label>
                     </div>
                 </form>
@@ -43,7 +42,7 @@
                                 aria-expanded="false"
                             >
                                 <span id="notif-label" class="peru-label">Notifications</span>
-                                <i class="fa-regular fa-bell fa-lg peru-label"></i>
+                                <i class="fa-regular fa-bell peru-label"></i>
                                 <span id="notif-dot" class="position-absolute top-70 start-70 translate-middle p-1 bg-danger rounded-circle d-none">
                                     <span class="visually-hidden">New notifications</span>
                                 </span>
@@ -75,9 +74,7 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <span class="mx-3">
                             <x-profile-component :user="auth()->user()" />
-                        </span>
                     </li>
                     <li id="logout-nav-item" class="nav-item">
                         <a type="button" class="button button-light m-3 ms-0" data-bs-toggle="modal" data-bs-target="#logoutModal">

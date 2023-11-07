@@ -5,11 +5,25 @@
 @include('partials._header')
 <div id="page-content">
     <div class="container my-3">
+		<div class="row justify-content-center m-3 mb-5">
+            <div class="col-md-6">
+                <div class="card light-card px-5">
+                    <div class="card-body">
+                        <form class="mx-auto my-auto" role="search" action="{{ route('search.followers', $user) }}" method="GET">
+                            <div class="input-group">
+                                <input class="form-control text-center" id="query" type="search" name="query" placeholder="Search Followers and Followings" aria-label="Search user" autocomplete="off">
+                                <label for="query" class="tan-label ms-1"><i class="fa-solid fa-magnifying-glass fa-xs pt-3"></i></label>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col">
                 <div class="mb-5 text-center">
-                    <h4>Microblog results for "{{ $query }}"</h4>
-                    <span class="text-share">{{ $searchResults->total() ? $searchResults->total(). ' total matched results' : '' }}</span>
+                    <h4>Results of "{{ $query }}" from {{ $user->username }}</h4>
+					<span class="text-share">{{ $searchResults->total() ? $searchResults->total(). ' total matched results' : '' }}</span>
                 </div>
                 @if ($searchResults->count())
                     @foreach ($searchResults as $searchResult)

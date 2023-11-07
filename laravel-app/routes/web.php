@@ -42,6 +42,7 @@ Route::middleware(['auth', 'verified', 'throttle:60,1'])->group(function () {
     Route::get('/comment/{id}', [CommentController::class, 'deleteComment'])->name('comment.delete');
     Route::post('/comment/{id}', [CommentController::class, 'editComment'])->name('comment.edit');
     Route::get('/search', [SearchController::class, 'search'])->name('search');
+    Route::get('/search/followers/{user}', [SearchController::class, 'searchFollowers'])->name('search.followers');
     Route::resource('/follow', FollowController::class)->only(['show', 'update', 'destroy'])
         ->parameters(['follow' => 'user']);
     Route::post('/posts/{post}/share', [PostController::class, 'share'])->name('share');

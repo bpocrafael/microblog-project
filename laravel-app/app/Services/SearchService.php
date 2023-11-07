@@ -22,7 +22,7 @@ class SearchService implements SearchServiceInterface
                 ->orWhere('first_name', 'like', '%' . $query . '%')
                 ->orWhere('middle_name', 'like', '%' . $query . '%')
                 ->orWhere('last_name', 'like', '%' . $query . '%');
-        })
+            })
             ->where('is_verified', 1)
             ->get()
             ->collect()
@@ -42,5 +42,33 @@ class SearchService implements SearchServiceInterface
         $slicedResults = array_slice($combinedResults, $offset, $perPage);
 
         return new LengthAwarePaginator($slicedResults, count($combinedResults), $perPage, $page);
+    }
+
+    /**
+     * To search for followers/following users.
+     */
+    public function searchFollowers(string $query, User $user): LengthAwarePaginator
+    {
+        $followersFollowingIds = $user->following->pluck('id')->merge($user->followers->pluck('id'));
+
+        $users = User::whereHas('information', function ($queryBuilder) use ($query) {
+            $queryBuilder->where('username', 'like', '%' . $query . '%')
+                ->orWhere('first_name', 'like', '%' . $query . '%')
+                ->orWhere('middle_name', 'like', '%' . $query . '%')
+                ->orWhere('last_name', 'like', '%' . $query . '%');
+            })
+            ->whereIn('id', $followersFollowingIds)
+            ->where('id', '!=', $user->id)
+            ->where('is_verified', 1)
+            ->get()
+            ->collect()
+            ->all();
+
+        $perPage = 4;
+        $page = request()->get('page', 1);
+        $offset = ($page - 1) * $perPage;
+        $slicedResults = array_slice($users, $offset, $perPage);
+
+        return new LengthAwarePaginator($slicedResults, count($users), $perPage, $page);
     }
 }
